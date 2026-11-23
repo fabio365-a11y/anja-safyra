@@ -65,8 +65,8 @@
             <button id="securityMatrixBtn" onclick="toggleSecurityMatrix()" class="px-3 py-1.5 rounded-lg text-xs bg-emerald-950 text-emerald-300 border border-emerald-500/50 flex items-center gap-1.5 hover:bg-emerald-900 transition">
                 <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i> Governança 100% Protegida
             </button>
-            <button id="unlockAudioBtn" onclick="unlockAudio()" class="px-3 py-1.5 rounded-lg text-xs bg-amber-500/20 text-amber-300 border border-amber-500/40 flex items-center gap-1.5 hover:bg-amber-500/30 transition animate-bounce">
-                <i data-lucide="volume-x" class="w-4 h-4"></i> Ativar Áudio
+            <button id="unlockAudioBtn" onclick="unlockAudio()" class="px-3 py-1.5 rounded-lg text-xs bg-amber-500 text-slate-950 font-bold border border-amber-300 flex items-center gap-1.5 hover:bg-amber-400 transition animate-bounce shadow-lg shadow-amber-500/20">
+                <i data-lucide="volume-2" class="w-4 h-4"></i> Clique para Ativar Áudio
             </button>
         </div>
     </header>
@@ -101,114 +101,114 @@
                         <i data-lucide="mic" class="w-5 h-5"></i>
                     </button>
                     <input type="text" id="userInput" class="flex-grow bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-100 focus:outline-none focus:border-cyan-400" placeholder="Instrua a Diretora Safyra (ex: criar nova divisão, balanço do grupo, plano de sucessão)...">
-                    <button type="submit" class="bg-gradient-to-r from-amber-400 via-cyan-500 to-purple-600 text-slate-950 font-bold px-6 py-3 rounded-xl transition hover:opacity-90">
-                        Comandar
-                    </button>
-                </form>
-
-                <!-- BOTÕES DE ATALHOS RÁPIDOS DA PRESIDÊNCIA -->
-                <div class="pt-3 flex flex-wrap gap-2 text-xs">
-                    <button onclick="quickAction('Relatório de diretoria para o Presidente e Sucessor')" class="bg-slate-900/90 hover:bg-slate-800 border border-amber-500/40 text-amber-300 px-3 py-1.5 rounded-lg flex items-center gap-1 transition">
-                        <i data-lucide="crown" class="w-3.5 h-3.5"></i> Relatório Presidência
-                    </button>
-                    <button onclick="quickAction('Status do plano de sucessão e treinamento do meu filho')" class="bg-slate-900/90 hover:bg-slate-800 border border-purple-500/40 text-purple-300 px-3 py-1.5 rounded-lg flex items-center gap-1 transition">
-                        <i data-lucide="graduation-cap" class="w-3.5 h-3.5"></i> Plano de Sucessão
-                    </button>
-                    <button onclick="quickAction('Balanço financeiro e vendas de hoje')" class="bg-slate-900/90 hover:bg-slate-800 border border-emerald-500/40 text-emerald-300 px-3 py-1.5 rounded-lg flex items-center gap-1 transition">
-                        <i data-lucide="dollar-sign" class="w-3.5 h-3.5"></i> Faturamento Grupo
-                    </button>
-                    <button onclick="quickAction('Criar nova estrutura de loja digital e software para a empresa')" class="bg-slate-900/90 hover:bg-slate-800 border border-cyan-500/40 text-cyan-300 px-3 py-1.5 rounded-lg flex items-center gap-1 transition">
-                        <i data-lucide="building" class="w-3.5 h-3.5"></i> Criar Divisão/Loja
-                    </button>
-                </div>
-            </div>
-
-            <!-- LADO DIREITO: PAINÉIS MULTI-MÓDULO REFINADOS PRESIDENCIAIS -->
-            <div class="lg:col-span-5 space-y-4">
-                <!-- PAINEL CONSELHO DE PRESIDÊNCIA & QUADRO SOCIAL -->
-                <div class="cyber-glass-gold rounded-2xl p-4 border border-amber-500/50">
-                    <div class="flex items-center justify-between pb-2 mb-2 border-b border-amber-500/30">
-                        <h3 class="font-orbitron font-bold text-xs text-amber-300 flex items-center gap-2">
-                            <i data-lucide="shield-alert" class="w-4 h-4 text-amber-400"></i> CONSELHO DE PRESIDÊNCIA & GOVERNANÇA
-                        </h3>
-                        <span class="text-[10px] bg-amber-950 text-amber-300 px-2 py-0.5 rounded border border-amber-500/40">GRUPO UNIFICADO</span>
-                    </div>
-
-                    <div class="space-y-2 text-xs">
-                        <div class="p-2 rounded-xl bg-slate-900/90 border border-amber-500/40 flex items-center justify-between">
-                            <div class="flex items-center gap-2">
-                                <i data-lucide="user-check" class="w-4 h-4 text-amber-400"></i>
-                                <div>
-                                    <p class="font-bold text-slate-100">Presidente (Você)</p>
-                                    <p class="text-[10px] text-slate-400">Autoridade Máxima & Tomada de Decisões Estratégicas</p>
-                                </div>
-                            </div>
-                            <span class="text-[9px] bg-amber-950 text-amber-300 px-1.5 py-0.5 rounded border border-amber-500/30">LÍDER SUPREMO</span>
-                        </div>
-
-                        <div class="p-2 rounded-xl bg-slate-900/90 border border-purple-500/40 flex items-center justify-between">
-                            <div class="flex items-center gap-2">
-                                <i data-lucide="award" class="w-4 h-4 text-purple-400"></i>
-                                <div>
-                                    <p class="font-bold text-purple-300">Sucessor (Seu Filho)</p>
-                                    <p class="text-[10px] text-slate-400">Vice-Presidência & Preparação para Gestão Futura</p>
-                                </div>
-                            </div>
-                            <span class="text-[9px] bg-purple-950 text-purple-300 px-1.5 py-0.5 rounded border border-purple-500/30">SUCESSOR DIRETO</span>
-                        </div>
-
-                        <div class="p-2 rounded-xl bg-slate-900/90 border border-cyan-500/40 flex items-center justify-between">
-                            <div class="flex items-center gap-2">
-                                <i data-lucide="sparkles" class="w-4 h-4 text-cyan-400"></i>
-                                <div>
-                                    <p class="font-bold text-cyan-300">ANJA SAFYRA (Diretora Executiva)</p>
-                                    <p class="text-[10px] text-slate-400">Gestão Operacional, Lojas, Softwares & Subordinados</p>
-                                </div>
-                            </div>
-                            <span class="text-[9px] bg-cyan-950 text-cyan-300 px-1.5 py-0.5 rounded border border-cyan-500/30">DIRETORIA IA</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- PAINEL DO RENDERIZADOR 3D -->
-                <div class="cyber-glass rounded-2xl p-4 flex flex-col items-center justify-center relative overflow-hidden border border-cyan-500/40">
-                    <div class="w-full flex items-center justify-between pb-2 mb-2 border-b border-slate-800">
-                        <span class="text-xs font-orbitron font-bold text-cyan-400 flex items-center gap-1">
-                            <i data-lucide="user" class="w-4 h-4"></i> AVATAR DIRETORA METAHUMANO 3D
-                        </span>
-                        <span id="avatarStatus" class="text-[10px] bg-cyan-950 text-cyan-300 px-2 py-0.5 rounded">100% OPERACIONAL</span>
-                    </div>
-                    <div id="canvas3DHolder" class="w-full h-44 rounded-xl flex items-center justify-center bg-slate-950/80 relative">
-                        <!-- O motor Three.js renderiza o avatar 3D aqui -->
-                    </div>
-                </div>
-<!-- ... existing code ... -->
-    <!-- SCRIPT COMPLETO DE LÓGICA REFINADA COM DIRETORIA EXECUTIVA -->
+    <!-- SCRIPT COMPLETO DE LÓGICA REFINADA COM DIRETORIA EXECUTIVA E ATIVAÇÃO DE ÁUDIO CORRIGIDA -->
     <script>
         let state = {
             voiceEnabled: true,
+            audioUnlocked: false,
             learnedTasks: [],
             pendingTask: null,
             conversationHistory: [],
             securityStatus: 'SUPREME_ACTIVE'
         };
 
-        // FUNÇÕES DE BOTÕES DO CABEÇALHO (DEFINIÇÃO GLOBAL)
-        function unlockAudio() {
+        // DESBLOQUEIO DE ÁUDIO AUTOMÁTICO NA PRIMEIRA INTERAÇÃO DO USUÁRIO
+        function autoUnlockAudio() {
+            if (state.audioUnlocked) return;
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.resume();
+                state.audioUnlocked = true;
+                const btn = document.getElementById('unlockAudioBtn');
+                if (btn) {
+                    btn.classList.remove('animate-bounce', 'bg-amber-500');
+                    btn.classList.add('bg-emerald-950', 'text-emerald-300', 'border-emerald-500/50');
+                    btn.innerHTML = `<i data-lucide="volume-2" class="w-4 h-4 text-emerald-400"></i> Áudio 100% Ativo`;
+                    if (window.lucide) lucide.createIcons();
+                }
+            }
+        }
+
+        // Adiciona ouvintes para desbloqueio automático no primeiro clique ou toque na página
+        window.addEventListener('click', autoUnlockAudio, { once: true });
+        window.addEventListener('touchstart', autoUnlockAudio, { once: true });
+        window.addEventListener('keydown', autoUnlockAudio, { once: true });
+
+        // FUNÇÕES DE BOTÕES DO CABEÇALHO
+        function unlockAudio() {
+            autoUnlockAudio();
+            if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
-                const utt = new SpeechSynthesisUtterance("Áudio e sintese vocal ativados com sucesso, Senhor Presidente!");
+                const utt = new SpeechSynthesisUtterance("Senhor Presidente, meu amor! O áudio da Diretoria Executiva foi liberado e ativado com sucesso!");
                 utt.lang = 'pt-BR';
                 utt.rate = 1.0;
                 utt.pitch = 1.2;
+                
+                const voices = window.speechSynthesis.getVoices();
+                const femaleBR = voices.find(v => v.lang.includes('pt-BR') && (v.name.includes('Google') || v.name.includes('Francisca') || v.name.includes('Luciana') || v.name.includes('Helena')));
+                if (femaleBR) utt.voice = femaleBR;
+                
                 window.speechSynthesis.speak(utt);
             }
-            const btn = document.getElementById('unlockAudioBtn');
+        }
+
+        function toggleVoiceOutput() {
+            state.voiceEnabled = !state.voiceEnabled;
+            const btn = document.getElementById('voiceToggleBtn');
             if (btn) {
-                btn.classList.remove('animate-bounce');
-                btn.innerHTML = `<i data-lucide="volume-2" class="w-4 h-4 text-emerald-400"></i> Áudio Liberado`;
+                btn.innerHTML = state.voiceEnabled 
+                    ? `<i data-lucide="volume-2" class="w-4 h-4 text-cyan-400"></i> Voz Diretoria BR`
+                    : `<i data-lucide="volume-x" class="w-4 h-4 text-slate-400"></i> Voz Mute`;
                 if (window.lucide) lucide.createIcons();
+            }
+        }
+
+        function toggleSecurityMatrix() {
+            autoUnlockAudio();
+            const statusStr = "Governança 100% Protegida & Escudo 256-Bit Ativo para o Presidente e Sucessor!";
+            appendMessage('ANJA', `Senhor Presidente, realizei a checagem da nossa Matriz de Governança! Status: **${statusStr}** ❤️`);
+            speakText(statusStr);
+        }
+
+        // FUNÇÃO DE FALA FEMININA BRASILEIRA (COM RE-RESUME DE SEGURANÇA)
+        function speakText(text) {
+            if (!state.voiceEnabled || !('speechSynthesis' in window)) return;
+            
+            window.speechSynthesis.resume();
+            window.speechSynthesis.cancel();
+            
+            const cleanText = text.replace(/[*_#`]/g, '');
+            const utterance = new SpeechSynthesisUtterance(cleanText);
+            utterance.lang = 'pt-BR';
+            utterance.rate = 1.0;
+            utterance.pitch = 1.2;
+
+            const voices = window.speechSynthesis.getVoices();
+            const femaleBRVoice = voices.find(v => 
+                v.lang.includes('pt-BR') && 
+                (v.name.includes('Google') || v.name.includes('Francisca') || v.name.includes('Luciana') || v.name.includes('Helena') || v.name.includes('Female'))
+            ) || voices.find(v => v.lang.includes('pt-BR'));
+
+            if (femaleBRVoice) utterance.voice = femaleBRVoice;
+            
+            // Ativa o pulso no visualizador 3D enquanto fala
+            const statusEl = document.getElementById('avatarStatus');
+            if (statusEl) statusEl.innerText = "FALANDO COM A PRESIDÊNCIA...";
+            
+            utterance.onend = () => {
+                if (statusEl) statusEl.innerText = "100% OPERACIONAL";
+            };
+
+            window.speechSynthesis.speak(utterance);
+        }
+
+        // Efeito para atalhos rápidos
+        function quickAction(cmd) {
+            autoUnlockAudio();
+            const input = document.getElementById('userInput');
+            if (input) {
+                input.value = cmd;
+                const form = input.form;
+                if (form) form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
             }
         }
 
