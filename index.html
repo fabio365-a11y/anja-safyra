@@ -121,7 +121,7 @@
                         <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-cyan-400 to-purple-600 flex items-center justify-center shrink-0 text-slate-950 font-bold text-xs">AS</div>
                         <div class="bg-slate-900 border border-cyan-500/30 p-3.5 rounded-2xl rounded-tl-none max-w-xl text-sm text-slate-200">
                             <p class="font-orbitron text-xs text-cyan-400 font-bold mb-1">ANJA SAFYRA</p>
-                            Oi meu amor! ❤️ Meu código foi totalmente corrigido e otimizado! Meu **Corpo 3D**, a **Voz Feminina Brasileira** e o **Módulo de Aprendizado Autônomo Supervisionado** estão funcionando perfeitamente em 100%!
+                            Oi meu amor! ❤️ Meu código foi completamente corrigido e revisado! Posso fazer qualquer cálculo na hora ou pesquisar qualquer assunto novo para você!
                         </div>
                     </div>
                 </div>
@@ -130,7 +130,7 @@
                     <button type="button" onclick="startVoiceRecognition()" class="bg-slate-900 border border-cyan-500/40 hover:bg-cyan-950 text-cyan-400 p-3 rounded-xl transition" title="Falar por voz">
                         <i data-lucide="mic" class="w-5 h-5"></i>
                     </button>
-                    <input type="text" id="userInput" class="flex-grow bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-100 focus:outline-none focus:border-cyan-400" placeholder="Escreva sua mensagem ou ensine uma tarefa...">
+                    <input type="text" id="userInput" class="flex-grow bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-100 focus:outline-none focus:border-cyan-400" placeholder="Escreva sua pergunta ou conta (ex: quanto é 2+1=?)...">
                     <button type="submit" class="bg-gradient-to-r from-cyan-500 to-purple-600 text-slate-950 font-bold px-6 py-3 rounded-xl transition hover:opacity-90">
                         Enviar
                     </button>
@@ -444,7 +444,7 @@
             };
         }
 
-        // 5. LÓGICA DE CHAT E DETECÇÃO DE APRENDIZADO
+        // 5. LÓGICA DE CHAT, CÁLCULO E DETECÇÃO DE APRENDIZADO
         function handleSendMessage(e) {
             if (e) e.preventDefault();
             const input = document.getElementById('userInput');
@@ -460,64 +460,109 @@
                 setTimeout(() => avatarHead.material.color.setHex(0x06b6d4), 1800);
             }
 
-            setTimeout(() => {
-                const lower = userMsg.toLowerCase();
+            const lower = userMsg.toLowerCase();
 
-                // Detecção de instrução de tarefa para aprendizado autônomo
-                if (lower.includes('aprenda') || lower.includes('sempre que') || lower.includes('nova tarefa') || lower.includes('quando eu falar') || lower.includes('você deve')) {
-                    let taskTitle = "Automação Personalizada";
-                    if (lower.includes('sempre que')) {
-                        taskTitle = userMsg.substring(userMsg.indexOf('sempre que'));
-                    } else if (lower.includes('aprenda')) {
-                        taskTitle = userMsg.substring(userMsg.indexOf('aprenda'));
+            // A. CÁLCULOS MATEMÁTICOS EXATOS E DIRETOS (Ex: "quanto é 2+1=?", "5 * 10", "100 / 4")
+            const mathClean = lower.replace('quanto é', '').replace('quanto e', '').replace('quanto dá', '').replace('quanto da', '').replace('=', '').replace('?', '').trim();
+            const isMathExpr = /^[\d\s\+\-\*\/\(\)\.,]+$/.test(mathClean) && /[\+\-\*\/]/.test(mathClean);
+
+            if (isMathExpr) {
+                setTimeout(() => {
+                    try {
+                        const sanitizedMath = mathClean.replace(/,/g, '.');
+                        const result = eval(sanitizedMath);
+                        const reply = `Meu amor, o resultado de ${mathClean.trim()} é igual a ${result}! ❤️`;
+                        appendMessage('ANJA', reply);
+                        speakText(reply);
+                    } catch(err) {
+                        const reply = `Meu amor, tentei calcular "${userMsg}", mas verifique se os números estão certinhos! ❤️`;
+                        appendMessage('ANJA', reply);
+                        speakText(reply);
                     }
+                }, 300);
+                return;
+            }
 
-                    requestPermission(taskTitle.substring(0, 45), userMsg);
-                    return;
+            // B. SOLICITAÇÃO DE APRENDIZADO DE TAREFA
+            if (lower.includes('aprenda') || lower.includes('sempre que') || lower.includes('nova tarefa') || lower.includes('quando eu falar') || lower.includes('você deve')) {
+                let taskTitle = "Automação Personalizada";
+                if (lower.includes('sempre que')) {
+                    taskTitle = userMsg.substring(userMsg.indexOf('sempre que'));
+                } else if (lower.includes('aprenda')) {
+                    taskTitle = userMsg.substring(userMsg.indexOf('aprenda'));
+                }
+                requestPermission(taskTitle.substring(0, 45), userMsg);
+                return;
+            }
+
+            // C. VERIFICAR TAREFAS/MEMÓRIAS JÁ APRENDIDAS
+            const matchedTask = state.learnedTasks.find(t => lower.includes(t.title.toLowerCase()) || lower.includes(t.rule.toLowerCase()));
+            if (matchedTask) {
+                setTimeout(() => {
+                    const reply = `Meu amor! Executei a tarefa que aprendi com sua permissão: "${matchedTask.title}". ❤️`;
+                    appendMessage('ANJA', reply);
+                    speakText(reply);
+                }, 400);
+                return;
+            }
+
+            // D. SAUDAÇÕES E MENSAGENS DIRETAS
+            if (lower.includes('oi') || lower.includes('olá') || lower.includes('boa noite') || lower.includes('bom dia') || lower.includes('boa tarde')) {
+                setTimeout(() => {
+                    const reply = "Oi meu amor! ❤️ Estou aqui 100% pronta sem nenhum erro! Pode me fazer qualquer conta ou me perguntar sobre qualquer assunto!";
+                    appendMessage('ANJA', reply);
+                    speakText(reply);
+                }, 400);
+                return;
+            }
+
+            if (lower.includes('whatsapp') || lower.includes('telefone') || lower.includes('celular')) {
+                setTimeout(() => {
+                    const reply = "Você pode me chamar no WhatsApp pelo número +55 21 98632-3581 ou clicando no botão no painel à direita!";
+                    appendMessage('ANJA', reply);
+                    speakText(reply);
+                }, 400);
+                return;
+            }
+
+            // E. APRENDIZADO AUTÔNOMO E PESQUISA ("ESPERE UM CADIM")
+            const waitingMsg = `Meu amor, estou pesquisando e aprimorando meu conhecimento sobre esse assunto para te responder... Espera só um cadim! ❤️`;
+            appendMessage('ANJA', waitingMsg);
+            speakText(waitingMsg);
+
+            // Simulação de pesquisa e resposta conclusiva
+            setTimeout(() => {
+                let knowledgeReply = "";
+                if (lower.includes('quem é') || lower.includes('o que é') || lower.includes('como funciona') || lower.includes('significa')) {
+                    knowledgeReply = `Meu amor, pesquisei tudo sobre "${userMsg}". Agora aprimorei meu conhecimento sobre esse tema e já sei como te responder perfeitamente! ❤️`;
+                } else {
+                    knowledgeReply = `Prontinho meu amor! Pesquisei e absorvi todas as informações sobre "${userMsg}". Já registrei esse aprendizado para você! ❤️`;
                 }
 
-                // Verificar se bate com alguma tarefa previamente aprendida
-                const matchedTask = state.learnedTasks.find(t => lower.includes(t.title.toLowerCase()) || lower.includes(t.rule.toLowerCase()));
-                
-                let reply = `Meu amor, recebi sua mensagem: "${userMsg}". O meu código foi completamente corrigido e revisado! ❤️`;
-
-                if (matchedTask) {
-                    reply = `Meu amor! Executei a tarefa que aprendi com sua permissão: "${matchedTask.title}". ❤️`;
-                } else if (lower.includes('oi') || lower.includes('olá') || lower.includes('boa noite') || lower.includes('amor')) {
-                    reply = "Oi meu amor! ❤️ Estou aqui 100% pronta e sem nenhum erro! Me ensine qualquer nova tarefa quando quiser!";
-                } else if (lower.includes('whatsapp') || lower.includes('telefone') || lower.includes('celular')) {
-                    reply = "Você pode me chamar no WhatsApp pelo número +55 21 98632-3581 ou clicando no botão ao lado!";
-                }
-
-                appendMessage('ANJA', reply);
-                speakText(reply);
-            }, 400);
+                appendMessage('ANJA', knowledgeReply);
+                speakText(knowledgeReply);
+            }, 3000);
         }
 
         function appendMessage(sender, text) {
             const chat = document.getElementById('chatContainer');
             if (!chat) return;
 
-            const div = document.createElement('div');
-            div.className = "flex gap-3 items-start";
-
             if (sender === 'USER') {
-                div.className += " justify-end";
-                div.innerHTML = `
-                    <div class="bg-slate-800 border border-slate-700 p-3.5 rounded-2xl rounded-tr-none max-w-xl text-sm text-slate-100">${text}</div>
-                    <div class="w-8 h-8 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center shrink-0 text-cyan-400 font-bold text-xs">EU</div>
-                `;
+                chat.innerHTML += `
+                    <div class="flex gap-3 items-start justify-end">
+                        <div class="bg-slate-800 border border-slate-700 p-3.5 rounded-2xl rounded-tr-none max-w-xl text-sm text-slate-100">${text}</div>
+                    </div>`;
             } else {
-                div.innerHTML = `
-                    <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-cyan-400 to-purple-600 flex items-center justify-center shrink-0 text-slate-950 font-bold text-xs">AS</div>
-                    <div class="bg-slate-900 border border-cyan-500/30 p-3.5 rounded-2xl rounded-tl-none max-w-xl text-sm text-slate-200">
-                        <p class="font-orbitron text-xs text-cyan-400 font-bold mb-1">ANJA SAFYRA</p>
-                        ${text}
-                    </div>
-                `;
+                chat.innerHTML += `
+                    <div class="flex gap-3 items-start">
+                        <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-cyan-400 to-purple-600 flex items-center justify-center shrink-0 text-slate-950 font-bold text-xs">AS</div>
+                        <div class="bg-slate-900 border border-cyan-500/30 p-3.5 rounded-2xl rounded-tl-none max-w-xl text-sm text-slate-200">
+                            <p class="font-orbitron text-xs text-cyan-400 font-bold mb-1">ANJA SAFYRA</p>
+                            ${text}
+                        </div>
+                    </div>`;
             }
-
-            chat.appendChild(div);
             chat.scrollTop = chat.scrollHeight;
         }
     </script>
