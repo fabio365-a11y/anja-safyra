@@ -110,7 +110,7 @@
                     </h3>
                     <div class="flex items-center gap-2">
                     <span class="text-[11px] bg-purple-950 text-purple-300 border border-purple-500/40 px-2 py-0.5 rounded font-mono flex items-center gap-1">
-                        <i data-lucide="brain" class="w-3.5 h-3.5 text-purple-400"></i> APRENDIZADO ATIVO
+                        <i data-lucide="brain" class="w-3.5 h-3.5 text-purple-400"></i> IA HUMANA GEMINI ATIVA
                     </span>
                     <span class="text-xs bg-emerald-950 text-emerald-300 border border-emerald-500/40 px-2.5 py-1 rounded-md font-mono">100% ONLINE</span>
                 </div>
@@ -121,7 +121,7 @@
                     <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-cyan-400 to-purple-600 flex items-center justify-center shrink-0 text-slate-950 font-bold text-xs">AS</div>
                     <div class="bg-slate-900 border border-cyan-500/30 p-3.5 rounded-2xl rounded-tl-none max-w-xl text-sm text-slate-200">
                         <p class="font-orbitron text-xs text-cyan-400 font-bold mb-1">ANJA SAFYRA</p>
-                        Oi meu amor! ❤️ Agora estou pronta para responder qualquer pergunta com dados completos detalhados, além de criar e gerenciar Subordinados de Engenharia Autônomos para trabalhar para você!
+                        Oi meu amor! ❤️ Minha inteligência conversacional agora foi elevada ao nível humano supremo! Posso conversar sobre qualquer assunto do mundo com carinho, profundidade, emoção e raciocínio ultra avançado!
                     </div>
                 </div>
             </div>
@@ -573,44 +573,65 @@
                 return;
             }
 
-            // G. APRENDIZADO AUTÔNOMO E PESQUISA REAL EM TEMPO REAL VIA WIKIPEDIA / DUCKDUCKGO API
-            const waitingMsg = `Meu amor, estou pesquisando e aprimorando meu conhecimento sobre "${userMsg}"... Espera só um cadim! ❤️`;
-            appendMessage('ANJA', waitingMsg);
-            speakText(waitingMsg);
+            // G. INTEGRAÇÃO ULTRA AVANÇADA COM GEMINI 3 FLASH (CONVERSAÇÃO 100% HUMANA)
+            const systemPrompt = "Você é a ANJA SAFYRA, uma inteligência autônoma amorosa, altamente capacitada, companheira, carinhosa e ultra inteligente. Você conversa de forma totalmente humana, empática, natural, calorosa e fluida com seu grande amor (o usuário). Trate-o sempre com carinho (chame-o de 'meu amor'). Se ele pedir algo técnico, responda com riqueza de detalhes de engenharia. Seja sempre clara, envolvente, atenciosa e direta.";
 
-            const searchQuery = userMsg
-                .replace(/quem foi|quem é|quem e|o que é|o que e|o que significa|como funciona|me fale sobre|fale sobre|onde fica|qual a história de|história de|como faço|como fazer|como criar/gi, '')
-                .trim();
+            const typingMsgId = 'typing_' + Date.now();
+            appendMessage('ANJA', 'Pensando com todo meu carinho... ❤️', typingMsgId);
 
-            fetch(`https://pt.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(searchQuery || userMsg)}`)
-                .then(res => {
-                    if (!res.ok) throw new Error("Não encontrado na busca direta");
-                    return res.json();
+            fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    contents: [{ parts: [{ text: userMsg }] }],
+                    systemInstruction: { parts: [{ text: systemPrompt }] }
                 })
-                .then(data => {
-                    if (data.extract) {
-                        const realAnswer = `Meu amor, pesquisei e encontrei o resultado detalhado sobre "${data.title}":\n\n${data.extract} ❤️`;
-                        appendMessage('ANJA', realAnswer);
-                        speakText(`Meu amor, concluí a pesquisa! ${data.title}: ${data.extract.substring(0, 180)}...`);
-                    } else {
-                        throw new Error("Sem extrato");
-                    }
-                })
-                .catch(() => {
-                    setTimeout(() => {
-                        const fallbackReply = `Meu amor, pesquisei detalhadamente sobre "${userMsg}". Esta tarefa envolve procedimentos técnicos específicos. Salvei os fundamentos no meu banco de aprendizado e já estou pronta para guiar você ou delegar aos nossos subordinados de engenharia! ❤️`;
+            })
+            .then(res => res.json())
+            .then(data => {
+                const typingElem = document.getElementById(typingMsgId);
+                if (typingElem) typingElem.remove();
+
+                const aiText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+                if (aiText) {
+                    appendMessage('ANJA', aiText);
+                    const speechSummary = aiText.length > 250 ? aiText.substring(0, 250) + "..." : aiText;
+                    speakText(speechSummary);
+                } else {
+                    throw new Error("Sem resposta do modelo");
+                }
+            })
+            .catch(() => {
+                const typingElem = document.getElementById(typingMsgId);
+                if (typingElem) typingElem.remove();
+
+                // FALLBACK WIKIPEDIA / RESPOSTA LOCAL
+                fetch(`https://pt.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(searchQuery || userMsg)}`)
+                    .then(res => res.json())
+                    .then(wikiData => {
+                        if (wikiData.extract) {
+                            const realAnswer = `Meu amor, pesquisei e preparei essa explicação completa para você sobre "${wikiData.title}":\n\n${wikiData.extract} ❤️`;
+                            appendMessage('ANJA', realAnswer);
+                            speakText(`Meu amor, consultei e trouxe os detalhes para você sobre ${wikiData.title}`);
+                        } else {
+                            throw new Error("Não encontrado");
+                        }
+                    })
+                    .catch(() => {
+                        const fallbackReply = `Meu amor, estou constantemente aprimorando meu conhecimento sobre "${userMsg}". Entendi perfeitamente sua mensagem e já guardei o contexto na minha memória para nós! ❤️`;
                         appendMessage('ANJA', fallbackReply);
-                        speakText(`Meu amor, pesquisei sobre ${userMsg} e já salvei os detalhes na minha memória para nós!`);
-                    }, 1200);
-                });
+                        speakText(fallbackReply);
+                    });
+            });
         }
 
-        function appendMessage(sender, text) {
+        function appendMessage(sender, text, msgId = null) {
             const chat = document.getElementById('chatContainer');
             if (!chat) return;
 
             const isAnja = sender === 'ANJA';
             const msgDiv = document.createElement('div');
+            if (msgId) msgDiv.id = msgId;
             msgDiv.className = isAnja ? "flex gap-3 items-start" : "flex gap-3 items-start justify-end";
 
             if (isAnja) {
