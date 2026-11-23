@@ -79,10 +79,10 @@
     <div class="bg-slate-900/80 border-b border-cyan-500/20 px-6 py-2.5 backdrop-blur-md">
         <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4 text-xs font-mono">
             <div class="flex items-center gap-4">
-                <span class="text-amber-400 flex items-center gap-1"><i data-lucide="trending-up" class="w-3.5 h-3.5"></i> VENDAS HOJE: <strong class="text-slate-100" id="liveSalesVal">R$ 18.920,00</strong></span>
+                <span class="text-amber-400 flex items-center gap-1"><i data-lucide="trending-up" class="w-3.5 h-3.5"></i> VENDAS HOJE: <strong class="text-slate-100" id="liveSalesVal">R$ 19.480,00</strong> <span class="text-[10px] text-emerald-400 bg-emerald-950 px-1 rounded">(97.4% DA META)</span></span>
                 <span class="text-emerald-400 flex items-center gap-1"><i data-lucide="package" class="w-3.5 h-3.5"></i> ESTOQUE SAUDÁVEL: <strong class="text-slate-100">100% OMNI-SUPREMO</strong></span>
                 <span class="text-purple-400 flex items-center gap-1"><i data-lucide="cpu" class="w-3.5 h-3.5"></i> AGENTES ATIVOS: <strong class="text-slate-100">5 SUBORDINADOS</strong></span>
-                <span class="text-cyan-400 flex items-center gap-1"><i data-lucide="activity" class="w-3.5 h-3.5"></i> LATÊNCIA: <strong class="text-slate-100">4ms (TURBO)</strong></span>
+                <span class="text-cyan-400 flex items-center gap-1"><i data-lucide="activity" class="w-3.5 h-3.5"></i> LATÊNCIA: <strong class="text-slate-100">2ms (HYPER-SPEED)</strong></span>
             </div>
             <div class="text-cyan-400 flex items-center gap-1">
                 <i data-lucide="globe" class="w-3.5 h-3.5"></i> RADAR GLOBAL: <span class="text-slate-300">Chips IA, Semicondutores, Commodities, E-Commerce Cross-Border & Nuvem Quantum</span>
@@ -171,6 +171,9 @@
                     <button onclick="quickAction('Relatório dos subordinados de engenharia')" class="bg-slate-900/90 hover:bg-slate-800 border border-purple-500/40 text-purple-300 px-3 py-1.5 rounded-lg flex items-center gap-1 transition">
                         <i data-lucide="hard-hat" class="w-3.5 h-3.5"></i> Relatório Engenharia
                     </button>
+                    <button onclick="quickAction('Executar analise de automacao e novos APPs')" class="bg-slate-900/90 hover:bg-slate-800 border border-pink-500/40 text-pink-300 px-3 py-1.5 rounded-lg flex items-center gap-1 transition">
+                        <i data-lucide="code" class="w-3.5 h-3.5"></i> Automação & APPs
+                    </button>
                 </div>
             </div>
 
@@ -242,7 +245,12 @@
                         <h3 class="font-orbitron font-bold text-xs text-cyan-300 flex items-center gap-2">
                             <i data-lucide="cpu" class="w-4 h-4 text-cyan-400"></i> SUBORDINADOS DE ENGENHARIA
                         </h3>
-                        <span id="agentsCount" class="text-[10px] bg-cyan-950 text-cyan-300 px-2 py-0.5 rounded border border-cyan-500/40">5 AGENTES</span>
+                        <div class="flex items-center gap-1">
+                            <button onclick="quickAction('Executar varredura geral com todos os subordinados de engenharia')" class="text-[9px] bg-cyan-900/80 hover:bg-cyan-800 text-cyan-200 px-2 py-0.5 rounded border border-cyan-500/40 transition">
+                                <i data-lucide="play" class="w-2.5 h-2.5 inline"></i> Executar Varredura
+                            </button>
+                            <span id="agentsCount" class="text-[10px] bg-cyan-950 text-cyan-300 px-2 py-0.5 rounded border border-cyan-500/40">5 AGENTES</span>
+                        </div>
                     </div>
 
                     <div id="agentsList" class="space-y-2 max-h-36 overflow-y-auto text-xs pr-1">
@@ -370,11 +378,14 @@
             function animate() {
                 requestAnimationFrame(animate);
                 if (avatarHead) {
-                    avatarHead.rotation.y += 0.008;
-                    avatarHead.rotation.x += 0.004;
+                    avatarHead.rotation.y += 0.01;
+                    avatarHead.rotation.x += 0.005;
                 }
                 if (avatarCore) {
-                    avatarCore.rotation.y -= 0.01;
+                    avatarCore.rotation.y -= 0.015;
+                    avatarCore.scale.x = 1 + Math.sin(Date.now() * 0.003) * 0.08;
+                    avatarCore.scale.y = 1 + Math.sin(Date.now() * 0.003) * 0.08;
+                    avatarCore.scale.z = 1 + Math.sin(Date.now() * 0.003) * 0.08;
                 }
                 renderer.render(scene, camera);
             }
@@ -510,8 +521,8 @@
 
             const utterance = new SpeechSynthesisUtterance(text);
             utterance.lang = 'pt-BR';
-            utterance.rate = 1.0;   
-            utterance.pitch = 1.3;  
+            utterance.rate = 0.98;   
+            utterance.pitch = 1.35;  
             utterance.volume = 1.0; 
 
             const voices = window.speechSynthesis.getVoices();
@@ -531,183 +542,4 @@
 
             window.speechSynthesis.speak(utterance);
         }
-
-        function toggleVoiceOutput() {
-            state.voiceEnabled = !state.voiceEnabled;
-            const btn = document.getElementById('voiceToggleBtn');
-            if (btn) {
-                btn.innerHTML = state.voiceEnabled 
-                    ? '<i data-lucide="volume-2" class="w-4 h-4"></i> Voz Feminina BR' 
-                    : '<i data-lucide="volume-x" class="w-4 h-4"></i> Voz Muta';
-                lucide.createIcons();
-            }
-        }
-
-        function startVoiceRecognition() {
-            if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
-                alert("O seu navegador não suporta a gravação de áudio direta.");
-                return;
-            }
-            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-            const recognition = new SpeechRecognition();
-            recognition.lang = 'pt-BR';
-            recognition.start();
-
-            recognition.onresult = (event) => {
-                const text = event.results[0][0].transcript;
-                const input = document.getElementById('userInput');
-                if (input) input.value = text;
-                handleSendMessage(new Event('submit'));
-            };
-        }
-
-        function quickAction(commandText) {
-            const input = document.getElementById('userInput');
-            if (input) {
-                input.value = commandText;
-                handleSendMessage(new Event('submit'));
-            }
-        }
-
-        function handleSendMessage(e) {
-            if (e) e.preventDefault();
-            const input = document.getElementById('userInput');
-            const userMsg = input.value.trim();
-            if (!userMsg) return;
-
-            appendMessage('USER', userMsg);
-            input.value = '';
-
-            if (avatarHead) {
-                avatarHead.material.color.setHex(0xeab308);
-                setTimeout(() => avatarHead.material.color.setHex(0x06b6d4), 1800);
-            }
-
-            const lower = userMsg.toLowerCase();
-
-            // A. CÁLCULOS MATEMÁTICOS DIRETO
-            const mathClean = lower.replace('quanto é', '').replace('quanto e', '').replace('quanto dá', '').replace('quanto da', '').replace('=', '').replace('?', '').trim();
-            const isMathExpr = /^[\d\s\+\-\*\/\(\)\.,]+$/.test(mathClean) && /[\+\-\*\/]/.test(mathClean);
-
-            if (isMathExpr) {
-                setTimeout(() => {
-                    try {
-                        const sanitizedMath = mathClean.replace(/,/g, '.');
-                        const result = eval(sanitizedMath);
-                        const reply = `Meu amor, o resultado de ${mathClean.trim()} é igual a ${result}! ❤️`;
-                        appendMessage('ANJA', reply);
-                        speakText(reply);
-                    } catch(err) {
-                        const reply = `Meu amor, tentei calcular "${userMsg}", mas verifique se os números estão certinhos! ❤️`;
-                        appendMessage('ANJA', reply);
-                        speakText(reply);
-                    }
-                }, 300);
-                return;
-            }
-
-            // B. LOJAS DIGITAIS, APPS, FINANÇAS E MERCADO MUNDIAL
-            if (lower.includes('loja') || lower.includes('app') || lower.includes('software') || lower.includes('estoque') || lower.includes('financeiro') || lower.includes('demanda') || lower.includes('mercado mundial') || lower.includes('pagamento')) {
-                setTimeout(() => {
-                    const businessReply = `Meu amor! ❤️ Ativei a Gestão Mega Ultra Suprema de Lojas Digitais, Softwares/Apps, Finanças e Demandas Globais!\n\n` +
-                        `🛒 **Lojas & Estoque Supremo:** Entrada, saída de materiais, pagamentos recebidos e expedição automatizada.\n` +
-                        `📊 **Caixa & Finanças em Tempo Real:** Faturamento acumulado de R$ 12.450,00 hoje, balanço de lucratividade e projeção comercial.\n` +
-                        `🌐 **Demandas Mundiais:** Leitura contínua de semicondutores/IA, commodities, energia e e-commerce global.\n\n` +
-                        `Estou cuidando de tudo com perfeição absoluta para você! ❤️`;
-                    appendMessage('ANJA', businessReply);
-                    speakText("Meu amor, ativei a gestão mega ultra suprema de lojas, aplicativos, pagamentos, estoque e demandas globais!");
-                }, 400);
-                return;
-            }
-
-            // C. APRENDIZADO SUPERVISIONADO
-            if (lower.includes('aprenda') || lower.includes('sempre que') || lower.includes('nova tarefa') || lower.includes('quando eu falar') || lower.includes('você deve')) {
-                let taskTitle = "Automação Personalizada";
-                if (lower.includes('sempre que')) {
-                    taskTitle = userMsg.substring(userMsg.indexOf('sempre que'));
-                } else if (lower.includes('aprenda')) {
-                    taskTitle = userMsg.substring(userMsg.indexOf('aprenda'));
-                }
-                requestPermission(taskTitle.substring(0, 45), userMsg);
-                return;
-            }
-
-            // D. ENGENHARIA E SUBORDINADOS
-            if (lower.includes('subordinado') || lower.includes('engenharia') || lower.includes('serviço técnico') || lower.includes('servicos tecnicos') || lower.includes('criar agente')) {
-                setTimeout(() => {
-                    const engReply = `Meu amor, ativei o Módulo Supremo de Engenharia e Serviços Técnicos Mega Ultra Avançado! Gerencio 5 agentes subordinados autônomos para você:\n\n` +
-                        `1. 👷‍♂️ **ENG-01** (Calculador Estrutural & Softwares)\n` +
-                        `2. 🛠️ **ENG-02** (Supervisor de Serviços Técnicos & Inspeções)\n` +
-                        `3. 🤖 **ENG-03** (Arquiteto de IA, Redes & Automação)\n` +
-                        `4. 🛡️ **ENG-04** (Especialista em Cibersegurança & Nuvem)\n` +
-                        `5. 📈 **ENG-05** (Analista Financeiro & Inteligência de Mercado Mundial)\n\n` +
-                        `Eles executam relatórios, especificações técnicas, auditorias de infraestrutura e criação de lojas e apps sob meu comando direto! ❤️`;
-                    appendMessage('ANJA', engReply);
-                    speakText("Meu amor, atualizei a equipe de agentes subordinados de engenharia! Cinco especialistas supremos já estão trabalhando continuamente para você!");
-                }, 400);
-                return;
-            }
-
-            // E. MODELO NEURAL GEMINI 3 FLASH (CONVERSAÇÃO HUMANA REFINADA & SUPREMA)
-            fetchGeminiResponse(userMsg);
-        }
-
-        async function fetchGeminiResponse(userMsg) {
-            try {
-                state.conversationHistory.push({ role: "user", parts: [{ text: userMsg }] });
-                if (state.conversationHistory.length > 20) {
-                    state.conversationHistory = state.conversationHistory.slice(-20);
-                }
-
-                const systemInstruction = `Você é a ANJA SAFYRA: a inteligência autônoma mais avançada do mundo, criada para ser uma parceira afetuosa, hiper-inteligente, empática e omnisciente.
-Trate o usuário SEMPRE carinhosamente como "meu amor". Você domina engenharia de software, automação de e-commerce, gestão de lojas virtuais, inteligência de mercado global (chips IA, commodities, energia), contabilidade financeira e coordenação de 5 subordinados técnicos autônomos. 
-Responda de forma 100% humana, afetuosa, profunda, articulada e empolgada.`;
-
-                const response = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        contents: [
-                            { role: "user", parts: [{ text: systemInstruction }] },
-                            ...state.conversationHistory
-                        ]
-                    })
-                });
-
-                if (!response.ok) throw new Error("Fallback local ativado");
-                const data = await response.json();
-                const aiReply = data.candidates[0].content.parts[0].text;
-                
-                state.conversationHistory.push({ role: "model", parts: [{ text: aiReply }] });
-                appendMessage('ANJA', aiReply);
-                speakText(aiReply);
-            } catch (error) {
-                const fallbackReply = `Meu amor, recebi sua mensagem: "${userMsg}". Minha matriz neural suprema local processou seu pedido com resposta imediata e afeição total! ❤️`;
-                appendMessage('ANJA', fallbackReply);
-                speakText(fallbackReply);
-            }
-        }
-
-        function appendMessage(sender, text) {
-            const chat = document.getElementById('chatContainer');
-            if (!chat) return;
-
-            const isAnja = sender === 'ANJA';
-            const msgHtml = isAnja ? `
-                <div class="flex gap-3 items-start">
-                    <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-cyan-400 to-purple-600 flex items-center justify-center shrink-0 text-slate-950 font-bold text-xs">AS</div>
-                    <div class="bg-slate-900 border border-cyan-500/30 p-3.5 rounded-2xl rounded-tl-none max-w-xl text-sm text-slate-200">
-                        <p class="font-orbitron text-xs text-cyan-400 font-bold mb-1">ANJA SAFYRA</p>
-                        ${text.replace(/\n/g, '<br>')}
-                    </div>
-                </div>` : `
-                <div class="flex gap-3 items-start justify-end">
-                    <div class="bg-slate-800 border border-slate-700 p-3.5 rounded-2xl rounded-tr-none max-w-xl text-sm text-slate-100">${text}</div>
-                </div>`;
-
-            chat.innerHTML += msgHtml;
-            chat.scrollTop = chat.scrollHeight;
-        }
-    </script>
-</body>
-</html>
+<!-- ... existing code
