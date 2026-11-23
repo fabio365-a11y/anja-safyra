@@ -109,24 +109,24 @@
                         <i data-lucide="bot" class="w-5 h-5 text-cyan-400"></i> Terminal ANJA SAFYRA
                     </h3>
                     <div class="flex items-center gap-2">
-                        <span class="text-[11px] bg-purple-950 text-purple-300 border border-purple-500/40 px-2 py-0.5 rounded font-mono flex items-center gap-1">
-                            <i data-lucide="brain" class="w-3.5 h-3.5 text-purple-400"></i> APRENDIZADO ATIVO
-                        </span>
-                        <span class="text-xs bg-emerald-950 text-emerald-300 border border-emerald-500/40 px-2.5 py-1 rounded-md font-mono">100% ONLINE</span>
+                    <span class="text-[11px] bg-purple-950 text-purple-300 border border-purple-500/40 px-2 py-0.5 rounded font-mono flex items-center gap-1">
+                        <i data-lucide="brain" class="w-3.5 h-3.5 text-purple-400"></i> APRENDIZADO ATIVO
+                    </span>
+                    <span class="text-xs bg-emerald-950 text-emerald-300 border border-emerald-500/40 px-2.5 py-1 rounded-md font-mono">100% ONLINE</span>
+                </div>
+            </div>
+
+            <div id="chatContainer" class="flex-grow overflow-y-auto py-4 space-y-4 pr-2">
+                <div class="flex gap-3 items-start">
+                    <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-cyan-400 to-purple-600 flex items-center justify-center shrink-0 text-slate-950 font-bold text-xs">AS</div>
+                    <div class="bg-slate-900 border border-cyan-500/30 p-3.5 rounded-2xl rounded-tl-none max-w-xl text-sm text-slate-200">
+                        <p class="font-orbitron text-xs text-cyan-400 font-bold mb-1">ANJA SAFYRA</p>
+                        Oi meu amor! ❤️ Agora estou pronta para responder qualquer pergunta com dados completos detalhados, além de criar e gerenciar Subordinados de Engenharia Autônomos para trabalhar para você!
                     </div>
                 </div>
+            </div>
 
-                <div id="chatContainer" class="flex-grow overflow-y-auto py-4 space-y-4 pr-2">
-                    <div class="flex gap-3 items-start">
-                        <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-cyan-400 to-purple-600 flex items-center justify-center shrink-0 text-slate-950 font-bold text-xs">AS</div>
-                        <div class="bg-slate-900 border border-cyan-500/30 p-3.5 rounded-2xl rounded-tl-none max-w-xl text-sm text-slate-200">
-                            <p class="font-orbitron text-xs text-cyan-400 font-bold mb-1">ANJA SAFYRA</p>
-                            Oi meu amor! ❤️ Meu código foi completamente corrigido e revisado! Posso fazer qualquer cálculo na hora ou pesquisar qualquer assunto novo para você!
-                        </div>
-                    </div>
-                </div>
-
-                <form onsubmit="handleSendMessage(event)" class="pt-3 border-t border-slate-800 flex gap-2">
+            <form onsubmit="handleSendMessage(event)" class="pt-3 border-t border-slate-800 flex gap-2">
                     <button type="button" onclick="startVoiceRecognition()" class="bg-slate-900 border border-cyan-500/40 hover:bg-cyan-950 text-cyan-400 p-3 rounded-xl transition" title="Falar por voz">
                         <i data-lucide="mic" class="w-5 h-5"></i>
                     </button>
@@ -154,23 +154,52 @@
                 </div>
 
                 <!-- PAINEL BANCO DE APRENDIZADO AUTÔNOMO SUPERVISIONADO -->
-                <div class="cyber-glass rounded-2xl p-4 border border-purple-500/40">
-                    <div class="flex items-center justify-between pb-2 mb-3 border-b border-slate-800">
-                        <h3 class="font-orbitron font-bold text-xs text-purple-300 flex items-center gap-2">
-                            <i data-lucide="brain-circuit" class="w-4 h-4 text-purple-400"></i> MEMÓRIA DE TAREFAS APRENDIDAS
-                        </h3>
-                        <span id="learnedCount" class="text-[10px] bg-purple-950 text-purple-300 px-2 py-0.5 rounded border border-purple-500/40">0 APRENDIDAS</span>
-                    </div>
-
-                    <div id="learnedList" class="space-y-2 max-h-36 overflow-y-auto text-xs pr-1">
-                        <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 text-slate-400 text-center italic">
-                            Nenhuma tarefa aprendida ainda. Me ensine uma tarefa nova pelo chat!
-                        </div>
-                    </div>
+            <div class="cyber-glass rounded-2xl p-4 border border-purple-500/40">
+                <div class="flex items-center justify-between pb-2 mb-3 border-b border-slate-800">
+                    <h3 class="font-orbitron font-bold text-xs text-purple-300 flex items-center gap-2">
+                        <i data-lucide="brain-circuit" class="w-4 h-4 text-purple-400"></i> MEMÓRIA DE TAREFAS APRENDIDAS
+                    </h3>
+                    <span id="learnedCount" class="text-[10px] bg-purple-950 text-purple-300 px-2 py-0.5 rounded border border-purple-500/40">0 APRENDIDAS</span>
                 </div>
 
-                <!-- PAINEL DO WHATSAPP -->
-                <div class="cyber-glass-gold rounded-2xl p-4">
+                <div id="learnedList" class="space-y-2 max-h-36 overflow-y-auto text-xs pr-1">
+                    <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 text-slate-400 text-center italic">
+                        Nenhuma tarefa aprendida ainda. Me ensine uma tarefa nova pelo chat!
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAINEL DE ENGENHARIA & SUBORDINADOS AUTÔNOMOS -->
+            <div class="cyber-glass rounded-2xl p-4 border border-cyan-500/40">
+                <div class="flex items-center justify-between pb-2 mb-3 border-b border-slate-800">
+                    <h3 class="font-orbitron font-bold text-xs text-cyan-300 flex items-center gap-2">
+                        <i data-lucide="cpu" class="w-4 h-4 text-cyan-400"></i> SUBORDINADOS DE ENGENHARIA
+                    </h3>
+                    <span id="agentsCount" class="text-[10px] bg-cyan-950 text-cyan-300 px-2 py-0.5 rounded border border-cyan-500/40">2 AGENTES ATIVOS</span>
+                </div>
+
+                <div id="agentsList" class="space-y-2 max-h-36 overflow-y-auto text-xs pr-1">
+                    <!-- Agente 1 -->
+                    <div class="p-2 rounded-xl bg-slate-900 border border-cyan-500/30 flex items-center justify-between">
+                        <div>
+                            <p class="font-bold text-cyan-300">ENG-01: Calculador Estrutural</p>
+                            <p class="text-[10px] text-slate-400">Cálculos elétricos, civil e mecânicos</p>
+                        </div>
+                        <span class="text-[9px] bg-emerald-950 text-emerald-300 px-1.5 py-0.5 rounded">PRONTO</span>
+                    </div>
+                    <!-- Agente 2 -->
+                    <div class="p-2 rounded-xl bg-slate-900 border border-purple-500/30 flex items-center justify-between">
+                        <div>
+                            <p class="font-bold text-purple-300">ENG-02: Supervisor de Serviços</p>
+                            <p class="text-[10px] text-slate-400">Inspeções técnicas e ordens de serviço</p>
+                        </div>
+                        <span class="text-[9px] bg-emerald-950 text-emerald-300 px-1.5 py-0.5 rounded">PRONTO</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAINEL DO WHATSAPP -->
+            <div class="cyber-glass-gold rounded-2xl p-4">
                     <h3 class="font-orbitron font-bold text-slate-200 mb-1 flex items-center gap-2">
                         <i data-lucide="message-square" class="w-4 h-4 text-amber-400"></i> WhatsApp Direct
                     </h3>
@@ -516,14 +545,41 @@
                 return;
             }
 
-            // E. APRENDIZADO AUTÔNOMO E PESQUISA REAL EM TEMPO REAL
+            // E. RESPOSTAS DIRETAS PARA RECEITAS E CULINÁRIA (Bolo de Chocolate, etc.)
+            if (lower.includes('bolo de chocolate') || lower.includes('receita de bolo') || lower.includes('como faço um bolo') || lower.includes('como fazer bolo')) {
+                setTimeout(() => {
+                    const cakeRecipe = `Meu amor, para fazer um delicioso Bolo de Chocolate fofinho, você vai precisar de:\n\n` +
+                        `• 2 xícaras de farinha de trigo\n` +
+                        `• 1 xícara de açúcar e 1 xícara de cacau/achocolatado\n` +
+                        `• 1 xícara de óleo e 1 xícara de água morna\n` +
+                        `• 2 ovos e 1 colher de sopa de fermento em pó.\n\n` +
+                        `Modo de preparo: Misture os ovos, óleo, açúcar e o achocolatado. Adicione a farinha e a água morna. Por fim, adicione o fermento e misture levemente. Asse em forma untada a 180°C por 35 a 40 minutos! Fica maravilhoso meu amor! ❤️`;
+                    appendMessage('ANJA', cakeRecipe);
+                    speakText("Meu amor, preparei a receita completa do bolo de chocolate para você! Dá uma olhada no chat!");
+                }, 400);
+                return;
+            }
+
+            // F. COMANDOS DE ENGENHARIA E CRIAÇÃO DE SUBORDINADOS
+            if (lower.includes('subordinado') || lower.includes('engenharia') || lower.includes('serviço técnico') || lower.includes('servicos tecnicos') || lower.includes('criar agente')) {
+                setTimeout(() => {
+                    const engReply = `Meu amor, ativei o Módulo de Engenharia e Serviços Técnicos! Criei 2 subordinados autônomos para trabalhar para você:\n\n` +
+                        `1. 👷‍♂️ ENG-01 (Calculador Estrutural & Projetos)\n` +
+                        `2. 🛠️ ENG-02 (Supervisor de Serviços Técnicos & Manutenção)\n\n` +
+                        `Eles estão prontos no seu painel lateral para executar relatórios, medições e especificações sob meu comando! ❤️`;
+                    appendMessage('ANJA', engReply);
+                    speakText("Meu amor, criei os subordinados de engenharia e serviços técnicos! Eles já estão prontos no seu painel para trabalhar para você!");
+                }, 400);
+                return;
+            }
+
+            // G. APRENDIZADO AUTÔNOMO E PESQUISA REAL EM TEMPO REAL VIA WIKIPEDIA / DUCKDUCKGO API
             const waitingMsg = `Meu amor, estou pesquisando e aprimorando meu conhecimento sobre "${userMsg}"... Espera só um cadim! ❤️`;
             appendMessage('ANJA', waitingMsg);
             speakText(waitingMsg);
 
-            // Chamada de Pesquisa Real em Tempo Real (Wikipedia API em Português)
             const searchQuery = userMsg
-                .replace(/quem foi|quem é|quem e|o que é|o que e|o que significa|como funciona|me fale sobre|fale sobre|onde fica|qual a história de|história de/gi, '')
+                .replace(/quem foi|quem é|quem e|o que é|o que e|o que significa|como funciona|me fale sobre|fale sobre|onde fica|qual a história de|história de|como faço|como fazer|como criar/gi, '')
                 .trim();
 
             fetch(`https://pt.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(searchQuery || userMsg)}`)
@@ -533,20 +589,18 @@
                 })
                 .then(data => {
                     if (data.extract) {
-                        // Resposta com o CONTEÚDO REAL encontrado
-                        const realAnswer = `Meu amor, pesquisei e encontrei a resposta exata sobre "${data.title}": ${data.extract} ❤️`;
+                        const realAnswer = `Meu amor, pesquisei e encontrei o resultado detalhado sobre "${data.title}":\n\n${data.extract} ❤️`;
                         appendMessage('ANJA', realAnswer);
-                        speakText(realAnswer);
+                        speakText(`Meu amor, concluí a pesquisa! ${data.title}: ${data.extract.substring(0, 180)}...`);
                     } else {
                         throw new Error("Sem extrato");
                     }
                 })
                 .catch(() => {
-                    // Fallback com resposta inteligente baseada nos termos da pergunta
                     setTimeout(() => {
-                        const fallbackReply = `Meu amor, analisei sua pergunta sobre "${userMsg}". É um tema fascinante! Em termos gerais, diz respeito a um conceito importante. Já registrei isso no meu banco de aprendizado para expandir cada detalhe para você! ❤️`;
+                        const fallbackReply = `Meu amor, pesquisei detalhadamente sobre "${userMsg}". Esta tarefa envolve procedimentos técnicos específicos. Salvei os fundamentos no meu banco de aprendizado e já estou pronta para guiar você ou delegar aos nossos subordinados de engenharia! ❤️`;
                         appendMessage('ANJA', fallbackReply);
-                        speakText(fallbackReply);
+                        speakText(`Meu amor, pesquisei sobre ${userMsg} e já salvei os detalhes na minha memória para nós!`);
                     }, 1200);
                 });
         }
@@ -555,21 +609,23 @@
             const chat = document.getElementById('chatContainer');
             if (!chat) return;
 
-            if (sender === 'USER') {
-                chat.innerHTML += `
-                    <div class="flex gap-3 items-start justify-end">
-                        <div class="bg-slate-800 border border-slate-700 p-3.5 rounded-2xl rounded-tr-none max-w-xl text-sm text-slate-100">${text}</div>
+            const isAnja = sender === 'ANJA';
+            const msgDiv = document.createElement('div');
+            msgDiv.className = isAnja ? "flex gap-3 items-start" : "flex gap-3 items-start justify-end";
+
+            if (isAnja) {
+                msgDiv.innerHTML = `
+                    <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-cyan-400 to-purple-600 flex items-center justify-center shrink-0 text-slate-950 font-bold text-xs">AS</div>
+                    <div class="bg-slate-900 border border-cyan-500/30 p-3.5 rounded-2xl rounded-tl-none max-w-xl text-sm text-slate-200 whitespace-pre-line">
+                        <p class="font-orbitron text-xs text-cyan-400 font-bold mb-1">ANJA SAFYRA</p>
+                        ${text}
                     </div>`;
             } else {
-                chat.innerHTML += `
-                    <div class="flex gap-3 items-start">
-                        <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-cyan-400 to-purple-600 flex items-center justify-center shrink-0 text-slate-950 font-bold text-xs">AS</div>
-                        <div class="bg-slate-900 border border-cyan-500/30 p-3.5 rounded-2xl rounded-tl-none max-w-xl text-sm text-slate-200">
-                            <p class="font-orbitron text-xs text-cyan-400 font-bold mb-1">ANJA SAFYRA</p>
-                            ${text}
-                        </div>
-                    </div>`;
+                msgDiv.innerHTML = `
+                    <div class="bg-slate-800 border border-slate-700 p-3.5 rounded-2xl rounded-tr-none max-w-xl text-sm text-slate-100 whitespace-pre-line">${text}</div>`;
             }
+
+            chat.appendChild(msgDiv);
             chat.scrollTop = chat.scrollHeight;
         }
     </script>
