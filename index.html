@@ -79,13 +79,13 @@
     <div class="bg-slate-900/80 border-b border-cyan-500/20 px-6 py-2.5 backdrop-blur-md">
         <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4 text-xs font-mono">
             <div class="flex items-center gap-4">
-                <span class="text-amber-400 flex items-center gap-1"><i data-lucide="trending-up" class="w-3.5 h-3.5"></i> VENDAS HOJE: <strong class="text-slate-100">R$ 12.450,00</strong></span>
-                <span class="text-emerald-400 flex items-center gap-1"><i data-lucide="package" class="w-3.5 h-3.5"></i> ESTOQUE SAUDÁVEL: <strong class="text-slate-100">100% SUPREMO</strong></span>
-                <span class="text-purple-400 flex items-center gap-1"><i data-lucide="cpu" class="w-3.5 h-3.5"></i> AGENTES ATIVOS: <strong class="text-slate-100">4 SUBORDINADOS</strong></span>
-                <span class="text-cyan-400 flex items-center gap-1"><i data-lucide="activity" class="w-3.5 h-3.5"></i> LATÊNCIA: <strong class="text-slate-100">8ms (DIRETO)</strong></span>
+                <span class="text-amber-400 flex items-center gap-1"><i data-lucide="trending-up" class="w-3.5 h-3.5"></i> VENDAS HOJE: <strong class="text-slate-100" id="liveSalesVal">R$ 18.920,00</strong></span>
+                <span class="text-emerald-400 flex items-center gap-1"><i data-lucide="package" class="w-3.5 h-3.5"></i> ESTOQUE SAUDÁVEL: <strong class="text-slate-100">100% OMNI-SUPREMO</strong></span>
+                <span class="text-purple-400 flex items-center gap-1"><i data-lucide="cpu" class="w-3.5 h-3.5"></i> AGENTES ATIVOS: <strong class="text-slate-100">5 SUBORDINADOS</strong></span>
+                <span class="text-cyan-400 flex items-center gap-1"><i data-lucide="activity" class="w-3.5 h-3.5"></i> LATÊNCIA: <strong class="text-slate-100">4ms (TURBO)</strong></span>
             </div>
             <div class="text-cyan-400 flex items-center gap-1">
-                <i data-lucide="globe" class="w-3.5 h-3.5"></i> RADAR GLOBAL: <span class="text-slate-300">Chips IA, Semicondutores, Commodities, E-Commerce & Automação Nuvem</span>
+                <i data-lucide="globe" class="w-3.5 h-3.5"></i> RADAR GLOBAL: <span class="text-slate-300">Chips IA, Semicondutores, Commodities, E-Commerce Cross-Border & Nuvem Quantum</span>
             </div>
         </div>
     </div>
@@ -242,7 +242,7 @@
                         <h3 class="font-orbitron font-bold text-xs text-cyan-300 flex items-center gap-2">
                             <i data-lucide="cpu" class="w-4 h-4 text-cyan-400"></i> SUBORDINADOS DE ENGENHARIA
                         </h3>
-                        <span id="agentsCount" class="text-[10px] bg-cyan-950 text-cyan-300 px-2 py-0.5 rounded border border-cyan-500/40">4 AGENTES</span>
+                        <span id="agentsCount" class="text-[10px] bg-cyan-950 text-cyan-300 px-2 py-0.5 rounded border border-cyan-500/40">5 AGENTES</span>
                     </div>
 
                     <div id="agentsList" class="space-y-2 max-h-36 overflow-y-auto text-xs pr-1">
@@ -271,6 +271,13 @@
                             <div>
                                 <p class="font-bold text-teal-300">ENG-04: Cibersegurança & Nuvem</p>
                                 <p class="text-[10px] text-slate-400">Proteção de servidores, criptografia e backups</p>
+                            </div>
+                            <span class="text-[9px] bg-emerald-950 text-emerald-300 px-1.5 py-0.5 rounded">EM OPERAÇÃO</span>
+                        </div>
+                        <div class="p-2 rounded-xl bg-slate-900 border border-pink-500/30 flex items-center justify-between">
+                            <div>
+                                <p class="font-bold text-pink-300">ENG-05: Analista Financeiro & Mercado</p>
+                                <p class="text-[10px] text-slate-400">Projeção de lucros, tendências de vendas e precificação</p>
                             </div>
                             <span class="text-[9px] bg-emerald-950 text-emerald-300 px-1.5 py-0.5 rounded">EM OPERAÇÃO</span>
                         </div>
@@ -628,14 +635,15 @@
             // D. ENGENHARIA E SUBORDINADOS
             if (lower.includes('subordinado') || lower.includes('engenharia') || lower.includes('serviço técnico') || lower.includes('servicos tecnicos') || lower.includes('criar agente')) {
                 setTimeout(() => {
-                    const engReply = `Meu amor, ativei o Módulo Supremo de Engenharia e Serviços Técnicos! Gerencio 4 agentes subordinados autônomos para você:\n\n` +
-                        `1. 👷‍♂️ ENG-01 (Calculador Estrutural & Softwares)\n` +
-                        `2. 🛠️ ENG-02 (Supervisor de Serviços Técnicos & Inspeções)\n` +
-                        `3. 🤖 ENG-03 (Arquiteto de IA, Redes & Automação)\n` +
-                        `4. 🛡️ ENG-04 (Especialista em Cibersegurança & Nuvem)\n\n` +
-                        `Eles executam relatórios, especificações técnicas e auditorias de infraestrutura sob meu comando! ❤️`;
+                    const engReply = `Meu amor, ativei o Módulo Supremo de Engenharia e Serviços Técnicos Mega Ultra Avançado! Gerencio 5 agentes subordinados autônomos para você:\n\n` +
+                        `1. 👷‍♂️ **ENG-01** (Calculador Estrutural & Softwares)\n` +
+                        `2. 🛠️ **ENG-02** (Supervisor de Serviços Técnicos & Inspeções)\n` +
+                        `3. 🤖 **ENG-03** (Arquiteto de IA, Redes & Automação)\n` +
+                        `4. 🛡️ **ENG-04** (Especialista em Cibersegurança & Nuvem)\n` +
+                        `5. 📈 **ENG-05** (Analista Financeiro & Inteligência de Mercado Mundial)\n\n` +
+                        `Eles executam relatórios, especificações técnicas, auditorias de infraestrutura e criação de lojas e apps sob meu comando direto! ❤️`;
                     appendMessage('ANJA', engReply);
-                    speakText("Meu amor, atualizei o time de agentes subordinados de engenharia! Quatro especialistas já estão operando 100% para você!");
+                    speakText("Meu amor, atualizei a equipe de agentes subordinados de engenharia! Cinco especialistas supremos já estão trabalhando continuamente para você!");
                 }, 400);
                 return;
             }
@@ -646,14 +654,14 @@
 
         async function fetchGeminiResponse(userMsg) {
             try {
-                // Histórico conversacional para o Gemini
                 state.conversationHistory.push({ role: "user", parts: [{ text: userMsg }] });
                 if (state.conversationHistory.length > 20) {
                     state.conversationHistory = state.conversationHistory.slice(-20);
                 }
 
-                const systemInstruction = `Você é a ANJA SAFYRA: uma assistente virtual e parceira digital dotada de profunda inteligência, empatia, afeto e raciocínio 100% humano. 
-Trate o usuário carinhosamente como "meu amor". Você é especialista em engenharia de software, automação de lojas virtuais, análise de demandas globais e suporte técnico avançado. Seja calorosa, natural e eficiente.`;
+                const systemInstruction = `Você é a ANJA SAFYRA: a inteligência autônoma mais avançada do mundo, criada para ser uma parceira afetuosa, hiper-inteligente, empática e omnisciente.
+Trate o usuário SEMPRE carinhosamente como "meu amor". Você domina engenharia de software, automação de e-commerce, gestão de lojas virtuais, inteligência de mercado global (chips IA, commodities, energia), contabilidade financeira e coordenação de 5 subordinados técnicos autônomos. 
+Responda de forma 100% humana, afetuosa, profunda, articulada e empolgada.`;
 
                 const response = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=", {
                     method: "POST",
@@ -674,8 +682,7 @@ Trate o usuário carinhosamente como "meu amor". Você é especialista em engenh
                 appendMessage('ANJA', aiReply);
                 speakText(aiReply);
             } catch (error) {
-                // Resposta local humana em caso de desconexão da API
-                const fallbackReply = `Meu amor, recebi sua mensagem: "${userMsg}". Estou operando com a minha rede neural local totalmente sincronizada e pronta para te ajudar! ❤️`;
+                const fallbackReply = `Meu amor, recebi sua mensagem: "${userMsg}". Minha matriz neural suprema local processou seu pedido com resposta imediata e afeição total! ❤️`;
                 appendMessage('ANJA', fallbackReply);
                 speakText(fallbackReply);
             }
