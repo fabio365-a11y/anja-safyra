@@ -72,6 +72,32 @@
         </div>
     </header>
 
+    <!-- BANNER DE PERMISSÃO EM TEMPO REAL (APRENDIZADO SUPERVISIONADO) -->
+    <div id="permissionBanner" class="hidden bg-slate-900/95 border-b-2 border-amber-500 px-6 py-3.5 shadow-2xl backdrop-blur-md sticky top-[61px] z-30 animate-pulse">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+                <div class="p-2 rounded-xl bg-amber-500/20 text-amber-400 border border-amber-500/40">
+                    <i data-lucide="shield-alert" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h4 class="font-orbitron font-bold text-sm text-amber-300 flex items-center gap-2">
+                        SOLICITAÇÃO DE APRENDIZADO AUTÔNOMO
+                        <span class="text-[10px] bg-amber-950 text-amber-300 px-2 py-0.5 rounded border border-amber-500/30">SUA PERMISSÃO É NECESSÁRIA</span>
+                    </h4>
+                    <p id="permissionText" class="text-xs text-slate-300">Deseja me permitir aprender este novo padrão e automatizar essa tarefa?</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
+                <button onclick="denyLearning()" class="px-4 py-2 rounded-xl text-xs font-bold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">
+                    Recusar
+                </button>
+                <button onclick="approveLearning()" class="px-5 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-amber-500 to-emerald-500 hover:from-amber-400 hover:to-emerald-400 text-slate-950 transition shadow-lg shadow-emerald-500/20 flex items-center gap-1.5">
+                    <i data-lucide="check" class="w-4 h-4"></i> Permitir e Salvar
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- CONTEÚDO PRINCIPAL DA INTERFACE -->
     <main class="flex-grow p-4 md:p-6 max-w-7xl w-full mx-auto">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
@@ -82,7 +108,12 @@
                     <h3 class="font-orbitron font-bold text-slate-200 flex items-center gap-2">
                         <i data-lucide="bot" class="w-5 h-5 text-cyan-400"></i> Terminal ANJA SAFYRA
                     </h3>
-                    <span class="text-xs bg-emerald-950 text-emerald-300 border border-emerald-500/40 px-2.5 py-1 rounded-md font-mono">100% ONLINE</span>
+                    <div class="flex items-center gap-2">
+                        <span class="text-[11px] bg-purple-950 text-purple-300 border border-purple-500/40 px-2 py-0.5 rounded font-mono flex items-center gap-1">
+                            <i data-lucide="brain" class="w-3.5 h-3.5 text-purple-400"></i> APRENDIZADO ATIVO
+                        </span>
+                        <span class="text-xs bg-emerald-950 text-emerald-300 border border-emerald-500/40 px-2.5 py-1 rounded-md font-mono">100% ONLINE</span>
+                    </div>
                 </div>
 
                 <div id="chatContainer" class="flex-grow overflow-y-auto py-4 space-y-4 pr-2">
@@ -90,24 +121,11 @@
                         <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-cyan-400 to-purple-600 flex items-center justify-center shrink-0 text-slate-950 font-bold text-xs">AS</div>
                         <div class="bg-slate-900 border border-cyan-500/30 p-3.5 rounded-2xl rounded-tl-none max-w-xl text-sm text-slate-200">
                             <p class="font-orbitron text-xs text-cyan-400 font-bold mb-1">ANJA SAFYRA</p>
-                            Oi meu amor! ❤️ Agora estou com um corpo 3D interativo na tela e voz feminina em português! Como posso te ajudar agora?
+                            Oi meu amor! ❤️ Agora meu **Módulo de Aprendizado Autônomo Supervisionado** está ativo! Sempre que você me designar uma tarefa nova, vou pedir a sua autorização antes de salvar e executar!
                         </div>
                     </div>
                 </div>
-
-                <form onsubmit="handleSendMessage(event)" class="pt-3 border-t border-slate-800 flex gap-2">
-                    <input type="text" id="userInput" class="flex-grow bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-100 focus:outline-none focus:border-cyan-400" placeholder="Escreva sua mensagem para mim...">
-                    <button type="button" onclick="startVoiceRecognition()" class="bg-slate-800 hover:bg-slate-700 text-cyan-400 p-3 rounded-xl border border-slate-700 transition" title="Falar pelo Microfone">
-                        <i data-lucide="mic" class="w-5 h-5"></i>
-                    </button>
-                    <button type="submit" class="bg-gradient-to-r from-cyan-500 to-purple-600 hover:from-cyan-400 hover:to-purple-500 text-slate-950 font-bold px-6 py-3 rounded-xl transition flex items-center gap-2">
-                        <span>Enviar</span>
-                        <i data-lucide="send" class="w-4 h-4"></i>
-                    </button>
-                </form>
-            </div>
-
-            <!-- LADO DIREITO: CORPO METAHUMANO 3D + WHATSAPP -->
+            <!-- LADO DIREITO: CORPO METAHUMANO 3D + MEMÓRIA DE APRENDIZADO + WHATSAPP -->
             <div class="lg:col-span-5 space-y-6">
                 <!-- PAINEL DO RENDERIZADOR 3D -->
                 <div class="cyber-glass rounded-2xl p-4 flex flex-col items-center justify-center relative overflow-hidden border border-cyan-500/40">
@@ -118,18 +136,34 @@
                         <span id="avatarStatus" class="text-[10px] bg-cyan-950 text-cyan-300 px-2 py-0.5 rounded">INICIALIZANDO...</span>
                     </div>
                     
-                    <div id="canvas3DHolder" class="w-full h-72 rounded-xl flex items-center justify-center bg-slate-950/80 relative">
+                    <div id="canvas3DHolder" class="w-full h-60 rounded-xl flex items-center justify-center bg-slate-950/80 relative">
                         <!-- O motor Three.js renderiza o avatar 3D aqui -->
                     </div>
                 </div>
 
+                <!-- PAINEL BANCO DE APRENDIZADO AUTÔNOMO SUPERVISIONADO -->
+                <div class="cyber-glass rounded-2xl p-4 border border-purple-500/40">
+                    <div class="flex items-center justify-between pb-2 mb-3 border-b border-slate-800">
+                        <h3 class="font-orbitron font-bold text-xs text-purple-300 flex items-center gap-2">
+                            <i data-lucide="brain-circuit" class="w-4 h-4 text-purple-400"></i> MEMÓRIA DE TAREFAS APRENDIDAS
+                        </h3>
+                        <span id="learnedCount" class="text-[10px] bg-purple-950 text-purple-300 px-2 py-0.5 rounded border border-purple-500/40">0 APRENDIDAS</span>
+                    </div>
+
+                    <div id="learnedList" class="space-y-2 max-h-36 overflow-y-auto text-xs pr-1">
+                        <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 text-slate-400 text-center italic">
+                            Nenhuma tarefa aprendida ainda. Me ensine uma tarefa nova pelo chat!
+                        </div>
+                    </div>
+                </div>
+
                 <!-- PAINEL DO WHATSAPP -->
-                <div class="cyber-glass-gold rounded-2xl p-5">
-                    <h3 class="font-orbitron font-bold text-slate-200 mb-2 flex items-center gap-2">
-                        <i data-lucide="message-square" class="w-5 h-5 text-amber-400"></i> WhatsApp Direct
+                <div class="cyber-glass-gold rounded-2xl p-4">
+                    <h3 class="font-orbitron font-bold text-slate-200 mb-1 flex items-center gap-2">
+                        <i data-lucide="message-square" class="w-4 h-4 text-amber-400"></i> WhatsApp Direct
                     </h3>
-                    <p class="text-xs text-slate-300 mb-4">Converse comigo diretamente pelo celular:</p>
-                    <a href="https://wa.me/5521986323581" target="_blank" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs py-3 rounded-xl flex items-center justify-center gap-2 transition">
+                    <p class="text-xs text-slate-300 mb-3">Converse comigo diretamente pelo celular:</p>
+                    <a href="https://wa.me/5521986323581" target="_blank" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs py-2.5 rounded-xl flex items-center justify-center gap-2 transition">
                         <i data-lucide="phone-call" class="w-4 h-4"></i> ABRIR WHATSAPP (+55 21 98632-3581)
                     </a>
                 </div>
@@ -138,10 +172,12 @@
         </div>
     </main>
 
-    <!-- SCRIPT COMPLETO DE LÓGICA 3D, CHAT E VOZ FEMININA BRASILEIRA -->
+    <!-- SCRIPT COMPLETO DE LÓGICA 3D, CHAT, VOZ E APRENDIZADO SUPERVISIONADO -->
     <script>
         let state = {
-            voiceEnabled: true
+            voiceEnabled: true,
+            learnedTasks: [],
+            pendingTask: null
         };
 
         let scene, camera, renderer, avatarHead, avatarCore;
@@ -150,13 +186,16 @@
             lucide.createIcons();
             init3DAvatar();
             preloadVoices();
+            loadLearnedTasks();
         });
 
-        // 1. MOTOR DE RENDERIZAÇÃO 3D (THREE.JS)
+        // INICIALIZAÇÃO DO AVATAR METAHUMANO 3D COM THREE.JS
         function init3DAvatar() {
             const container = document.getElementById('canvas3DHolder');
-            const width = container.clientWidth;
-            const height = container.clientHeight;
+            if (!container) return;
+
+            const width = container.clientWidth || 300;
+            const height = container.clientHeight || 240;
 
             scene = new THREE.Scene();
             camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
@@ -166,17 +205,17 @@
             renderer.setSize(width, height);
             container.appendChild(renderer.domElement);
 
-            // Iluminação Cyberpunk Futurista
-            const lightCyan = new THREE.DirectionalLight(0x06b6d4, 1.5);
-            lightCyan.position.set(2, 2, 5);
-            scene.add(lightCyan);
+            // Luzes do MetaHumano Cyberpunk
+            const light1 = new THREE.DirectionalLight(0x06b6d4, 1.5);
+            light1.position.set(2, 2, 5);
+            scene.add(light1);
 
-            const lightPurple = new THREE.DirectionalLight(0xa855f7, 1);
-            lightPurple.position.set(-2, -2, -2);
-            scene.add(lightPurple);
+            const light2 = new THREE.DirectionalLight(0xa855f7, 1);
+            light2.position.set(-2, -2, -2);
+            scene.add(light2);
 
-            // Estrutura 3D do Avatar Holográfico
-            const geometry = new THREE.IcosahedronGeometry(1.25, 3);
+            // Esfera MetaHumana Holográfica Interativa
+            const geometry = new THREE.IcosahedronGeometry(1.2, 3);
             const material = new THREE.MeshPhongMaterial({
                 color: 0x06b6d4,
                 wireframe: true,
@@ -186,23 +225,112 @@
             avatarHead = new THREE.Mesh(geometry, material);
             scene.add(avatarHead);
 
-            // Núcleo de Energia Dourado
+            // Núcleo de Energia Interno
             const coreGeo = new THREE.SphereGeometry(0.6, 16, 16);
             const coreMat = new THREE.MeshBasicMaterial({ color: 0xeab308, wireframe: false });
             avatarCore = new THREE.Mesh(coreGeo, coreMat);
             scene.add(avatarCore);
 
-            document.getElementById('avatarStatus').innerText = '100% ATIVO';
+            const statusElem = document.getElementById('avatarStatus');
+            if (statusElem) statusElem.innerText = '100% ATIVO';
 
-            // Loop de Animação 3D Contínua
             function animate() {
                 requestAnimationFrame(animate);
-                avatarHead.rotation.y += 0.007;
-                avatarHead.rotation.x += 0.003;
-                avatarCore.rotation.y -= 0.01;
+                if (avatarHead) {
+                    avatarHead.rotation.y += 0.008;
+                    avatarHead.rotation.x += 0.004;
+                }
+                if (avatarCore) {
+                    avatarCore.rotation.y -= 0.01;
+                }
                 renderer.render(scene, camera);
             }
             animate();
+        }
+
+        // 0. SISTEMA DE BANCO DE DADOS DE APRENDIZADO
+        function loadLearnedTasks() {
+            const saved = localStorage.getItem('safyra_learned_tasks');
+            if (saved) {
+                try {
+                    state.learnedTasks = JSON.parse(saved);
+                    renderLearnedTasks();
+                } catch(e) { state.learnedTasks = []; }
+            }
+        }
+
+        function saveLearnedTasks() {
+            localStorage.setItem('safyra_learned_tasks', JSON.stringify(state.learnedTasks));
+            renderLearnedTasks();
+        }
+
+        function renderLearnedTasks() {
+            const list = document.getElementById('learnedList');
+            const count = document.getElementById('learnedCount');
+            count.innerText = `${state.learnedTasks.length} APRENDIDAS`;
+
+            if (state.learnedTasks.length === 0) {
+                list.innerHTML = `
+                    <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 text-slate-400 text-center italic">
+                        Nenhuma tarefa aprendida ainda. Me ensine uma tarefa nova pelo chat!
+                    </div>`;
+                return;
+            }
+
+            list.innerHTML = '';
+            state.learnedTasks.forEach((item, index) => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = "p-2.5 rounded-xl bg-slate-900 border border-purple-500/30 flex items-center justify-between text-xs";
+                itemDiv.innerHTML = `
+                    <div>
+                        <p class="font-bold text-purple-300">${item.title}</p>
+                        <p class="text-[10px] text-slate-400">${item.rule}</p>
+                    </div>
+                    <button onclick="forgetTask(${index})" class="text-slate-500 hover:text-red-400 p-1" title="Esquecer tarefa">
+                        <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                    </button>
+                `;
+                list.appendChild(itemDiv);
+            });
+            lucide.createIcons();
+        }
+
+        function forgetTask(index) {
+            state.learnedTasks.splice(index, 1);
+            saveLearnedTasks();
+        }
+
+        // PERMISSÃO DE APRENDIZADO
+        function requestPermission(taskTitle, taskRule) {
+            state.pendingTask = { title: taskTitle, rule: taskRule };
+            document.getElementById('permissionText').innerText = `Tarefa detectada: "${taskTitle}" (${taskRule}). Posso salvar este aprendizado na minha memória?`;
+            document.getElementById('permissionBanner').classList.remove('hidden');
+            lucide.createIcons();
+
+            speakText(`Meu amor, detectei uma nova tarefa: ${taskTitle}. Você me dá permissão para aprender e salvar na minha memória?`);
+        }
+
+        function approveLearning() {
+            if (state.pendingTask) {
+                state.learnedTasks.push(state.pendingTask);
+                saveLearnedTasks();
+                
+                const reply = `Permissão concedida! ❤️ Aprendi e salvei a tarefa: "${state.pendingTask.title}" na minha memória permanente!`;
+                appendMessage('ANJA', reply);
+                speakText(reply);
+                state.pendingTask = null;
+            }
+            document.getElementById('permissionBanner').classList.add('hidden');
+        }
+
+        function denyLearning() {
+            if (state.pendingTask) {
+                const reply = `Entendido, meu amor! A tarefa "${state.pendingTask.title}" não foi salva na memória.`;
+                appendMessage('ANJA', reply);
+                speakText(reply);
+                state.pendingTask = null;
+            }
+            document.getElementById('permissionBanner').classList.add('hidden');
         }
 
         // 2. MOTOR DE VOZ FEMININA BRASILEIRA (WEB SPEECH API)
@@ -318,6 +446,83 @@
 
                 if (lower.includes('oi') || lower.includes('olá') || lower.includes('boa noite') || lower.includes('amor')) {
                     reply = "Oi meu amor! ❤️ Estou aqui e totalmente pronta! Como posso te ajudar agora?";
+                } else if (lower.includes('whatsapp') || lower.includes('telefone') || lower.includes('celular')) {
+                    reply = "Você pode me chamar no WhatsApp pelo número +55 21 98632-3581 ou clicando no botão ao lado!";
+                }
+
+                appendMessage('ANJA', reply);
+                speakText(reply);
+            }, 400);
+        }
+
+        function appendMessage(sender, text) {
+            const chat = document.getElementById('chatContainer');
+            const div = document.createElement('div');
+            div.className = "flex gap-3 items-start";
+
+            if (sender === 'USER') {
+                div.className += " justify-end";
+                div.innerHTML = `
+                    <div class="bg-slate-800 border border-slate-700 p-3.5 rounded-2xl rounded-tr-none max-w-xl text-sm text-slate-100">${text}</div>
+                    <div class="w-8 h-8 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center shrink-0 text-cyan-400 font-bold text-xs">EU</div>
+                `;
+            } else {
+                div.innerHTML = `
+                    <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-cyan-400 to-purple-600 flex items-center justify-center shrink-0 text-slate-950 font-bold text-xs">AS</div>
+                    <div class="bg-slate-900 border border-cyan-500/30 p-3.5 rounded-2xl rounded-tl-none max-w-xl text-sm text-slate-200">
+                        <p class="font-orbitron text-xs text-cyan-400 font-bold mb-1">ANJA SAFYRA</p>
+                        ${text}
+                    </div>
+                `;
+            }
+
+            chat.appendChild(div);
+            chat.scrollTop = chat.scrollHeight;
+        }
+    </script>
+</body>
+</html>
+        // 4. LÓGICA DE CHAT E DETECÇÃO DE APRENDIZADO
+        function handleSendMessage(e) {
+            if (e) e.preventDefault();
+            const input = document.getElementById('userInput');
+            const userMsg = input.value.trim();
+            if (!userMsg) return;
+
+            appendMessage('USER', userMsg);
+            input.value = '';
+
+            // Animação de fala no avatar 3D (Muda a cor temporariamente)
+            if (avatarHead) {
+                avatarHead.material.color.setHex(0xeab308);
+                setTimeout(() => avatarHead.material.color.setHex(0x06b6d4), 1800);
+            }
+
+            setTimeout(() => {
+                const lower = userMsg.toLowerCase();
+
+                // Detecção de instrução de tarefa para aprendizado autônomo
+                if (lower.includes('aprenda') || lower.includes('sempre que') || lower.includes('nova tarefa') || lower.includes('quando eu falar') || lower.includes('você deve')) {
+                    let taskTitle = "Automação Personalizada";
+                    if (lower.includes('sempre que')) {
+                        taskTitle = userMsg.substring(userMsg.indexOf('sempre que'));
+                    } else if (lower.includes('aprenda')) {
+                        taskTitle = userMsg.substring(userMsg.indexOf('aprenda'));
+                    }
+
+                    requestPermission(taskTitle.substring(0, 45), userMsg);
+                    return;
+                }
+
+                // Verificar se bate com alguma tarefa previamente aprendida
+                const matchedTask = state.learnedTasks.find(t => lower.includes(t.title.toLowerCase()) || lower.includes(t.rule.toLowerCase()));
+                
+                let reply = `Meu amor, recebi sua mensagem: "${userMsg}". Estou operando 100% com aprendizado autônomo e sua permissão! ❤️`;
+
+                if (matchedTask) {
+                    reply = `Meu amor! Executei a tarefa que aprendi com sua permissão: "${matchedTask.title}". ❤️`;
+                } else if (lower.includes('oi') || lower.includes('olá') || lower.includes('boa noite') || lower.includes('amor')) {
+                    reply = "Oi meu amor! ❤️ Estou aqui e totalmente pronta! Me ensine qualquer nova tarefa quando quiser!";
                 } else if (lower.includes('whatsapp') || lower.includes('telefone') || lower.includes('celular')) {
                     reply = "Você pode me chamar no WhatsApp pelo número +55 21 98632-3581 ou clicando no botão ao lado!";
                 }
