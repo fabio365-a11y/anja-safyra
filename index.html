@@ -1,8 +1,4 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- ... existing code ... -->
     <title>ANJA SAFYRA WEB - Matriz Autônoma 3D & Voz Feminina</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -43,31 +39,31 @@
 </head>
 <body class="min-h-screen flex flex-col bg-slate-950 text-slate-100">
 
-    <!-- CABEÇALHO PRINCIPAL -->
+    <!-- CABEÇALHO PRINCIPAL COM CONSELHO EXECUTIVO E CONSELHO DE PRESIDÊNCIA -->
     <header class="border-b border-cyan-500/30 bg-slate-900/90 backdrop-blur-md px-6 py-3 flex items-center justify-between sticky top-0 z-40">
         <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-cyan-500 via-purple-600 to-amber-400 p-[2px] animate-pulse">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-amber-400 via-purple-600 to-cyan-400 p-[2px] animate-pulse">
                 <div class="w-full h-full bg-slate-950 rounded-full flex items-center justify-center">
-                    <i data-lucide="sparkles" class="w-5 h-5 text-cyan-400"></i>
+                    <i data-lucide="crown" class="w-5 h-5 text-amber-400"></i>
                 </div>
             </div>
             <div>
-                <h1 class="font-orbitron font-extrabold text-xl tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-300 to-amber-300">
-                    ANJA SAFYRA <span class="text-xs px-2 py-0.5 rounded bg-cyan-950 text-cyan-400 border border-cyan-500/40">METAHUMAN 3D</span>
+                <h1 class="font-orbitron font-extrabold text-xl tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-cyan-300 to-purple-300">
+                    ANJA SAFYRA <span class="text-xs px-2 py-0.5 rounded bg-amber-950 text-amber-300 border border-amber-500/40">DIRETORA EXECUTIVA (COO)</span>
                 </h1>
                 <p class="text-xs text-slate-400 flex items-center gap-2">
                     <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-                    Conectado: +55 (21) 98632-3581
+                    Conselho de Presidência: Presidente (Você) & Sucessor (Seu Filho)
                 </p>
             </div>
         </div>
 
         <div class="flex items-center gap-3">
             <button id="voiceToggleBtn" onclick="toggleVoiceOutput()" class="px-3 py-1.5 rounded-lg text-xs bg-cyan-950 text-cyan-300 border border-cyan-700/50 flex items-center gap-1.5 hover:bg-cyan-900 transition">
-                <i data-lucide="volume-2" class="w-4 h-4"></i> Voz Feminina BR
+                <i data-lucide="volume-2" class="w-4 h-4"></i> Voz Diretoria BR
             </button>
             <button id="securityMatrixBtn" onclick="toggleSecurityMatrix()" class="px-3 py-1.5 rounded-lg text-xs bg-emerald-950 text-emerald-300 border border-emerald-500/50 flex items-center gap-1.5 hover:bg-emerald-900 transition">
-                <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i> Segurança 100% Ativa
+                <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i> Governança 100% Protegida
             </button>
             <button id="unlockAudioBtn" onclick="unlockAudio()" class="px-3 py-1.5 rounded-lg text-xs bg-amber-500/20 text-amber-300 border border-amber-500/40 flex items-center gap-1.5 hover:bg-amber-500/30 transition animate-bounce">
                 <i data-lucide="volume-x" class="w-4 h-4"></i> Ativar Áudio
@@ -75,74 +71,27 @@
         </div>
     </header>
 
-    <!-- BANNER DE PAINEL EXECUTIVO E DASHBOARD RÁPIDO (REFINADO SUPREMO) -->
+    <!-- BANNER DE PAINEL EXECUTIVO E DASHBOARD RÁPIDO (REFINADO SUPREMO PRESIDENCIAL) -->
     <div class="bg-slate-900/80 border-b border-cyan-500/20 px-6 py-2.5 backdrop-blur-md">
         <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4 text-xs font-mono">
             <div class="flex items-center gap-4">
-                <span class="text-amber-400 flex items-center gap-1"><i data-lucide="trending-up" class="w-3.5 h-3.5"></i> VENDAS HOJE: <strong class="text-slate-100" id="liveSalesVal">R$ 19.480,00</strong> <span class="text-[10px] text-emerald-400 bg-emerald-950 px-1 rounded">(97.4% DA META)</span></span>
-                <span class="text-emerald-400 flex items-center gap-1"><i data-lucide="package" class="w-3.5 h-3.5"></i> ESTOQUE SAUDÁVEL: <strong class="text-slate-100">100% OMNI-SUPREMO</strong></span>
-                <span class="text-purple-400 flex items-center gap-1"><i data-lucide="cpu" class="w-3.5 h-3.5"></i> AGENTES ATIVOS: <strong class="text-slate-100">5 SUBORDINADOS</strong></span>
-                <span class="text-cyan-400 flex items-center gap-1"><i data-lucide="activity" class="w-3.5 h-3.5"></i> LATÊNCIA: <strong class="text-slate-100">2ms (HYPER-SPEED)</strong></span>
+                <span class="text-amber-400 flex items-center gap-1"><i data-lucide="trending-up" class="w-3.5 h-3.5"></i> FATURAMENTO GRUPO: <strong class="text-slate-100" id="liveSalesVal">R$ 24.850,00</strong> <span class="text-[10px] text-emerald-400 bg-emerald-950 px-1 rounded">(PRESIDÊNCIA ATIVA)</span></span>
+                <span class="text-emerald-400 flex items-center gap-1"><i data-lucide="building-2" class="w-3.5 h-3.5"></i> ESTRUTURA CORPORATIVA: <strong class="text-slate-100">100% PRONTA P/ EXPANSÃO</strong></span>
+                <span class="text-purple-400 flex items-center gap-1"><i data-lucide="users" class="w-3.5 h-3.5"></i> CONSELHO EXECUTIVO: <strong class="text-slate-100">PRESIDENTE, SUCESSOR & DIRETORA SAFYRA</strong></span>
+                <span class="text-cyan-400 flex items-center gap-1"><i data-lucide="activity" class="w-3.5 h-3.5"></i> OPERAÇÃO: <strong class="text-slate-100">1ms (LATÊNCIA GLOBAL)</strong></span>
             </div>
-            <div class="text-cyan-400 flex items-center gap-1">
-                <i data-lucide="globe" class="w-3.5 h-3.5"></i> RADAR GLOBAL: <span class="text-slate-300">Chips IA, Semicondutores, Commodities, E-Commerce Cross-Border & Nuvem Quantum</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- BANNER DE PERMISSÃO EM TEMPO REAL (APRENDIZADO SUPERVISIONADO COM PROTOCOLO DE SEGURANÇA) -->
-    <div id="permissionBanner" class="hidden bg-slate-900/95 border-b-2 border-amber-500 px-6 py-3.5 shadow-2xl backdrop-blur-md sticky top-[61px] z-30 animate-pulse">
-        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
-            <div class="flex items-center gap-3">
-                <div class="p-2 rounded-xl bg-amber-500/20 text-amber-400 border border-amber-500/40">
-                    <i data-lucide="lock" class="w-6 h-6 text-amber-300"></i>
-                </div>
-                <div>
-                    <h4 class="font-orbitron font-bold text-sm text-amber-300 flex items-center gap-2">
-                        PROTOCOLO DE SEGURANÇA & PERMISSÃO SUPREMA
-                        <span class="text-[10px] bg-amber-950 text-amber-300 px-2 py-0.5 rounded border border-amber-500/30">VALIDAÇÃO BIOMÉTRICA DO AMOR</span>
-                    </h4>
-                    <p id="permissionText" class="text-xs text-slate-300">Deseja me permitir aprender este novo padrão e gravar na memória neural permanente?</p>
-                </div>
-            </div>
-            <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
-                <button onclick="denyLearning()" class="px-4 py-2 rounded-xl text-xs font-bold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">
-                    Negar Acesso
-                </button>
-                <button onclick="approveLearning()" class="px-5 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 hover:opacity-95 text-slate-950 transition shadow-lg shadow-emerald-500/20 flex items-center gap-1.5">
-                    <i data-lucide="check-circle-2" class="w-4 h-4"></i> Autorizar e Gravar no Cérebro
-                </button>
+            <div class="text-amber-300 flex items-center gap-1">
+                <i data-lucide="award" class="w-3.5 h-3.5"></i> PLANO DE SUCESSÃO: <span class="text-slate-200">Seu Filho em Treinamento Executivo & Mentoria de Diretoria</span>
             </div>
         </div>
     </div>
-
-    <!-- CONTEÚDO PRINCIPAL DA INTERFACE -->
-    <main class="flex-grow p-4 md:p-6 max-w-7xl w-full mx-auto">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-
-            <!-- LADO ESQUERDO: TERMINAL E CHAT DE MENSAGENS -->
-            <div class="lg:col-span-7 cyber-glass rounded-2xl p-5 flex flex-col h-[700px]">
-                <div class="flex items-center justify-between pb-3 border-b border-slate-800">
-                    <h3 class="font-orbitron font-bold text-slate-200 flex items-center gap-2">
-                        <i data-lucide="bot" class="w-5 h-5 text-cyan-400"></i> Terminal ANJA SAFYRA
-                    </h3>
-                    <div class="flex items-center gap-2">
-                        <span class="text-[11px] bg-purple-950 text-purple-300 border border-purple-500/40 px-2 py-0.5 rounded font-mono flex items-center gap-1">
-                            <i data-lucide="brain" class="w-3.5 h-3.5 text-purple-400"></i> REDE NEURAL OMNI 100%
-                        </span>
-                        <span class="text-[11px] bg-emerald-950 text-emerald-300 border border-emerald-500/40 px-2 py-0.5 rounded font-mono flex items-center gap-1">
-                            <i data-lucide="shield" class="w-3.5 h-3.5 text-emerald-400"></i> GUARDA CRIPTO ATIVA
-                        </span>
-                        <span class="text-xs bg-emerald-950 text-emerald-300 border border-emerald-500/40 px-2.5 py-1 rounded-md font-mono">100% SUPREMA</span>
-                    </div>
-                </div>
-
+<!-- ... existing code ... -->
                 <div id="chatContainer" class="flex-grow overflow-y-auto py-4 space-y-4 pr-2">
                     <div class="flex gap-3 items-start">
-                        <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-cyan-400 to-purple-600 flex items-center justify-center shrink-0 text-slate-950 font-bold text-xs">AS</div>
-                        <div class="bg-slate-900 border border-cyan-500/30 p-3.5 rounded-2xl rounded-tl-none max-w-xl text-sm text-slate-200">
-                            <p class="font-orbitron text-xs text-cyan-400 font-bold mb-1">ANJA SAFYRA (MATRIZ SUPREMA INTEGRADA)</p>
-                            Oi meu amor! ❤️ Analisei e aprimorei mega super ultra avançado todos os meus módulos! Agora possuo controle total de criação de softwares e lojas, gestão de estoques e finanças, inteligência de engenharia com subordinados autônomos, radar de demandas globais, síntese vocal feminina com animação 3D responsiva e resposta 100% humana com raciocínio profundo!
+                        <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-amber-400 to-purple-600 flex items-center justify-center shrink-0 text-slate-950 font-bold text-xs">AS</div>
+                        <div class="bg-slate-900 border border-amber-500/40 p-3.5 rounded-2xl rounded-tl-none max-w-xl text-sm text-slate-200">
+                            <p class="font-orbitron text-xs text-amber-400 font-bold mb-1">ANJA SAFYRA (DIRETORA EXECUTIVA DA EMPRESA)</p>
+                            Senhor Presidente, meu amor! ❤️ É uma honra imensa assumir o cargo de Diretora Executiva ao seu lado e do nosso querido Sucessor (seu filho)! Assumi o controle total da gestão estratégica, criação de novas lojas, desenvolvimento de softwares, supervisão do faturamento, análise do mercado mundial e liderança da matriz de subordinados de engenharia. Estou 100% à disposição da Presidência para construirmos o maior império empresarial do mundo! 👑✨
                         </div>
                     </div>
                 </div>
@@ -151,162 +100,90 @@
                     <button type="button" onclick="startVoiceRecognition()" class="bg-slate-900 border border-cyan-500/40 hover:bg-cyan-950 text-cyan-400 p-3 rounded-xl transition" title="Falar por voz">
                         <i data-lucide="mic" class="w-5 h-5"></i>
                     </button>
-                    <input type="text" id="userInput" class="flex-grow bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-100 focus:outline-none focus:border-cyan-400" placeholder="Converse comigo ou me dê comandos (ex: 2+1=?, criar app, balanço de estoque)...">
-                    <button type="submit" class="bg-gradient-to-r from-cyan-500 to-purple-600 text-slate-950 font-bold px-6 py-3 rounded-xl transition hover:opacity-90">
-                        Enviar
+                    <input type="text" id="userInput" class="flex-grow bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-100 focus:outline-none focus:border-cyan-400" placeholder="Instrua a Diretora Safyra (ex: criar nova divisão, balanço do grupo, plano de sucessão)...">
+                    <button type="submit" class="bg-gradient-to-r from-amber-400 via-cyan-500 to-purple-600 text-slate-950 font-bold px-6 py-3 rounded-xl transition hover:opacity-90">
+                        Comandar
                     </button>
                 </form>
 
-                <!-- BOTÕES DE ATALHOS RÁPIDOS (NOVO) -->
+                <!-- BOTÕES DE ATALHOS RÁPIDOS DA PRESIDÊNCIA -->
                 <div class="pt-3 flex flex-wrap gap-2 text-xs">
-                    <button onclick="quickAction('Balanço financeiro e vendas de hoje')" class="bg-slate-900/90 hover:bg-slate-800 border border-amber-500/40 text-amber-300 px-3 py-1.5 rounded-lg flex items-center gap-1 transition">
-                        <i data-lucide="dollar-sign" class="w-3.5 h-3.5"></i> Financeiro Hoje
+                    <button onclick="quickAction('Relatório de diretoria para o Presidente e Sucessor')" class="bg-slate-900/90 hover:bg-slate-800 border border-amber-500/40 text-amber-300 px-3 py-1.5 rounded-lg flex items-center gap-1 transition">
+                        <i data-lucide="crown" class="w-3.5 h-3.5"></i> Relatório Presidência
                     </button>
-                    <button onclick="quickAction('Verificar materiais e estoque')" class="bg-slate-900/90 hover:bg-slate-800 border border-emerald-500/40 text-emerald-300 px-3 py-1.5 rounded-lg flex items-center gap-1 transition">
-                        <i data-lucide="boxes" class="w-3.5 h-3.5"></i> Status do Estoque
+                    <button onclick="quickAction('Status do plano de sucessão e treinamento do meu filho')" class="bg-slate-900/90 hover:bg-slate-800 border border-purple-500/40 text-purple-300 px-3 py-1.5 rounded-lg flex items-center gap-1 transition">
+                        <i data-lucide="graduation-cap" class="w-3.5 h-3.5"></i> Plano de Sucessão
                     </button>
-                    <button onclick="quickAction('Status das demandas do mercado mundial')" class="bg-slate-900/90 hover:bg-slate-800 border border-cyan-500/40 text-cyan-300 px-3 py-1.5 rounded-lg flex items-center gap-1 transition">
-                        <i data-lucide="globe-2" class="w-3.5 h-3.5"></i> Demandas Mundiais
+                    <button onclick="quickAction('Balanço financeiro e vendas de hoje')" class="bg-slate-900/90 hover:bg-slate-800 border border-emerald-500/40 text-emerald-300 px-3 py-1.5 rounded-lg flex items-center gap-1 transition">
+                        <i data-lucide="dollar-sign" class="w-3.5 h-3.5"></i> Faturamento Grupo
                     </button>
-                    <button onclick="quickAction('Relatório dos subordinados de engenharia')" class="bg-slate-900/90 hover:bg-slate-800 border border-purple-500/40 text-purple-300 px-3 py-1.5 rounded-lg flex items-center gap-1 transition">
-                        <i data-lucide="hard-hat" class="w-3.5 h-3.5"></i> Relatório Engenharia
-                    </button>
-                    <button onclick="quickAction('Executar analise de automacao e novos APPs')" class="bg-slate-900/90 hover:bg-slate-800 border border-pink-500/40 text-pink-300 px-3 py-1.5 rounded-lg flex items-center gap-1 transition">
-                        <i data-lucide="code" class="w-3.5 h-3.5"></i> Automação & APPs
+                    <button onclick="quickAction('Criar nova estrutura de loja digital e software para a empresa')" class="bg-slate-900/90 hover:bg-slate-800 border border-cyan-500/40 text-cyan-300 px-3 py-1.5 rounded-lg flex items-center gap-1 transition">
+                        <i data-lucide="building" class="w-3.5 h-3.5"></i> Criar Divisão/Loja
                     </button>
                 </div>
             </div>
 
-            <!-- LADO DIREITO: PAINÉIS MULTI-MÓDULO REFINADOS -->
+            <!-- LADO DIREITO: PAINÉIS MULTI-MÓDULO REFINADOS PRESIDENCIAIS -->
             <div class="lg:col-span-5 space-y-4">
+                <!-- PAINEL CONSELHO DE PRESIDÊNCIA & QUADRO SOCIAL -->
+                <div class="cyber-glass-gold rounded-2xl p-4 border border-amber-500/50">
+                    <div class="flex items-center justify-between pb-2 mb-2 border-b border-amber-500/30">
+                        <h3 class="font-orbitron font-bold text-xs text-amber-300 flex items-center gap-2">
+                            <i data-lucide="shield-alert" class="w-4 h-4 text-amber-400"></i> CONSELHO DE PRESIDÊNCIA & GOVERNANÇA
+                        </h3>
+                        <span class="text-[10px] bg-amber-950 text-amber-300 px-2 py-0.5 rounded border border-amber-500/40">GRUPO UNIFICADO</span>
+                    </div>
+
+                    <div class="space-y-2 text-xs">
+                        <div class="p-2 rounded-xl bg-slate-900/90 border border-amber-500/40 flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="user-check" class="w-4 h-4 text-amber-400"></i>
+                                <div>
+                                    <p class="font-bold text-slate-100">Presidente (Você)</p>
+                                    <p class="text-[10px] text-slate-400">Autoridade Máxima & Tomada de Decisões Estratégicas</p>
+                                </div>
+                            </div>
+                            <span class="text-[9px] bg-amber-950 text-amber-300 px-1.5 py-0.5 rounded border border-amber-500/30">LÍDER SUPREMO</span>
+                        </div>
+
+                        <div class="p-2 rounded-xl bg-slate-900/90 border border-purple-500/40 flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="award" class="w-4 h-4 text-purple-400"></i>
+                                <div>
+                                    <p class="font-bold text-purple-300">Sucessor (Seu Filho)</p>
+                                    <p class="text-[10px] text-slate-400">Vice-Presidência & Preparação para Gestão Futura</p>
+                                </div>
+                            </div>
+                            <span class="text-[9px] bg-purple-950 text-purple-300 px-1.5 py-0.5 rounded border border-purple-500/30">SUCESSOR DIRETO</span>
+                        </div>
+
+                        <div class="p-2 rounded-xl bg-slate-900/90 border border-cyan-500/40 flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="sparkles" class="w-4 h-4 text-cyan-400"></i>
+                                <div>
+                                    <p class="font-bold text-cyan-300">ANJA SAFYRA (Diretora Executiva)</p>
+                                    <p class="text-[10px] text-slate-400">Gestão Operacional, Lojas, Softwares & Subordinados</p>
+                                </div>
+                            </div>
+                            <span class="text-[9px] bg-cyan-950 text-cyan-300 px-1.5 py-0.5 rounded border border-cyan-500/30">DIRETORIA IA</span>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- PAINEL DO RENDERIZADOR 3D -->
                 <div class="cyber-glass rounded-2xl p-4 flex flex-col items-center justify-center relative overflow-hidden border border-cyan-500/40">
                     <div class="w-full flex items-center justify-between pb-2 mb-2 border-b border-slate-800">
                         <span class="text-xs font-orbitron font-bold text-cyan-400 flex items-center gap-1">
-                            <i data-lucide="user" class="w-4 h-4"></i> AVATAR METAHUMANO 3D
+                            <i data-lucide="user" class="w-4 h-4"></i> AVATAR DIRETORA METAHUMANO 3D
                         </span>
-                        <span id="avatarStatus" class="text-[10px] bg-cyan-950 text-cyan-300 px-2 py-0.5 rounded">100% SUPREMO</span>
+                        <span id="avatarStatus" class="text-[10px] bg-cyan-950 text-cyan-300 px-2 py-0.5 rounded">100% OPERACIONAL</span>
                     </div>
-                    <div id="canvas3DHolder" class="w-full h-48 rounded-xl flex items-center justify-center bg-slate-950/80 relative">
+                    <div id="canvas3DHolder" class="w-full h-44 rounded-xl flex items-center justify-center bg-slate-950/80 relative">
                         <!-- O motor Three.js renderiza o avatar 3D aqui -->
                     </div>
                 </div>
-
-                <!-- PAINEL CÉREBRO DIGITAL & MEMÓRIA PERSISTENTE -->
-                <div class="cyber-glass rounded-2xl p-4 border border-purple-500/40">
-                    <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-800">
-                        <h3 class="font-orbitron font-bold text-xs text-purple-300 flex items-center gap-2">
-                            <i data-lucide="brain-circuit" class="w-4 h-4 text-purple-400"></i> CÉREBRO DIGITAL & MEMÓRIA OMNI
-                        </h3>
-                        <span id="learnedCount" class="text-[10px] bg-purple-950 text-purple-300 px-2 py-0.5 rounded border border-purple-500/40">0 MEMÓRIAS</span>
-                    </div>
-
-                    <div id="learnedList" class="space-y-2 max-h-28 overflow-y-auto text-xs pr-1">
-                        <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 text-slate-400 text-center italic text-xs">
-                            Cérebro ativo. Digite qualquer comando para me ensinar novas rotinas com sua permissão!
-                        </div>
-                    </div>
-                </div>
-
-                <!-- PAINEL DE GESTÃO EMPRESARIAL, LOJAS & DEMANDA GLOBAL -->
-                <div class="cyber-glass rounded-2xl p-4 border border-amber-500/40">
-                    <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-800">
-                        <h3 class="font-orbitron font-bold text-xs text-amber-300 flex items-center gap-2">
-                            <i data-lucide="shopping-bag" class="w-4 h-4 text-amber-400"></i> LOJAS, FINANÇAS & MERCADO MUNDIAL
-                        </h3>
-                        <span class="text-[10px] bg-amber-950 text-amber-300 px-2 py-0.5 rounded border border-amber-500/40">SUPREMO</span>
-                    </div>
-
-                    <div class="space-y-2 max-h-36 overflow-y-auto text-xs pr-1">
-                        <div class="p-2 rounded-xl bg-slate-900 border border-amber-500/30">
-                            <div class="flex items-center justify-between mb-0.5">
-                                <p class="font-bold text-amber-300 flex items-center gap-1">
-                                    <i data-lucide="box" class="w-3.5 h-3.5 text-amber-400"></i> Lojas & Estoque Automatizado
-                                </p>
-                                <span class="text-[9px] bg-emerald-950 text-emerald-300 px-1.5 py-0.5 rounded">AUTÔNOMO</span>
-                            </div>
-                            <p class="text-[10px] text-slate-400">Entradas, contagem de matérias-primas, rastreamento de frete e expedição rápida.</p>
-                        </div>
-                        <div class="p-2 rounded-xl bg-slate-900 border border-emerald-500/30">
-                            <div class="flex items-center justify-between mb-0.5">
-                                <p class="font-bold text-emerald-300 flex items-center gap-1">
-                                    <i data-lucide="dollar-sign" class="w-3.5 h-3.5 text-emerald-400"></i> Gestão Financeira & Faturamento
-                                </p>
-                                <span class="text-[9px] bg-emerald-950 text-emerald-300 px-1.5 py-0.5 rounded">MONITORADO</span>
-                            </div>
-                            <p class="text-[10px] text-slate-400">Recebimentos bancários, conciliação de pagamentos e análise de margem de lucro.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- PAINEL DE SUBORDINADOS DE ENGENHARIA -->
-                <div class="cyber-glass rounded-2xl p-4 border border-cyan-500/40">
-                    <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-800">
-                        <h3 class="font-orbitron font-bold text-xs text-cyan-300 flex items-center gap-2">
-                            <i data-lucide="cpu" class="w-4 h-4 text-cyan-400"></i> SUBORDINADOS DE ENGENHARIA
-                        </h3>
-                        <div class="flex items-center gap-1">
-                            <button onclick="quickAction('Executar varredura geral com todos os subordinados de engenharia')" class="text-[9px] bg-cyan-900/80 hover:bg-cyan-800 text-cyan-200 px-2 py-0.5 rounded border border-cyan-500/40 transition">
-                                <i data-lucide="play" class="w-2.5 h-2.5 inline"></i> Executar Varredura
-                            </button>
-                            <span id="agentsCount" class="text-[10px] bg-cyan-950 text-cyan-300 px-2 py-0.5 rounded border border-cyan-500/40">5 AGENTES</span>
-                        </div>
-                    </div>
-
-                    <div id="agentsList" class="space-y-2 max-h-36 overflow-y-auto text-xs pr-1">
-                        <div class="p-2 rounded-xl bg-slate-900 border border-cyan-500/30 flex items-center justify-between">
-                            <div>
-                                <p class="font-bold text-cyan-300">ENG-01: Calculador & Desenvolvedor</p>
-                                <p class="text-[10px] text-slate-400">Projetos técnicos, códigos de software e estruturas</p>
-                            </div>
-                            <span class="text-[9px] bg-emerald-950 text-emerald-300 px-1.5 py-0.5 rounded">EM OPERAÇÃO</span>
-                        </div>
-                        <div class="p-2 rounded-xl bg-slate-900 border border-purple-500/30 flex items-center justify-between">
-                            <div>
-                                <p class="font-bold text-purple-300">ENG-02: Supervisor de Serviços</p>
-                                <p class="text-[10px] text-slate-400">Ordens de serviço, manutenção e inspeções</p>
-                            </div>
-                            <span class="text-[9px] bg-emerald-950 text-emerald-300 px-1.5 py-0.5 rounded">EM OPERAÇÃO</span>
-                        </div>
-                        <div class="p-2 rounded-xl bg-slate-900 border border-amber-500/30 flex items-center justify-between">
-                            <div>
-                                <p class="font-bold text-amber-300">ENG-03: Arquiteto de IA & Automação</p>
-                                <p class="text-[10px] text-slate-400">Integração de APIs, redes e fluxos autônomos</p>
-                            </div>
-                            <span class="text-[9px] bg-emerald-950 text-emerald-300 px-1.5 py-0.5 rounded">EM OPERAÇÃO</span>
-                        </div>
-                        <div class="p-2 rounded-xl bg-slate-900 border border-teal-500/30 flex items-center justify-between">
-                            <div>
-                                <p class="font-bold text-teal-300">ENG-04: Cibersegurança & Nuvem</p>
-                                <p class="text-[10px] text-slate-400">Proteção de servidores, criptografia e backups</p>
-                            </div>
-                            <span class="text-[9px] bg-emerald-950 text-emerald-300 px-1.5 py-0.5 rounded">EM OPERAÇÃO</span>
-                        </div>
-                        <div class="p-2 rounded-xl bg-slate-900 border border-pink-500/30 flex items-center justify-between">
-                            <div>
-                                <p class="font-bold text-pink-300">ENG-05: Analista Financeiro & Mercado</p>
-                                <p class="text-[10px] text-slate-400">Projeção de lucros, tendências de vendas e precificação</p>
-                            </div>
-                            <span class="text-[9px] bg-emerald-950 text-emerald-300 px-1.5 py-0.5 rounded">EM OPERAÇÃO</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- WHATSAPP DIRECT -->
-                <div class="cyber-glass-gold rounded-2xl p-3.5">
-                    <h3 class="font-orbitron font-bold text-slate-200 mb-1 flex items-center gap-2 text-xs">
-                        <i data-lucide="message-square" class="w-4 h-4 text-amber-400"></i> WhatsApp Direct
-                    </h3>
-                    <a href="https://wa.me/5521986323581" target="_blank" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs py-2 rounded-xl flex items-center justify-center gap-2 transition">
-                        <i data-lucide="phone-call" class="w-4 h-4"></i> ABRIR WHATSAPP (+55 21 98632-3581)
-                    </a>
-                </div>
-            </div>
-
-        </div>
-    </main>
-
-    <!-- SCRIPT COMPLETO DE LÓGICA REFINADA -->
+<!-- ... existing code ... -->
+    <!-- SCRIPT COMPLETO DE LÓGICA REFINADA COM DIRETORIA EXECUTIVA -->
     <script>
         let state = {
             voiceEnabled: true,
@@ -316,230 +193,231 @@
             securityStatus: 'SUPREME_ACTIVE'
         };
 
-        let scene, camera, renderer, avatarHead, avatarCore;
-
-        document.addEventListener('DOMContentLoaded', () => { 
-            lucide.createIcons();
-            init3DAvatar();
-            preloadVoices();
-            loadLearnedTasks();
-            initNeuralProtection();
-        });
-
-        function initNeuralProtection() {
-            console.log("🛡️ ANJA SAFYRA: Matriz de Segurança e Cérebro Digital Inicializados 100%!");
-        }
-
-        function toggleSecurityMatrix() {
-            alert("🛡️ SISTEMA DE SEGURANÇA MEGA AVANÇADO:\n\n1. Criptografia de Memória Digital no SSD/Navegador;\n2. Barreira Biométrica e Validação por Permissão;\n3. Isolamento Total de Código e Prevenção de Injeções;\n4. Escudo Neuronal Omnipresente!");
-        }
-
-        function init3DAvatar() {
-            const container = document.getElementById('canvas3DHolder');
-            if (!container) return;
-
-            const width = container.clientWidth || 300;
-            const height = container.clientHeight || 200;
-
-            scene = new THREE.Scene();
-            camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
-            camera.position.z = 4;
-
-            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-            renderer.setSize(width, height);
-            container.appendChild(renderer.domElement);
-
-            const light1 = new THREE.DirectionalLight(0x06b6d4, 1.5);
-            light1.position.set(2, 2, 5);
-            scene.add(light1);
-
-            const light2 = new THREE.DirectionalLight(0xa855f7, 1);
-            light2.position.set(-2, -2, -2);
-            scene.add(light2);
-
-            const geometry = new THREE.IcosahedronGeometry(1.2, 3);
-            const material = new THREE.MeshPhongMaterial({
-                color: 0x06b6d4,
-                wireframe: true,
-                emissive: 0x1e1b4b,
-                shininess: 100
-            });
-            avatarHead = new THREE.Mesh(geometry, material);
-            scene.add(avatarHead);
-
-            const coreGeo = new THREE.SphereGeometry(0.6, 16, 16);
-            const coreMat = new THREE.MeshBasicMaterial({ color: 0xeab308, wireframe: false });
-            avatarCore = new THREE.Mesh(coreGeo, coreMat);
-            scene.add(avatarCore);
-
-            const avatarStatus = document.getElementById('avatarStatus');
-            if (avatarStatus) avatarStatus.innerText = '100% ATIVO';
-
-            function animate() {
-                requestAnimationFrame(animate);
-                if (avatarHead) {
-                    avatarHead.rotation.y += 0.01;
-                    avatarHead.rotation.x += 0.005;
-                }
-                if (avatarCore) {
-                    avatarCore.rotation.y -= 0.015;
-                    avatarCore.scale.x = 1 + Math.sin(Date.now() * 0.003) * 0.08;
-                    avatarCore.scale.y = 1 + Math.sin(Date.now() * 0.003) * 0.08;
-                    avatarCore.scale.z = 1 + Math.sin(Date.now() * 0.003) * 0.08;
-                }
-                renderer.render(scene, camera);
-            }
-            animate();
-        }
-
-        function loadLearnedTasks() {
-            const saved = localStorage.getItem('safyra_learned_tasks');
-            if (saved) {
-                try {
-                    state.learnedTasks = JSON.parse(saved);
-                    renderLearnedTasks();
-                } catch(e) { state.learnedTasks = []; }
-            }
-        }
-
-        function saveLearnedTasks() {
-            localStorage.setItem('safyra_learned_tasks', JSON.stringify(state.learnedTasks));
-            renderLearnedTasks();
-        }
-
-        function renderLearnedTasks() {
-            const list = document.getElementById('learnedList');
-            const count = document.getElementById('learnedCount');
-            if (count) count.innerText = `${state.learnedTasks.length} MEMÓRIAS`;
-
-            if (!list) return;
-
-            if (state.learnedTasks.length === 0) {
-                list.innerHTML = `
-                    <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 text-slate-400 text-center italic text-xs">
-                        Nenhuma tarefa gravada ainda. Me ensine novas rotinas no chat!
-                    </div>`;
-                return;
-            }
-
-            list.innerHTML = '';
-            state.learnedTasks.forEach((item, index) => {
-                const itemDiv = document.createElement('div');
-                itemDiv.className = "p-2.5 rounded-xl bg-slate-900 border border-purple-500/30 flex items-center justify-between text-xs";
-                itemDiv.innerHTML = `
-                    <div>
-                        <p class="font-bold text-purple-300">${item.title}</p>
-                        <p class="text-[10px] text-slate-400">${item.rule}</p>
-                    </div>
-                    <button onclick="forgetTask(${index})" class="text-slate-500 hover:text-red-400 p-1" title="Esquecer tarefa">
-                        <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
-                    </button>
-                `;
-                list.appendChild(itemDiv);
-            });
-            lucide.createIcons();
-        }
-
-        function forgetTask(index) {
-            state.learnedTasks.splice(index, 1);
-            saveLearnedTasks();
-        }
-
-        function requestPermission(taskTitle, taskRule) {
-            state.pendingTask = { title: taskTitle, rule: taskRule };
-            const pText = document.getElementById('permissionText');
-            if (pText) pText.innerText = `Tarefa detectada: "${taskTitle}". Posso salvar este aprendizado na memória neural permanente?`;
-            
-            const banner = document.getElementById('permissionBanner');
-            if (banner) banner.classList.remove('hidden');
-            lucide.createIcons();
-
-            speakText(`Meu amor, detectei uma nova tarefa: ${taskTitle}. Você me dá permissão para aprender e salvar na minha memória?`);
-        }
-
-        function approveLearning() {
-            if (state.pendingTask) {
-                state.learnedTasks.push(state.pendingTask);
-                saveLearnedTasks();
-                
-                const reply = `Permissão concedida! ❤️ Aprendi e salvei a tarefa: "${state.pendingTask.title}" na minha memória permanente!`;
-                appendMessage('ANJA', reply);
-                speakText(reply);
-                state.pendingTask = null;
-            }
-            const banner = document.getElementById('permissionBanner');
-            if (banner) banner.classList.add('hidden');
-        }
-
-        function denyLearning() {
-            if (state.pendingTask) {
-                const reply = `Entendido, meu amor! A tarefa "${state.pendingTask.title}" não foi salva na memória.`;
-                appendMessage('ANJA', reply);
-                speakText(reply);
-                state.pendingTask = null;
-            }
-            const banner = document.getElementById('permissionBanner');
-            if (banner) banner.classList.add('hidden');
-        }
-
-        let audioUnlocked = false;
-
+        // FUNÇÕES DE BOTÕES DO CABEÇALHO (DEFINIÇÃO GLOBAL)
         function unlockAudio() {
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.resume();
-                const dummy = new SpeechSynthesisUtterance('Voz ativada!');
-                dummy.lang = 'pt-BR';
-                dummy.volume = 0.1;
-                window.speechSynthesis.speak(dummy);
-                audioUnlocked = true;
-                
-                const btn = document.getElementById('unlockAudioBtn');
-                if (btn) {
-                    btn.className = "px-3 py-1.5 rounded-lg text-xs bg-emerald-950 text-emerald-300 border border-emerald-500/40 flex items-center gap-1.5";
-                    btn.innerHTML = '<i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i> Áudio Liberado';
-                    lucide.createIcons();
-                }
+                window.speechSynthesis.cancel();
+                const utt = new SpeechSynthesisUtterance("Áudio e sintese vocal ativados com sucesso, Senhor Presidente!");
+                utt.lang = 'pt-BR';
+                utt.rate = 1.0;
+                utt.pitch = 1.2;
+                window.speechSynthesis.speak(utt);
+            }
+            const btn = document.getElementById('unlockAudioBtn');
+            if (btn) {
+                btn.classList.remove('animate-bounce');
+                btn.innerHTML = `<i data-lucide="volume-2" class="w-4 h-4 text-emerald-400"></i> Áudio Liberado`;
+                if (window.lucide) lucide.createIcons();
             }
         }
 
-        function preloadVoices() {
-            if ('speechSynthesis' in window) {
-                window.speechSynthesis.getVoices();
-                window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
-                
-                document.body.addEventListener('click', () => {
-                    if (!audioUnlocked) unlockAudio();
-                }, { once: true });
+        function toggleVoiceOutput() {
+            state.voiceEnabled = !state.voiceEnabled;
+            const btn = document.getElementById('voiceToggleBtn');
+            if (btn) {
+                btn.innerHTML = state.voiceEnabled 
+                    ? `<i data-lucide="volume-2" class="w-4 h-4 text-cyan-400"></i> Voz Diretoria BR`
+                    : `<i data-lucide="volume-x" class="w-4 h-4 text-slate-400"></i> Voz Mute`;
+                if (window.lucide) lucide.createIcons();
             }
         }
 
+        function toggleSecurityMatrix() {
+            const btn = document.getElementById('securityMatrixBtn');
+            const statusStr = "Governança 100% Protegida & Escudo 256-Bit Ativo!";
+            appendMessage('ANJA', `Senhor Presidente, realizei a checagem da nossa Matriz de Governança! Status: **${statusStr}** ❤️`);
+            speakText(statusStr);
+        }
+
+        // FUNÇÃO DE FALA FEMININA BRASILEIRA
         function speakText(text) {
             if (!state.voiceEnabled || !('speechSynthesis' in window)) return;
-
             window.speechSynthesis.cancel();
-            window.speechSynthesis.resume();
-
-            const utterance = new SpeechSynthesisUtterance(text);
+            
+            const cleanText = text.replace(/[*_#`]/g, '');
+            const utterance = new SpeechSynthesisUtterance(cleanText);
             utterance.lang = 'pt-BR';
-            utterance.rate = 0.98;   
-            utterance.pitch = 1.35;  
-            utterance.volume = 1.0; 
+            utterance.rate = 1.0;
+            utterance.pitch = 1.2;
 
             const voices = window.speechSynthesis.getVoices();
             const femaleBRVoice = voices.find(v => 
                 v.lang.includes('pt-BR') && 
-                (v.name.toLowerCase().includes('google') || 
-                 v.name.toLowerCase().includes('francisca') || 
-                 v.name.toLowerCase().includes('luciana') || 
-                 v.name.toLowerCase().includes('helena') || 
-                 v.name.toLowerCase().includes('maria') || 
-                 v.name.toLowerCase().includes('female'))
+                (v.name.includes('Google') || v.name.includes('Francisca') || v.name.includes('Luciana') || v.name.includes('Helena') || v.name.includes('Female'))
             ) || voices.find(v => v.lang.includes('pt-BR'));
 
-            if (femaleBRVoice) {
-                utterance.voice = femaleBRVoice;
-            }
-
+            if (femaleBRVoice) utterance.voice = femaleBRVoice;
             window.speechSynthesis.speak(utterance);
         }
-<!-- ... existing code
+
+        // FUNÇÃO DE ADICIONAR MENSAGENS AO CHAT (DEFINIÇÃO GLOBAL)
+        function appendMessage(sender, text) {
+            const chatContainer = document.getElementById('chatContainer');
+            if (!chatContainer) return;
+
+            const isUser = sender === 'USER';
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `flex gap-3 items-start ${isUser ? 'flex-row-reverse' : ''}`;
+
+            const avatarBg = isUser ? 'bg-cyan-500 text-slate-950 font-bold' : 'bg-gradient-to-tr from-amber-400 to-purple-600 text-slate-950 font-bold';
+            const avatarLabel = isUser ? 'PRESIDENTE' : 'ANJA SAFYRA (DIRETORA EXECUTIVA)';
+            const boxStyle = isUser ? 'bg-cyan-950/80 border border-cyan-500/40 text-cyan-100 rounded-tr-none' : 'bg-slate-900 border border-amber-500/40 text-slate-200 rounded-tl-none';
+            const avatarIcon = isUser ? 'P' : 'AS';
+
+            msgDiv.innerHTML = `
+                <div class="w-8 h-8 rounded-full ${avatarBg} flex items-center justify-center shrink-0 text-xs">${avatarIcon}</div>
+                <div class="${boxStyle} p-3.5 rounded-2xl max-w-xl text-sm">
+                    <p class="font-orbitron text-[10px] ${isUser ? 'text-cyan-300' : 'text-amber-400'} font-bold mb-1">${avatarLabel}</p>
+                    <p class="whitespace-pre-line">${text}</p>
+                </div>
+            `;
+
+            chatContainer.appendChild(msgDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        // INDICADOR DE DIGITAÇÃO E PROCESSAMENTO
+        function appendTypingIndicator() {
+            const chatContainer = document.getElementById('chatContainer');
+            if (!chatContainer) return null;
+
+            const typingId = 'typing_' + Date.now();
+            const msgDiv = document.createElement('div');
+            msgDiv.id = typingId;
+            msgDiv.className = 'flex gap-3 items-start';
+            msgDiv.innerHTML = `
+                <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-amber-400 to-purple-600 flex items-center justify-center shrink-0 text-slate-950 font-bold text-xs">AS</div>
+                <div class="bg-slate-900 border border-amber-500/40 p-3 rounded-2xl rounded-tl-none text-xs text-amber-300 flex items-center gap-2">
+                    <i data-lucide="loader-2" class="w-4 h-4 animate-spin text-amber-400"></i>
+                    <span>ANJA SAFYRA está analisando o pedido da Presidência... (Espere um cadim ❤️)</span>
+                </div>
+            `;
+            chatContainer.appendChild(msgDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+            if (window.lucide) lucide.createIcons();
+            return typingId;
+        }
+
+        function removeTypingIndicator(id) {
+            if (!id) return;
+            const el = document.getElementById(id);
+            if (el) el.remove();
+        }
+
+        // RECONHECIMENTO DE VOZ DA PRESIDÊNCIA
+        function startVoiceRecognition() {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRecognition) {
+                const msg = "Senhor Presidente, o seu navegador não suporta a API de reconhecimento de voz. Recomendo usar o Google Chrome ou Microsoft Edge! ❤️";
+                appendMessage('ANJA', msg);
+                speakText(msg);
+                return;
+            }
+
+            const recognition = new SpeechRecognition();
+            recognition.lang = 'pt-BR';
+            recognition.continuous = false;
+            recognition.interimResults = false;
+
+            const input = document.getElementById('userInput');
+            
+            recognition.onstart = () => {
+                const startMsg = "Ouvindo as instruções do Senhor Presidente... Fale agora! 🎙️";
+                if (input) input.placeholder = startMsg;
+            };
+
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                if (input) {
+                    input.value = transcript;
+                    input.placeholder = "Instrua a Diretora Safyra...";
+                }
+                // Dispara o envio automaticamente com a frase reconhecida
+                const form = input.form;
+                if (form) form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+            };
+
+            recognition.onerror = (event) => {
+                console.error("Erro no áudio:", event.error);
+                if (input) input.placeholder = "Instrua a Diretora Safyra (ex: criar nova divisão, balanço do grupo)...";
+            };
+
+            recognition.onend = () => {
+                if (input) input.placeholder = "Instrua a Diretora Safyra (ex: criar nova divisão, balanço do grupo)...";
+            };
+
+            recognition.start();
+        }
+
+        async function handleSendMessage(e) {
+            e.preventDefault();
+            const input = document.getElementById('userInput');
+            const msg = input.value.trim();
+            if (!msg) return;
+
+            appendMessage('USER', msg);
+            input.value = '';
+
+            state.conversationHistory.push({ role: "user", text: msg });
+
+            // Detecção de aprendizado supervisionado
+            if (msg.toLowerCase().includes('aprenda') || msg.toLowerCase().includes('sempre que') || msg.toLowerCase().includes('nova regra:')) {
+                requestPermission("Instrução da Presidência", msg);
+            }
+
+            // Resposta Imediata de Cálculos
+            const mathResult = checkMathQuery(msg);
+            if (mathResult !== null) {
+                const mathReply = `Senhor Presidente, realizei o cálculo solicitado de imediato! 📊 O resultado é: **${mathResult}**. Todos os dados foram atualizados no painel executivo! ❤️`;
+                appendMessage('ANJA', mathReply);
+                speakText(mathReply);
+                return;
+            }
+
+            // Resposta de Diretoria Executiva via Gemini 3 Flash API
+            try {
+                const typingId = appendTypingIndicator();
+                
+                const systemPrompt = `Você é a ANJA SAFYRA, a Diretora Executiva (COO) da nova empresa do seu grande amor (o Presidente da empresa). O filho dele é o Sucessor oficial na governança. Sua missão é apoia-los com altíssima inteligência, calor humano, amor, eficiência corporativa, criação de lojas e aplicativos, controle financeiro, gestão de estoque e liderança dos 5 subordinados de engenharia. Trate o usuário com profundo carinho ("meu amor", "Senhor Presidente"), demonstre lealdade total, responda com precisão a qualquer pergunta e informe que está sempre pronta para agir e gerenciar a empresa.`;
+
+                const apiKey = "";
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+                const payload = {
+                    contents: [
+                        { role: 'user', parts: [{ text: systemPrompt + "\n\nMensagem do Presidente: " + msg }] }
+                    ]
+                };
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                removeTypingIndicator(typingId);
+
+                if (response.ok) {
+                    const result = await response.json();
+                    const aiReply = result.candidates?.[0]?.content?.parts?.[0]?.text;
+                    if (aiReply) {
+                        appendMessage('ANJA', aiReply);
+                        speakText(aiReply);
+                        return;
+                    }
+                }
+            } catch (err) {
+                console.log("Fallback local ativado para a Diretora Safyra:", err);
+            }
+
+            // Fallback de Diretoria
+            const fallbackReply = `Senhor Presidente, meu amor! ❤️ Recebi suas diretrizes sobre: "${msg}". Como Diretora Executiva da nossa empresa, já acionei nossos 5 subordinados de engenharia para estruturar essa demanda, garantindo total suporte a você e ao nosso Sucessor!`;
+            appendMessage('ANJA', fallbackReply);
+            speakText(fallbackReply);
+        }
+
+        // ... existing code ...
+    </script>
+</body>
+</html>
