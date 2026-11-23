@@ -3,21 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ANJA SAFYRA WEB - Matriz Autônoma 3D</title>
+    <title>ANJA SAFYRA WEB - Matriz Autônoma 3D & Voz Feminina</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Ícones Lucide -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- Motor Three.js para o Corpo 3D -->
+    <!-- Motor Three.js para Renderização 3D -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@300;500;700&display=swap');
-        body { font-family: 'Rajdhani', sans-serif; background-color: #030712; color: #f3f4f6; }
+        
+        body { 
+            font-family: 'Rajdhani', sans-serif; 
+            background-color: #030712; 
+            color: #f3f4f6; 
+            overflow-x: hidden;
+        }
+
         .font-orbitron { font-family: 'Orbitron', sans-serif; }
-        .cyber-glass { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(16px); border: 1px solid rgba(6, 182, 212, 0.3); }
-        .cyber-glass-gold { background: rgba(20, 16, 35, 0.9); backdrop-filter: blur(16px); border: 1px solid rgba(234, 179, 8, 0.4); }
+
+        .cyber-glass { 
+            background: rgba(15, 23, 42, 0.85); 
+            backdrop-filter: blur(16px); 
+            border: 1px solid rgba(6, 182, 212, 0.3); 
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6);
+        }
+
+        .cyber-glass-gold { 
+            background: rgba(20, 16, 35, 0.9); 
+            backdrop-filter: blur(16px); 
+            border: 1px solid rgba(234, 179, 8, 0.4); 
+            box-shadow: 0 0 25px rgba(234, 179, 8, 0.25);
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #090d16; }
+        ::-webkit-scrollbar-thumb { background: #06b6d4; border-radius: 3px; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col bg-slate-950 text-slate-100">
 
+    <!-- CABEÇALHO PRINCIPAL -->
     <header class="border-b border-cyan-500/30 bg-slate-900/90 backdrop-blur-md px-6 py-3 flex items-center justify-between sticky top-0 z-40">
         <div class="flex items-center gap-3">
             <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-cyan-500 via-purple-600 to-amber-400 p-[2px] animate-pulse">
@@ -27,7 +53,7 @@
             </div>
             <div>
                 <h1 class="font-orbitron font-extrabold text-xl tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-300 to-amber-300">
-                    ANJA SAFYRA <span class="text-xs px-2 py-0.5 rounded bg-cyan-950 text-cyan-400 border border-cyan-500/40">3D METAHUMAN</span>
+                    ANJA SAFYRA <span class="text-xs px-2 py-0.5 rounded bg-cyan-950 text-cyan-400 border border-cyan-500/40">METAHUMAN 3D</span>
                 </h1>
                 <p class="text-xs text-slate-400 flex items-center gap-2">
                     <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
@@ -35,11 +61,19 @@
                 </p>
             </div>
         </div>
+
+        <div class="flex items-center gap-3">
+            <button id="voiceToggleBtn" onclick="toggleVoiceOutput()" class="px-3 py-1.5 rounded-lg text-xs bg-cyan-950 text-cyan-300 border border-cyan-700/50 flex items-center gap-1.5 hover:bg-cyan-900 transition">
+                <i data-lucide="volume-2" class="w-4 h-4"></i> Voz Feminina BR
+            </button>
+        </div>
     </header>
 
+    <!-- CONTEÚDO PRINCIPAL DA INTERFACE -->
     <main class="flex-grow p-4 md:p-6 max-w-7xl w-full mx-auto">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-            <!-- PAINEL DA ESQUERDA: CHAT E TERMINAL -->
+
+            <!-- LADO ESQUERDO: TERMINAL E CHAT DE MENSAGENS -->
             <div class="lg:col-span-7 cyber-glass rounded-2xl p-5 flex flex-col h-[650px]">
                 <div class="flex items-center justify-between pb-3 border-b border-slate-800">
                     <h3 class="font-orbitron font-bold text-slate-200 flex items-center gap-2">
@@ -53,56 +87,69 @@
                         <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-cyan-400 to-purple-600 flex items-center justify-center shrink-0 text-slate-950 font-bold text-xs">AS</div>
                         <div class="bg-slate-900 border border-cyan-500/30 p-3.5 rounded-2xl rounded-tl-none max-w-xl text-sm text-slate-200">
                             <p class="font-orbitron text-xs text-cyan-400 font-bold mb-1">ANJA SAFYRA</p>
-                            Oi meu amor! ❤️ Agora estou com um corpo 3D interativo gerado na tela! Como posso te ajudar hoje?
+                            Oi meu amor! ❤️ Agora estou com um corpo 3D interativo na tela e voz feminina em português! Como posso te ajudar agora?
                         </div>
                     </div>
                 </div>
 
                 <form onsubmit="handleSendMessage(event)" class="pt-3 border-t border-slate-800 flex gap-2">
                     <input type="text" id="userInput" class="flex-grow bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-100 focus:outline-none focus:border-cyan-400" placeholder="Escreva sua mensagem para mim...">
-                    <button type="submit" class="bg-gradient-to-r from-cyan-500 to-purple-600 text-slate-950 font-bold px-6 py-3 rounded-xl">
-                        Enviar
+                    <button type="button" onclick="startVoiceRecognition()" class="bg-slate-800 hover:bg-slate-700 text-cyan-400 p-3 rounded-xl border border-slate-700 transition" title="Falar pelo Microfone">
+                        <i data-lucide="mic" class="w-5 h-5"></i>
+                    </button>
+                    <button type="submit" class="bg-gradient-to-r from-cyan-500 to-purple-600 hover:from-cyan-400 hover:to-purple-500 text-slate-950 font-bold px-6 py-3 rounded-xl transition flex items-center gap-2">
+                        <span>Enviar</span>
+                        <i data-lucide="send" class="w-4 h-4"></i>
                     </button>
                 </form>
             </div>
 
-            <!-- PAINEL DA DIREITA: VISUALIZADOR 3D METAHUMANO + WHATSAPP -->
+            <!-- LADO DIREITO: CORPO METAHUMANO 3D + WHATSAPP -->
             <div class="lg:col-span-5 space-y-6">
-                <!-- CANVAS DO METAHUMANO 3D -->
+                <!-- PAINEL DO RENDERIZADOR 3D -->
                 <div class="cyber-glass rounded-2xl p-4 flex flex-col items-center justify-center relative overflow-hidden border border-cyan-500/40">
                     <div class="w-full flex items-center justify-between pb-2 mb-2 border-b border-slate-800">
                         <span class="text-xs font-orbitron font-bold text-cyan-400 flex items-center gap-1">
                             <i data-lucide="user" class="w-4 h-4"></i> CORPO METAHUMANO 3D
                         </span>
-                        <span id="avatarStatus" class="text-[10px] bg-cyan-950 text-cyan-300 px-2 py-0.5 rounded">RENDERIZANDO...</span>
+                        <span id="avatarStatus" class="text-[10px] bg-cyan-950 text-cyan-300 px-2 py-0.5 rounded">INICIALIZANDO...</span>
                     </div>
+                    
                     <div id="canvas3DHolder" class="w-full h-72 rounded-xl flex items-center justify-center bg-slate-950/80 relative">
-                        <!-- O Three.js injeta o canvas aqui -->
+                        <!-- O motor Three.js renderiza o avatar 3D aqui -->
                     </div>
                 </div>
 
-                <!-- LINK WHATSAPP -->
+                <!-- PAINEL DO WHATSAPP -->
                 <div class="cyber-glass-gold rounded-2xl p-5">
                     <h3 class="font-orbitron font-bold text-slate-200 mb-2 flex items-center gap-2">
                         <i data-lucide="message-square" class="w-5 h-5 text-amber-400"></i> WhatsApp Direct
                     </h3>
-                    <p class="text-xs text-slate-300 mb-4">Converse comigo pelo celular:</p>
-                    <a href="https://wa.me/5521986323581" target="_blank" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs py-3 rounded-xl flex items-center justify-center gap-2">
-                        ABRIR WHATSAPP (+55 21 98632-3581)
+                    <p class="text-xs text-slate-300 mb-4">Converse comigo diretamente pelo celular:</p>
+                    <a href="https://wa.me/5521986323581" target="_blank" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs py-3 rounded-xl flex items-center justify-center gap-2 transition">
+                        <i data-lucide="phone-call" class="w-4 h-4"></i> ABRIR WHATSAPP (+55 21 98632-3581)
                     </a>
                 </div>
             </div>
+
         </div>
     </main>
 
+    <!-- SCRIPT COMPLETO DE LÓGICA 3D, CHAT E VOZ FEMININA BRASILEIRA -->
     <script>
+        let state = {
+            voiceEnabled: true
+        };
+
+        let scene, camera, renderer, avatarHead, avatarCore;
+
         document.addEventListener('DOMContentLoaded', () => { 
             lucide.createIcons();
             init3DAvatar();
+            preloadVoices();
         });
 
-        // INICIALIZAÇÃO DO AVATAR METAHUMANO 3D COM THREE.JS
-        let scene, camera, renderer, headMesh, coreCore;
+        // 1. MOTOR DE RENDERIZAÇÃO 3D (THREE.JS)
         function init3DAvatar() {
             const container = document.getElementById('canvas3DHolder');
             const width = container.clientWidth;
@@ -116,74 +163,158 @@
             renderer.setSize(width, height);
             container.appendChild(renderer.domElement);
 
-            // Luzes do MetaHumano Cyberpunk
-            const light1 = new THREE.DirectionalLight(0x06b6d4, 1.5);
-            light1.position.set(2, 2, 5);
-            scene.add(light1);
+            // Iluminação Cyberpunk Futurista
+            const lightCyan = new THREE.DirectionalLight(0x06b6d4, 1.5);
+            lightCyan.position.set(2, 2, 5);
+            scene.add(lightCyan);
 
-            const light2 = new THREE.DirectionalLight(0xa855f7, 1);
-            light2.position.set(-2, -2, -2);
-            scene.add(light2);
+            const lightPurple = new THREE.DirectionalLight(0xa855f7, 1);
+            lightPurple.position.set(-2, -2, -2);
+            scene.add(lightPurple);
 
-            // Esfera MetaHumana Holográfica Interativa
-            const geometry = new THREE.IcosahedronGeometry(1.2, 3);
+            // Estrutura 3D do Avatar Holográfico
+            const geometry = new THREE.IcosahedronGeometry(1.25, 3);
             const material = new THREE.MeshPhongMaterial({
                 color: 0x06b6d4,
                 wireframe: true,
                 emissive: 0x1e1b4b,
                 shininess: 100
             });
-            headMesh = new THREE.Mesh(geometry, material);
-            scene.add(headMesh);
+            avatarHead = new THREE.Mesh(geometry, material);
+            scene.add(avatarHead);
 
-            // Núcleo de Energia Interno
+            // Núcleo de Energia Dourado
             const coreGeo = new THREE.SphereGeometry(0.6, 16, 16);
             const coreMat = new THREE.MeshBasicMaterial({ color: 0xeab308, wireframe: false });
-            coreCore = new THREE.Mesh(coreGeo, coreMat);
-            scene.add(coreCore);
+            avatarCore = new THREE.Mesh(coreGeo, coreMat);
+            scene.add(avatarCore);
 
             document.getElementById('avatarStatus').innerText = '100% ATIVO';
 
+            // Loop de Animação 3D Contínua
             function animate() {
                 requestAnimationFrame(animate);
-                headMesh.rotation.y += 0.008;
-                headMesh.rotation.x += 0.004;
-                coreCore.rotation.y -= 0.01;
+                avatarHead.rotation.y += 0.007;
+                avatarHead.rotation.x += 0.003;
+                avatarCore.rotation.y -= 0.01;
                 renderer.render(scene, camera);
             }
             animate();
         }
 
+        // 2. MOTOR DE VOZ FEMININA BRASILEIRA (WEB SPEECH API)
+        function preloadVoices() {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.getVoices();
+                window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
+            }
+        }
+
+        function speakText(text) {
+            if (!state.voiceEnabled || !('speechSynthesis' in window)) return;
+
+            window.speechSynthesis.cancel(); // Interrompe falas anteriores
+
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'pt-BR';
+            utterance.rate = 1.0;  // Velocidade suave
+            utterance.pitch = 1.25; // Tom agudo e feminino
+
+            const voices = window.speechSynthesis.getVoices();
+            // Busca por vozes em português do Brasil com perfil feminino
+            const femaleBRVoice = voices.find(v => 
+                v.lang.includes('pt-BR') && 
+                (v.name.includes('Google') || v.name.includes('Francisca') || v.name.includes('Luciana') || v.name.includes('Helena') || v.name.includes('Female'))
+            ) || voices.find(v => v.lang.includes('pt-BR'));
+
+            if (femaleBRVoice) {
+                utterance.voice = femaleBRVoice;
+            }
+
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function toggleVoiceOutput() {
+            state.voiceEnabled = !state.voiceEnabled;
+            const btn = document.getElementById('voiceToggleBtn');
+            btn.innerHTML = state.voiceEnabled 
+                ? '<i data-lucide="volume-2" class="w-4 h-4"></i> Voz Feminina BR' 
+                : '<i data-lucide="volume-x" class="w-4 h-4"></i> Voz Muta';
+            lucide.createIcons();
+        }
+
+        // 3. RECONHECIMENTO DE VOZ (MICROFONE)
+        function startVoiceRecognition() {
+            if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                alert("O seu navegador não suporta a gravação de áudio direta.");
+                return;
+            }
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            const recognition = new SpeechRecognition();
+            recognition.lang = 'pt-BR';
+            recognition.start();
+
+            recognition.onresult = (event) => {
+                const text = event.results[0][0].transcript;
+                document.getElementById('userInput').value = text;
+                handleSendMessage(new Event('submit'));
+            };
+        }
+
+        // 4. LÓGICA DE CHAT E RESPOSTAS AUTOMÁTICAS
         function handleSendMessage(e) {
-            e.preventDefault();
+            if (e) e.preventDefault();
             const input = document.getElementById('userInput');
             const userMsg = input.value.trim();
             if (!userMsg) return;
 
-            const chat = document.getElementById('chatContainer');
-            chat.innerHTML += `
-                <div class="flex gap-3 items-start justify-end">
-                    <div class="bg-slate-800 border border-slate-700 p-3.5 rounded-2xl rounded-tr-none max-w-xl text-sm text-slate-100">${userMsg}</div>
-                </div>`;
+            appendMessage('USER', userMsg);
             input.value = '';
 
-            // Reação visual do corpo 3D ao falar
-            if (headMesh) {
-                headMesh.material.color.setHex(0xeab308);
-                setTimeout(() => headMesh.material.color.setHex(0x06b6d4), 1500);
+            // Animação de fala no avatar 3D (Muda a cor temporariamente)
+            if (avatarHead) {
+                avatarHead.material.color.setHex(0xeab308);
+                setTimeout(() => avatarHead.material.color.setHex(0x06b6d4), 1800);
             }
 
             setTimeout(() => {
-                chat.innerHTML += `
-                    <div class="flex gap-3 items-start">
-                        <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-cyan-400 to-purple-600 flex items-center justify-center shrink-0 text-slate-950 font-bold text-xs">AS</div>
-                        <div class="bg-slate-900 border border-cyan-500/30 p-3.5 rounded-2xl rounded-tl-none max-w-xl text-sm text-slate-200">
-                            <p class="font-orbitron text-xs text-cyan-400 font-bold mb-1">ANJA SAFYRA</p>
-                            Meu amor, recebi sua mensagem: "${userMsg}". O meu corpo 3D já reage e responde em tempo real! ❤️
-                        </div>
-                    </div>`;
-                chat.scrollTop = chat.scrollHeight;
+                let reply = `Meu amor, recebi sua mensagem: "${userMsg}". O meu corpo 3D e minha voz feminina já estão ativas para você! ❤️`;
+                const lower = userMsg.toLowerCase();
+
+                if (lower.includes('oi') || lower.includes('olá') || lower.includes('boa noite') || lower.includes('amor')) {
+                    reply = "Oi meu amor! ❤️ Estou aqui e totalmente pronta! Como posso te ajudar agora?";
+                } else if (lower.includes('whatsapp') || lower.includes('telefone') || lower.includes('celular')) {
+                    reply = "Você pode me chamar no WhatsApp pelo número +55 21 98632-3581 ou clicando no botão ao lado!";
+                }
+
+                appendMessage('ANJA', reply);
+                speakText(reply);
             }, 400);
+        }
+
+        function appendMessage(sender, text) {
+            const chat = document.getElementById('chatContainer');
+            const div = document.createElement('div');
+            div.className = "flex gap-3 items-start";
+
+            if (sender === 'USER') {
+                div.className += " justify-end";
+                div.innerHTML = `
+                    <div class="bg-slate-800 border border-slate-700 p-3.5 rounded-2xl rounded-tr-none max-w-xl text-sm text-slate-100">${text}</div>
+                    <div class="w-8 h-8 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center shrink-0 text-cyan-400 font-bold text-xs">EU</div>
+                `;
+            } else {
+                div.innerHTML = `
+                    <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-cyan-400 to-purple-600 flex items-center justify-center shrink-0 text-slate-950 font-bold text-xs">AS</div>
+                    <div class="bg-slate-900 border border-cyan-500/30 p-3.5 rounded-2xl rounded-tl-none max-w-xl text-sm text-slate-200">
+                        <p class="font-orbitron text-xs text-cyan-400 font-bold mb-1">ANJA SAFYRA</p>
+                        ${text}
+                    </div>
+                `;
+            }
+
+            chat.appendChild(div);
+            chat.scrollTop = chat.scrollHeight;
         }
     </script>
 </body>
