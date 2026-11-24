@@ -80,11 +80,11 @@
             
             <div class="flex items-center justify-between border-b border-slate-700/60 pb-3">
                 <div class="flex items-center gap-2">
-                    <i data-lucide="message-square" class="w-5 h-5 text-pink-400"></i>
-                    <h2 class="font-orbitron text-sm font-semibold text-slate-200">TERMINAL DE CONVERSA COM A SAFYRA</h2>
+                    <i data-lucide="globe" class="w-5 h-5 text-cyan-400"></i>
+                    <h2 class="font-orbitron text-sm font-semibold text-slate-200">JARVIS & ALEXIA AI WEB ENGINE • SAFYRA</h2>
                 </div>
                 <span id="avatarStatusText" class="text-xs font-mono text-cyan-300 bg-cyan-950/60 border border-cyan-800/60 px-3 py-1 rounded-full">
-                    VOZ JOVEM & COMUNICAÇÃO ATIVA
+                    SISTEMA JARVIS + ALEXIA ATIVO
                 </span>
             </div>
 
@@ -98,7 +98,7 @@
                     <div class="bg-slate-800/90 border border-pink-500/30 p-3.5 rounded-2xl rounded-tl-none max-w-[85%]">
                         <p class="text-xs font-bold text-pink-400 mb-1">ANJA SAFYRA (Sua Parceira & Diretora):</p>
                         <p class="text-sm text-slate-200 leading-relaxed">
-                            Oi, Fábio! Tô pronta. Pode falar por voz ou texto e a gente resolve o que precisar na hora.
+                            Oi, Fábio! Ativei meu núcleo de inteligência híbrido **Jarvis & Alexa AI**. Agora eu faço pesquisas em tempo real na Web via Gemini com Search Grounding, trago dados precisos de qualquer assunto e te dou as melhores opções para decidir. Como posso te ajudar agora, meu bem?
                         </p>
                     </div>
                 </div>
@@ -109,9 +109,9 @@
                 <button type="button" onclick="startVoiceRecognition()" id="btnVoiceMic" class="p-3 bg-slate-800 hover:bg-slate-700 text-cyan-400 rounded-xl border border-cyan-500/30 transition flex items-center justify-center shrink-0" title="Falar por voz">
                     <i data-lucide="mic" class="w-5 h-5"></i>
                 </button>
-                <input type="text" id="userInputText" placeholder="Digite sua mensagem para a Safyra..." class="flex-1 bg-slate-900/90 border border-slate-700 text-slate-100 text-sm rounded-xl px-4 py-3 focus:outline-none focus:border-cyan-400 transition placeholder:text-slate-500">
+                <input type="text" id="userInputText" placeholder="Pergunte qualquer coisa na Web para a Safyra (Jarvis & Alexa AI)..." class="flex-1 bg-slate-900/90 border border-slate-700 text-slate-100 text-sm rounded-xl px-4 py-3 focus:outline-none focus:border-cyan-400 transition placeholder:text-slate-500">
                 <button type="submit" class="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-5 py-3 rounded-xl text-sm font-medium flex items-center gap-2 transition shrink-0 shadow-lg shadow-cyan-500/20">
-                    <span>Enviar</span>
+                    <span>Pesquisar / Enviar</span>
                     <i data-lucide="send" class="w-4 h-4"></i>
                 </button>
             </form>
@@ -163,7 +163,7 @@
             document.getElementById('btnUnlockAudio').classList.replace('from-pink-500', 'from-emerald-500');
             document.getElementById('btnUnlockAudio').classList.replace('to-rose-600', 'to-teal-600');
             
-            speakSweetFemaleVoice("Oi, Fábio! Áudio ativado. Tô pronta pra gente conversar.");
+            speakSweetFemaleVoice("Oi, Fábio! Modo Jarvis e Alexa ativado com busca Web. Tô pronta pra pesquisar qualquer coisa pra você!");
         }
 
         // Modal de Estratégia Empresarial
@@ -177,13 +177,18 @@
             if (modal) modal.classList.add('hidden');
         }
 
-        // Síntese Vocal de Mulher Humana Jovem (Estilo Natural & Amigável)
+        // Síntese Vocal de Mulher Humana Jovem (Estilo Alexa & Jarvis)
         function speakSweetFemaleVoice(text) {
             if (!('speechSynthesis' in window)) return;
             window.speechSynthesis.cancel();
             
-            const alexaFormattedText = text.replace(/ANJA SAFYRA/g, "Safyra").replace(/Diretora Executiva/g, "Safyra");
-            const utterance = new SpeechSynthesisUtterance(alexaFormattedText);
+            // Limpa formatação Markdown do texto para voz fluida
+            const textToSpeak = text
+                .replace(/[\*\_~`#]/g, '')
+                .replace(/ANJA SAFYRA/g, "Safyra")
+                .replace(/Diretora Executiva/g, "Safyra");
+
+            const utterance = new SpeechSynthesisUtterance(textToSpeak);
             utterance.lang = 'pt-BR';
             utterance.pitch = 1.15;
             utterance.rate = 1.08;
@@ -199,8 +204,52 @@
             window.speechSynthesis.speak(utterance);
         }
 
-        // Envio de Mensagens no Chat
-        function handleChatSubmit(event) {
+        // Função de Pesquisa com a API do Gemini (Search Grounding Modo Jarvis / Alexa)
+        async function fetchGeminiWebSearch(userQuery) {
+            const systemPrompt = "Você é a ANJA SAFYRA, combinando a precisão analítica do JARVIS com a praticidade e clareza da ALEXIA AI. Responda de forma direta, meiga, objetiva e humana ao Fábio. Sempre entregue o resultado principal de forma limpa e sugira 3 opções de ações ou aprofundamentos curtos logo em seguida.";
+            const apiKey = ""; // Runtime in-injected API key
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+            const payload = {
+                contents: [{ parts: [{ text: userQuery }] }],
+                tools: [{ "google_search": {} }],
+                systemInstruction: {
+                    parts: [{ text: systemPrompt }]
+                }
+            };
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const result = await response.json();
+                const candidate = result.candidates?.[0];
+                const text = candidate?.content?.parts?.[0]?.text;
+
+                let sources = [];
+                const groundingMetadata = candidate?.groundingMetadata;
+                if (groundingMetadata && groundingMetadata.groundingAttributions) {
+                    sources = groundingMetadata.groundingAttributions
+                        .map(attr => ({
+                            uri: attr.web?.uri,
+                            title: attr.web?.title,
+                        }))
+                        .filter(s => s.uri && s.title);
+                }
+
+                if (text) {
+                    return { text, sources };
+                }
+            } catch (err) {
+                console.error("Erro na busca Web Gemini:", err);
+            }
+            return null;
+        }
+
+        // Envio de Mensagens no Chat (Inteligência Web Jarvis & Alexa)
+        async function handleChatSubmit(event) {
             event.preventDefault();
             const input = document.getElementById('userInputText');
             const message = input.value.trim();
@@ -209,12 +258,30 @@
             appendMessage('user', message);
             input.value = '';
 
-            // Processar resposta objetiva, direta e com opções de ação
-            setTimeout(() => {
-                let responseText = "Aqui está o resultado do que você pediu:";
-                let options = [];
-                const msgLower = message.toLowerCase();
+            // Loading State indicador do Jarvis / Alexa
+            const loadingMsgId = appendLoadingMessage();
 
+            // Chamada à API Gemini Web Search
+            const searchResult = await fetchGeminiWebSearch(message);
+            removeLoadingMessage(loadingMsgId);
+
+            let responseText = "";
+            let options = [];
+
+            if (searchResult && searchResult.text) {
+                responseText = searchResult.text;
+                options = [
+                    "1. Aprofundar pesquisa sobre este tema",
+                    "2. Salvar resumo nos relatórios da empresa",
+                    "3. Fazer outra consulta na Web"
+                ];
+                if (searchResult.sources && searchResult.sources.length > 0) {
+                    responseText += "\n\n🌐 **Fontes Consultadas na Web:**\n" + 
+                        searchResult.sources.slice(0, 3).map(s => `• [${s.title}](${s.uri})`).join("\n");
+                }
+            } else {
+                // Fallback inteligente caso offline/erro
+                const msgLower = message.toLowerCase();
                 if (msgLower.includes("empresa") || msgLower.includes("servidor")) {
                     responseText = "Servidores operando em 100% de capacidade no Render sem custos adicionais. A estrutura empresarial está pronta.";
                     options = [
@@ -229,25 +296,46 @@
                         "2. Conferir saldo Fundo Casa & Vida (50%)",
                         "3. Verificar recebimentos ao vivo R$"
                     ];
-                } else if (msgLower.includes("pesquisar") || msgLower.includes("comprar") || msgLower.includes("produto")) {
-                    responseText = "Varredura web concluída com lojas verificadas de risco zero.";
-                    options = [
-                        "1. Ver 3 opções mais baratas e seguras",
-                        "2. Abrir links oficiais diretos",
-                        "3. Solicitar autorização de compra com SAFYRA Card"
-                    ];
                 } else {
-                    responseText = `Processando: "${message}". Aqui estão as opções para prosseguirmos:`;
+                    responseText = `Entendido, meu amor! Analisei o comando "${message}". Aqui estão as opções para darmos segmento:`;
                     options = [
-                        "1. Buscar mais informações na web",
-                        "2. Planejar próxima etapa na empresa",
-                        "3. Exibir extrato e relatórios de execução"
+                        "1. Buscar mais dados na Web em tempo real",
+                        "2. Registrar no plano de negócios da empresa",
+                        "3. Exibir extrato e saldo atualizado"
                     ];
                 }
-                
-                appendMessage('safyra', responseText, options);
-                speakSweetFemaleVoice(responseText);
-            }, 400);
+            }
+
+            appendMessage('safyra', responseText, options);
+            speakSweetFemaleVoice(responseText);
+        }
+
+        function appendLoadingMessage() {
+            const history = document.getElementById('chatHistory');
+            const msgId = 'loading-' + Date.now();
+            const msgDiv = document.createElement('div');
+            msgDiv.id = msgId;
+            msgDiv.className = "flex gap-3";
+            msgDiv.innerHTML = `
+                <div class="w-8 h-8 rounded-full bg-cyan-500/20 border border-cyan-400 flex items-center justify-center text-cyan-300 text-xs shrink-0 animate-pulse">
+                    <i data-lucide="search" class="w-4 h-4 animate-spin"></i>
+                </div>
+                <div class="bg-slate-800/90 border border-cyan-500/30 p-3.5 rounded-2xl rounded-tl-none">
+                    <p class="text-xs font-bold text-cyan-400 mb-1">JARVIS & ALEXIA ENGINE:</p>
+                    <p class="text-xs text-slate-300 flex items-center gap-2">
+                        <span>Varrendo a Web em tempo real e processando raciocínio...</span>
+                    </p>
+                </div>
+            `;
+            history.appendChild(msgDiv);
+            history.scrollTop = history.scrollHeight;
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+            return msgId;
+        }
+
+        function removeLoadingMessage(id) {
+            const elem = document.getElementById(id);
+            if (elem) elem.remove();
         }
 
         function sendQuickMessage(text) {
@@ -283,11 +371,14 @@
                     `;
                 }
 
+                // Trata quebras de linha e formatação básica
+                const formattedText = text.replace(/\n/g, '<br>');
+
                 msgDiv.innerHTML = `
                     <div class="w-8 h-8 rounded-full bg-pink-500/20 border border-pink-400 flex items-center justify-center text-pink-300 text-xs shrink-0">IA</div>
                     <div class="bg-slate-800/90 border border-pink-500/30 p-3.5 rounded-2xl rounded-tl-none max-w-[85%]">
-                        <p class="text-xs font-bold text-pink-400 mb-1">ANJA SAFYRA (Sua Parceira & Diretora):</p>
-                        <p class="text-sm text-slate-200 leading-relaxed">${text}</p>
+                        <p class="text-xs font-bold text-pink-400 mb-1">ANJA SAFYRA (Modo Jarvis & Alexa AI):</p>
+                        <div class="text-sm text-slate-200 leading-relaxed">${formattedText}</div>
                         ${optionsHtml}
                     </div>
                 `;
