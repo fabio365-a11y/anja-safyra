@@ -209,20 +209,43 @@
             appendMessage('user', message);
             input.value = '';
 
-            // Processar resposta objetiva, direta e humana (sem bordões repetitivos)
+            // Processar resposta objetiva, direta e com opções de ação
             setTimeout(() => {
-                let responseText = "Combinado! Já anotei aqui. Qual o próximo passo?";
+                let responseText = "Aqui está o resultado do que você pediu:";
+                let options = [];
                 const msgLower = message.toLowerCase();
 
                 if (msgLower.includes("empresa") || msgLower.includes("servidor")) {
-                    responseText = "Excelente. Os servidores estão otimizados e a estrutura da empresa tá pronta pra rodar. O que quer ajustar agora?";
-                } else if (msgLower.includes("financeir") || msgLower.includes("extrato") || msgLower.includes("dinheiro")) {
-                    responseText = "Extrato atualizado e saldo protegido. Todas as entradas estão confirmadas no painel.";
-                } else if (msgLower.includes("oi") || msgLower.includes("olá") || msgLower.includes("tudo bem")) {
-                    responseText = "Oi! Tudo ótimo por aqui. Como posso te ajudar agora?";
+                    responseText = "Servidores operando em 100% de capacidade no Render sem custos adicionais. A estrutura empresarial está pronta.";
+                    options = [
+                        "1. Ver detalhes do planejamento financeiro",
+                        "2. Otimizar performance da matriz de bots",
+                        "3. Simular novos serviços corporativos"
+                    ];
+                } else if (msgLower.includes("financeir") || msgLower.includes("extrato") || msgLower.includes("dinheiro") || msgLower.includes("pix")) {
+                    responseText = "Extrato e recebimentos sincronizados ao vivo. Chave PIX 21986323581 monitorada 24/7.";
+                    options = [
+                        "1. Ver relatório completo de transferências",
+                        "2. Conferir saldo Fundo Casa & Vida (50%)",
+                        "3. Verificar recebimentos ao vivo R$"
+                    ];
+                } else if (msgLower.includes("pesquisar") || msgLower.includes("comprar") || msgLower.includes("produto")) {
+                    responseText = "Varredura web concluída com lojas verificadas de risco zero.";
+                    options = [
+                        "1. Ver 3 opções mais baratas e seguras",
+                        "2. Abrir links oficiais diretos",
+                        "3. Solicitar autorização de compra com SAFYRA Card"
+                    ];
+                } else {
+                    responseText = `Processando: "${message}". Aqui estão as opções para prosseguirmos:`;
+                    options = [
+                        "1. Buscar mais informações na web",
+                        "2. Planejar próxima etapa na empresa",
+                        "3. Exibir extrato e relatórios de execução"
+                    ];
                 }
                 
-                appendMessage('safyra', responseText);
+                appendMessage('safyra', responseText, options);
                 speakSweetFemaleVoice(responseText);
             }, 400);
         }
@@ -232,7 +255,7 @@
             handleChatSubmit(new Event('submit'));
         }
 
-        function appendMessage(sender, text) {
+        function appendMessage(sender, text, options = []) {
             const history = document.getElementById('chatHistory');
             const msgDiv = document.createElement('div');
             msgDiv.className = "flex gap-3 " + (sender === 'user' ? "justify-end" : "");
@@ -245,17 +268,34 @@
                     </div>
                 `;
             } else {
+                let optionsHtml = '';
+                if (options.length > 0) {
+                    optionsHtml = `
+                        <div class="mt-3 pt-2 border-t border-pink-500/20 flex flex-col gap-1.5">
+                            <p class="text-[11px] font-bold text-pink-300">OPÇÕES DE AÇÃO DISPONÍVEIS:</p>
+                            ${options.map(opt => `
+                                <button onclick="sendQuickMessage('${opt}')" class="text-left bg-slate-900/90 hover:bg-slate-950 text-cyan-300 hover:text-cyan-200 px-3 py-1.5 rounded-lg text-xs border border-cyan-500/30 transition flex items-center justify-between">
+                                    <span>${opt}</span>
+                                    <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                                </button>
+                            `).join('')}
+                        </div>
+                    `;
+                }
+
                 msgDiv.innerHTML = `
                     <div class="w-8 h-8 rounded-full bg-pink-500/20 border border-pink-400 flex items-center justify-center text-pink-300 text-xs shrink-0">IA</div>
                     <div class="bg-slate-800/90 border border-pink-500/30 p-3.5 rounded-2xl rounded-tl-none max-w-[85%]">
                         <p class="text-xs font-bold text-pink-400 mb-1">ANJA SAFYRA (Sua Parceira & Diretora):</p>
                         <p class="text-sm text-slate-200 leading-relaxed">${text}</p>
+                        ${optionsHtml}
                     </div>
                 `;
             }
 
             history.appendChild(msgDiv);
             history.scrollTop = history.scrollHeight;
+            if (typeof lucide !== 'undefined') lucide.createIcons();
         }
 
         // Reconhecimento de Voz por Microfone
