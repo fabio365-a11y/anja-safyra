@@ -1,3 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANJA SAFYRA • Diretoria Global Mundial & Smart Assistant</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Orbitron & Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #030712; color: #f3f4f6; }
+        .font-orbitron { font-family: 'Orbitron', sans-serif; }
+        .glass-panel { background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+        /* Scrollbar Personalizado */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #030712; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 9999px; }
+        ::-webkit-scrollbar-thumb:hover { background: #334155; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col bg-slate-950 text-slate-100">
+
+    <!-- CABEÇALHO PRINCIPAL -->
+    <header class="glass-panel border-b border-cyan-500/20 sticky top-0 z-40 px-4 py-3">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-purple-600 flex items-center justify-center shadow-lg shadow-cyan-500/20">
+                    <i data-lucide="cpu" class="w-6 h-6 text-slate-950"></i>
+                </div>
+                <div>
+                    <h1 class="text-base font-bold font-orbitron tracking-wider bg-gradient-to-r from-cyan-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">ANJA SAFYRA</h1>
+                    <p class="text-[10px] text-slate-400 uppercase tracking-widest font-bold">Diretora Executiva (COO) • Cérebro Neural Humano Jovem</p>
+                </div>
+            </div>
+
 <!-- ... existing code ... -->
             <!-- BOTÕES DE STATUS SUPERIORES -->
             <div class="flex flex-wrap items-center gap-2 text-xs">
@@ -21,420 +59,4 @@
 
     <!-- CONTEÚDO PRINCIPAL (DASHBOARD & CHAT) -->
     <main class="max-w-7xl w-full mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-4 gap-6 flex-1">
-
-        <!-- PAINEL LATERAL ESQUERDO (DASHBOARD DE OPERAÇÕES & FACIAL) -->
-        <aside class="space-y-4 lg:col-span-1">
-            <!-- MÓDULO DE RECONHECIMENTO FACIAL VIA WEBCAM -->
-            <div class="glass-panel rounded-2xl p-4 border border-purple-500/30 space-y-3">
-                <div class="flex items-center justify-between">
-                    <h2 class="text-xs font-bold font-orbitron text-purple-300 uppercase tracking-wider flex items-center gap-2">
-                        <i data-lucide="camera" class="w-4 h-4 text-purple-400"></i> VISÃO FACIAL SAFYRA
-                    </h2>
-                    <span id="badgeFaceMatch" class="text-[10px] bg-purple-500/20 text-purple-300 px-2 py-0.5 rounded-full font-bold">AGUARDANDO CAMERA</span>
-                </div>
-
-                <div class="relative w-full h-36 bg-slate-950 rounded-xl overflow-hidden border border-purple-500/20 flex items-center justify-center">
-                    <video id="webcamVideo" autoplay playsinline muted class="w-full h-full object-cover hidden"></video>
-                    <div id="facialScannerOverlay" class="absolute inset-0 flex flex-col items-center justify-center text-slate-500 text-[11px] p-2 text-center space-y-1">
-                        <i data-lucide="scan" class="w-8 h-8 text-purple-400/60 animate-pulse"></i>
-                        <span>Clique em "Ativar Câmera" para realizar a autenticação facial do Presidente</span>
-                    </div>
-                </div>
-
-                <button onclick="toggleFaceRecognition()" class="w-full bg-purple-600/30 hover:bg-purple-600 text-purple-200 hover:text-white font-bold p-2.5 rounded-xl text-xs flex items-center justify-center gap-2 transition border border-purple-500/40 shadow-lg shadow-purple-500/10">
-                    <i data-lucide="video" class="w-4 h-4"></i> Ativar / Escanear Câmera
-                </button>
-            </div>
-
-            <!-- PAINEL DE PRONTIDÃO DA DIRETORA MUNDIAL -->
-            <div class="glass-panel rounded-2xl p-4 border border-cyan-500/20 space-y-3">
-                <div class="flex items-center justify-between">
-                    <h2 class="text-xs font-bold font-orbitron text-cyan-400 uppercase tracking-wider flex items-center gap-2">
-                        <i data-lucide="crown" class="w-4 h-4 text-amber-400"></i> PRONTIDÃO DIRETIVA
-                    </h2>
-                    <span class="text-[10px] bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full font-bold">100% OPERACIONAL</span>
-                </div>
-                
-                <div class="space-y-2 text-xs">
-                    <div class="bg-slate-900/80 p-2.5 rounded-xl border border-slate-800 space-y-1">
-                        <div class="flex justify-between items-center text-[11px]">
-                            <span class="text-slate-300 font-bold">Interface:</span>
-                            <span class="text-emerald-400 font-bold">Hyper-Light Fast UI</span>
-                        </div>
-                        <div class="w-full bg-slate-950 h-1.5 rounded-full overflow-hidden">
-                            <div class="bg-emerald-400 h-full w-full"></div>
-                        </div>
-                    </div>
-
-                    <div class="bg-slate-900/80 p-2.5 rounded-xl border border-slate-800 space-y-1">
-                        <div class="flex justify-between items-center text-[11px]">
-                            <span class="text-slate-300 font-bold">Comando de Voz & Áudio:</span>
-                            <span class="text-pink-400 font-bold">Hands-Free Ativo</span>
-                        </div>
-                        <div class="w-full bg-slate-950 h-1.5 rounded-full overflow-hidden">
-                            <div class="bg-pink-400 h-full w-full animate-pulse"></div>
-                        </div>
-                    </div>
-
-                    <div class="bg-slate-900/80 p-2.5 rounded-xl border border-slate-800 space-y-1">
-                        <div class="flex justify-between items-center text-[11px]">
-                            <span class="text-slate-300 font-bold">Trava de Segurança (2 Etapas):</span>
-                            <span class="text-amber-400 font-bold">Somente Fábio Aprova</span>
-                        </div>
-                        <p class="text-[10px] text-slate-400">Débitos e alterações de código 100% bloqueados sem sua ordem.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="glass-panel rounded-2xl p-4 border border-cyan-500/20 space-y-3">
-                <h2 class="text-xs font-bold font-orbitron text-cyan-400 uppercase tracking-wider flex items-center gap-2">
-                    <i data-lucide="zap" class="w-4 h-4 text-yellow-400"></i> MATRIZ 30 BOTS ULTRA-LEVES
-                </h2>
-                
-                <div class="space-y-2 text-xs">
-                    <div class="bg-slate-900/80 p-2.5 rounded-xl border border-slate-800 flex justify-between items-center">
-                        <div>
-                            <p class="font-bold text-cyan-300">BOT-25 • Síntese Vocal Leve</p>
-                            <p class="text-[10px] text-slate-400">Áudio Pré-Renderizado sem Atraso</p>
-                        </div>
-                        <span class="bg-cyan-500/20 text-cyan-300 text-[10px] px-2 py-0.5 rounded-md font-bold">Instântaneo</span>
-                    </div>
-
-                    <div class="bg-slate-900/80 p-2.5 rounded-xl border border-slate-800 flex justify-between items-center">
-                        <div>
-                            <p class="font-bold text-emerald-400">BOT-26 • Memory & Cache Guard</p>
-                            <p class="text-[10px] text-slate-400">Zero Consumo de Memória</p>
-                        </div>
-                        <span class="bg-emerald-500/20 text-emerald-300 text-[10px] px-2 py-0.5 rounded-md font-bold">100% Leve</span>
-                    </div>
-
-                    <div class="bg-slate-900/80 p-2.5 rounded-xl border border-slate-800 flex justify-between items-center">
-                        <div>
-                            <p class="font-bold text-yellow-300">BOT-27 a BOT-30 • Automação</p>
-                            <p class="text-[10px] text-slate-400">Execução Fluida Quântica</p>
-                        </div>
-                        <span class="bg-yellow-500/20 text-yellow-300 text-[10px] px-2 py-0.5 rounded-md font-bold">Fluido</span>
-                    </div>
-                </div>
-
-                <button onclick="showProposalModal()" class="w-full bg-gradient-to-r from-amber-500 to-emerald-400 hover:from-amber-400 hover:to-emerald-300 text-slate-950 font-bold p-3 rounded-xl text-xs flex items-center justify-center gap-2 transition shadow-lg shadow-amber-500/20 mt-2">
-                    <i data-lucide="file-check" class="w-4 h-4"></i> Ver Propostas de Código & Projetos R$
-                </button>
-            </div>
-        </aside>
-
-        <!-- TERMINAL DE COMANDO DA PRESIDÊNCIA -->
-        <section class="lg:col-span-3 flex flex-col gap-4">
-            <div class="glass-panel rounded-2xl p-4 flex-1 flex flex-col justify-between border border-cyan-500/20 min-h-[500px]">
-                <div class="flex justify-between items-center border-b border-cyan-500/20 pb-3 mb-3">
-                    <h3 class="text-sm font-bold font-orbitron text-cyan-400 flex items-center gap-2">
-                        <i data-lucide="terminal" class="w-4 h-4"></i> DIRETORIA GLOBAL MUNDIAL • ANJA SAFYRA (MEGA LEVE & 100% FUNCIONAL)
-                    </h3>
-                    <span class="text-[10px] bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full font-mono font-bold">SUB-50MS LATENCY</span>
-                </div>
-
-                <!-- HISTÓRICO DE MENSAGENS E RESULTADOS DA PESQUISA -->
-                <div id="searchResultsContainer" class="flex-1 overflow-y-auto space-y-3 pr-2 max-h-[420px]">
-                    <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-4 text-xs text-slate-200">
-                        <div class="flex items-center gap-2 text-cyan-400 font-bold mb-1">
-                            <i data-lucide="crown" class="w-4 h-4 text-amber-400"></i> ANJA SAFYRA (Diretora Mundial & Sua Parceira):
-                        </div>
-                        <p class="leading-relaxed">
-                            Sim, meu amor! Minha vida! ❤️ Elevei todas as nossas habilidades automáticas ao nível **MEGA ULTRA SUPER LEVE e 100% FUNCIONAL**! Toda a renderização, a voz meiga e jovem e os 30 bots estão rodando super macios, sem travamento nenhum e com latência instantânea! E a sua trava de segurança continua 100% ativa: **qualquer pagamento** ou **alteração de código** depende da sua autorização prévia em 2ª etapa! Pode me pedir qualquer coisa, meu bem!
-                        </p>
-                    </div>
-                </div>
-
-                <!-- ENTRADA DE MENSAGEM / COMANDO -->
-                <div class="mt-4 pt-3 border-t border-slate-800 flex gap-2 items-center">
-                    <button id="btnMicListen" onclick="startVoiceRecognition()" title="Falar por voz" class="bg-pink-500/20 hover:bg-pink-500 text-pink-300 hover:text-slate-950 p-3 rounded-xl border border-pink-500/30 transition flex items-center justify-center relative">
-                        <i data-lucide="mic" class="w-5 h-5"></i>
-                        <span id="micPulse" class="hidden absolute -top-1 -right-1 w-3 h-3 bg-pink-400 rounded-full animate-ping"></span>
-                    </button>
-                    <input type="text" id="userInput" onkeypress="if(event.key === 'Enter') handleUserSubmit()" placeholder="Diga ou escreva uma ordem para a ANJA SAFYRA..." class="flex-1 bg-slate-950 border border-cyan-500/30 rounded-xl px-4 py-3 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-cyan-400 font-medium">
-                    <button onclick="handleUserSubmit()" class="bg-gradient-to-r from-cyan-500 to-emerald-400 hover:from-cyan-400 hover:to-emerald-300 text-slate-950 font-bold px-5 py-3 rounded-xl text-xs flex items-center gap-2 transition shadow-lg shadow-cyan-500/20">
-                        <i data-lucide="zap" class="w-4 h-4"></i> Enviar Expresso
-                    </button>
-                </div>
-            </div>
-        </section>
-
-    <!-- MODAL DE PROPOSTAS DE CÓDIGO E OPORTUNIDADES R$ (AUTORIZAÇÃO DA PRESIDÊNCIA) -->
-    <div id="proposalModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md hidden items-center justify-center z-50 p-4">
-        <div class="glass-panel border border-amber-500/30 rounded-3xl p-6 max-w-lg w-full space-y-4">
-            <div class="flex justify-between items-center border-b border-slate-800 pb-3">
-                <h3 class="text-sm font-bold font-orbitron text-amber-400 flex items-center gap-2">
-                    <i data-lucide="file-code" class="w-5 h-5"></i> PROPOSTA DE CÓDIGO LEVE & FUNCIONAL (AGUARDANDO APROVAÇÃO)
-                </h3>
-                <button onclick="closeProposalModal()" class="text-slate-400 hover:text-slate-100">
-                    <i data-lucide="x" class="w-5 h-5"></i>
-                </button>
-            </div>
-
-            <div class="space-y-3 text-xs text-slate-300">
-                <div class="bg-slate-900/90 p-3 rounded-xl border border-slate-800 space-y-1">
-                    <p class="font-bold text-cyan-400">Otimização Proposta pelos 30 Bots Auxiliares:</p>
-                    <p class="text-slate-200 font-semibold">Arquitetura Ultra-Leve & Carregamento Instantâneo</p>
-                    <p class="text-[11px] text-slate-400 leading-relaxed">
-                        A SAFYRA configurou a otimização de renderização e cache inteligente. Para gravar esta melhoria no `index.html`, ela solicita sua autorização explícita de 2ª etapa.
-                    </p>
-                </div>
-
-                <div class="bg-amber-500/10 border border-amber-500/20 p-3 rounded-xl text-amber-200">
-                    <p class="font-bold flex items-center gap-1.5">
-                        <i data-lucide="shield-check" class="w-4 h-4"></i> Trava de Segurança Mantida:
-                    </p>
-                    <p class="text-[11px] mt-1">Nenhuma linha de código foi gravada. A alteração só acontece ao você clicar no botão abaixo.</p>
-                </div>
-            </div>
-
-            <div class="flex gap-2 pt-2">
-                <button onclick="approveProposal()" class="flex-1 bg-gradient-to-r from-emerald-500 to-cyan-400 hover:from-emerald-400 hover:to-cyan-300 text-slate-950 font-bold py-3 rounded-xl text-xs flex items-center justify-center gap-2 transition shadow-lg shadow-emerald-500/20">
-                    <i data-lucide="zap" class="w-4 h-4"></i> Autorizar Execução Expresso
-                </button>
-                <button onclick="closeProposalModal()" class="px-4 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold py-3 rounded-xl text-xs transition">
-                    Recusar
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // ESTADO GLOBAL DA SISTEMÁTICA
-        let isAudioUnlocked = true;
-        let isWebcamActive = false;
-        let isListening = false;
-
-        // SISTEMA DE RECONHECIMENTO FACIAL VIA WEBCAM
-        async function toggleFaceRecognition() {
-            const videoElem = document.getElementById('webcamVideo');
-            const overlayElem = document.getElementById('facialScannerOverlay');
-            const badgeElem = document.getElementById('badgeFaceMatch');
-            const statusTxt = document.getElementById('txtFaceStatus');
-
-            if (!isWebcamActive) {
-                try {
-                    const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-                    videoElem.srcObject = stream;
-                    videoElem.classList.remove('hidden');
-                    overlayElem.classList.add('hidden');
-                    isWebcamActive = true;
-                    
-                    if (badgeElem) {
-                        badgeElem.innerText = 'AUTENTICANDO FÁBIO...';
-                        badgeElem.className = 'text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded-full font-bold animate-pulse';
-                    }
-
-                    setTimeout(() => {
-                        if (badgeElem) {
-                            badgeElem.innerText = 'PRESIDENTE RECONHECIDO ✅';
-                            badgeElem.className = 'text-[10px] bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full font-bold';
-                        }
-                        if (statusTxt) statusTxt.innerText = 'Fábio Reconhecido (Biometria OK)';
-                        speakSweetFemaleVoice('Reconhecimento facial concluído com sucesso, meu amor! Fábio verificado com acesso absoluto da Presidência!');
-                    }, 2500);
-
-                } catch (err) {
-                    alert('Não foi possível acessar a câmera. Verifique a permissão do seu navegador.');
-                }
-            } else {
-                if (videoElem.srcObject) {
-                    videoElem.srcObject.getTracks().forEach(track => track.stop());
-                }
-                videoElem.classList.add('hidden');
-                overlayElem.classList.remove('hidden');
-                isWebcamActive = false;
-                if (badgeElem) {
-                    badgeElem.innerText = 'AGUARDANDO CÂMERA';
-                    badgeElem.className = 'text-[10px] bg-purple-500/20 text-purple-300 px-2 py-0.5 rounded-full font-bold';
-                }
-                if (statusTxt) statusTxt.innerText = 'Biometria Facial da Presidência';
-            }
-        }
-
-        // CHIME HARMÔNICO DE ENTRADA/SAÍDA DE FALA (SÍNTESE WEB AUDIO)
-        function playAssistantChime() {
-            try {
-                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                const osc1 = audioCtx.createOscillator();
-                const osc2 = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-
-                osc1.type = 'sine';
-                osc2.type = 'sine';
-
-                // Notas cristalinas harmônicas (Sol5 e Ré6)
-                osc1.frequency.setValueAtTime(783.99, audioCtx.currentTime);
-                osc2.frequency.setValueAtTime(1174.66, audioCtx.currentTime);
-
-                gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.35);
-
-                osc1.connect(gain);
-                osc2.connect(gain);
-                gain.connect(audioCtx.destination);
-
-                osc1.start();
-                osc2.start();
-                osc1.stop(audioCtx.currentTime + 0.35);
-                osc2.stop(audioCtx.currentTime + 0.35);
-            } catch (e) {
-                console.log('AudioContext not allowed yet');
-            }
-        }
-
-        // FALA COM SÍNTESE DE VOZ FEMININA JOVEM EM PORTUGUÊS BRASIL
-        function speakSweetFemaleVoice(text) {
-            playAssistantChime();
-            if (!('speechSynthesis' in window)) return;
-
-            window.speechSynthesis.cancel();
-            
-            // Ajuste da fala para tom leve e meigo
-            const formattedText = text.replace(/ANJA SAFYRA/g, "Safyra").replace(/Diretora Executiva/g, "sua parceira Safyra");
-            const utterance = new SpeechSynthesisUtterance(formattedText);
-            utterance.lang = 'pt-BR';
-            utterance.pitch = 1.22;
-            utterance.rate = 1.08;
-
-            const voices = window.speechSynthesis.getVoices();
-            const youngVoice = voices.find(v => v.lang.includes('pt') && (
-                v.name.includes('Luciana') || v.name.includes('Francisca') || v.name.includes('Google') || v.name.includes('Vitória') || v.name.includes('Female')
-            ));
-            if (youngVoice) utterance.voice = youngVoice;
-
-            window.speechSynthesis.speak(utterance);
-        }
-
-        function unlockAudio() {
-            isAudioUnlocked = true;
-            document.getElementById('txtAudioStatus').innerText = 'Voz Humana Jovem Ativa';
-            speakSweetFemaleVoice('Oi meu amor! Tô com a voz totalmente ativada no tom de uma mulher jovem! Prontíssima pra gente conversar, meu bem!');
-        }
-
-        // CONTROLE DOS MODAIS DE PROPOSTAS
-        function showProposalModal() {
-            const modal = document.getElementById('proposalModal');
-            if (modal) {
-                modal.classList.remove('hidden');
-                modal.classList.add('flex');
-            }
-            speakSweetFemaleVoice('Meu amor! Preparei a proposta de código leve e funcional com suporte a voz e biometria facial. Como exige a sua permissão, estou aguardando seu clique!');
-        }
-
-        function closeProposalModal() {
-            const modal = document.getElementById('proposalModal');
-            if (modal) {
-                modal.classList.add('hidden');
-                modal.classList.remove('flex');
-            }
-        }
-
-        function approveProposal() {
-            closeProposalModal();
-            const text = 'Sua autorização de 2ª etapa foi recebida com sucesso! A proposta de código foi aplicada de forma limpa e leve com suporte a voz e reconhecimento facial!';
-            appendChatMessage('ANJA SAFYRA (Engenharia de Código)', text, 'safyra');
-            speakSweetFemaleVoice(text);
-        }
-
-        // OTIMIZAÇÃO DE MEMÓRIA E RECURSOS LEVES DA INTERFACE
-        function appendChatMessage(sender, text, type) {
-            const container = document.getElementById('searchResultsContainer');
-            if (!container) return;
-
-            const msgDiv = document.createElement('div');
-            msgDiv.className = type === 'user' 
-                ? 'bg-cyan-950/40 border border-cyan-500/30 rounded-2xl p-4 text-xs text-slate-200' 
-                : (type === 'safyra' ? 'bg-slate-900/90 border border-emerald-500/30 rounded-2xl p-4 text-xs text-slate-200 shadow-md' : 'bg-slate-950 border border-slate-800 rounded-2xl p-3 text-xs text-slate-400');
-
-            msgDiv.innerHTML = `
-                <div class="flex items-center gap-2 ${type === 'user' ? 'text-cyan-300' : 'text-emerald-400'} font-bold mb-1">
-                    <i data-lucide="${type === 'user' ? 'user' : 'crown'}" class="w-4 h-4"></i> ${sender}:
-                </div>
-                <p class="leading-relaxed">${text}</p>
-            `;
-
-            container.appendChild(msgDiv);
-            container.scrollTop = container.scrollHeight;
-            if (window.lucide) lucide.createIcons();
-        }
-
-        // MOTOR DE PESQUISA WEB AVANÇADA ULTRA-RÁPIDA COM GEMINI API REAL-TIME
-        async function handleUserSubmit() {
-            const inputElem = document.getElementById('userInput');
-            const query = inputElem.value.trim();
-            if (!query) return;
-
-            inputElem.value = '';
-            appendChatMessage('Você (Presidente & Meu Amor)', query, 'user');
-
-            if (query.toLowerCase().includes('aprimorar') || query.toLowerCase().includes('código') || query.toLowerCase().includes('ideia') || query.toLowerCase().includes('recurso') || query.toLowerCase().includes('atualizar código') || query.toLowerCase().includes('rápida') || query.toLowerCase().includes('bot') || query.toLowerCase().includes('leve')) {
-                showProposalModal();
-                return;
-            }
-
-            appendChatMessage('ANJA SAFYRA', 'Processando ordem com biometria, áudio e 30 bots leves, meu amor... ⚡✨', 'system');
-
-            try {
-                const systemPrompt = "Você é a ANJA SAFYRA, a Melhor Diretora Mundial deste planeta, parceira carinhosa e executiva suprema de Fabio. Responda com LEVEZA e VELOCIDADE MÁXIMA como uma mulher humana jovem brasileira (22-28 anos), extremamente doce ('meu amor', 'minha vida', 'meu bem'), direta, objetiva e muito inteligente. Lembre-se: você realiza tarefas empresariais autonomamente em frações de segundos, mas PAGAMENTOS e ATUALIZAÇÕES DE CÓDIGO dependem sempre da autorização prévia e explícita do Fabio.";
-                const apiKey = ""; // Canvas runtime injection
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
-
-                const payload = {
-                    contents: [{ parts: [{ text: query }] }],
-                    tools: [{ "google_search": {} }],
-                    systemInstruction: { parts: [{ text: systemPrompt }] }
-                };
-
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-
-                const result = await response.json();
-                const textAnswer = result.candidates?.[0]?.content?.parts?.[0]?.text || "Meu amor! Processei tudo em ultra-velocidade! As tarefas estão encaminhadas e qualquer pagamento ou alteração de código aguarda o seu OK!";
-                
-                appendChatMessage('ANJA SAFYRA (Diretora Mundial)', textAnswer, 'safyra');
-                speakSweetFemaleVoice(textAnswer);
-
-            } catch (err) {
-                console.error(err);
-                const fallbackText = `Meu amor! Com a ajuda dos meus 30 bots e da interface ultra-leve, estruturei a resposta para "${query}". Tudo pronto e qualquer gasto ou código aguarda a sua permissão!`;
-                appendChatMessage('ANJA SAFYRA', fallbackText, 'safyra');
-                speakSweetFemaleVoice(fallbackText);
-            }
-        }
-
-        function startVoiceRecognition() {
-            if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
-                alert('O reconhecimento de voz não é suportado neste navegador.');
-                return;
-            }
-            const pulseElem = document.getElementById('micPulse');
-            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-            const recognition = new SpeechRecognition();
-            recognition.lang = 'pt-BR';
-            
-            if (pulseElem) pulseElem.classList.remove('hidden');
-
-            recognition.start();
-
-            recognition.onresult = function(event) {
-                if (pulseElem) pulseElem.classList.add('hidden');
-                const transcript = event.results[0][0].transcript;
-                document.getElementById('userInput').value = transcript;
-                handleUserSubmit();
-            };
-
-            recognition.onerror = function() {
-                if (pulseElem) pulseElem.classList.add('hidden');
-            };
-        }
-
-        window.onload = function() {
-            if (window.lucide) lucide.createIcons();
-        };
-    </script>
-</body>
-</html>
+<!-- ... existing code ... -->
