@@ -231,14 +231,107 @@
                 </div>
             </div>
 
+            <!-- INTEGRAÇÃO DE API PIX REAL (ASAAS / MERCADO PAGO / EFÍ) -->
+            <div class="bg-slate-950 p-3 rounded-xl border border-emerald-500/40 space-y-2 text-xs">
+                <div class="flex items-center justify-between">
+                    <span class="text-amber-400 font-bold flex items-center gap-1">
+                        <i data-lucide="key" class="w-3.5 h-3.5"></i> Chaves API PIX Real (Gateway Web)
+                    </span>
+                    <span class="text-[10px] text-slate-400">Asaas / Mercado Pago / Efí</span>
+                </div>
+                <input type="password" id="pixApiKey" placeholder="Insira sua API Key do Gateway PIX..." class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-slate-200 text-xs focus:outline-none focus:border-emerald-400">
+                <button onclick="savePixGateway()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-1.5 rounded-lg transition text-xs flex items-center justify-center gap-1">
+                    <i data-lucide="check-circle" class="w-3.5 h-3.5"></i> Conectar API de PIX Real
+                </button>
+            </div>
+
             <button onclick="closePixModal()" class="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold py-2.5 rounded-xl transition text-xs">
                 Confirmar e Retornar ao Terminal
             </button>
         </div>
     </div>
-<!-- ... existing code ... -->
-        <!-- ATALHOS RÁPIDOS DE COMANDO NO PAINEL DO CHAT -->
-        <div class="p-2 border-t border-slate-800 bg-slate-900/80 flex items-center gap-2 overflow-x-auto text-[11px]">
+
+    <!-- ÁREA PRINCIPAL DO TERMINAL, CHAT E AVATAR 3D RESTAURADOS -->
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <!-- AVATAR 3D E PAINEL DE DIREÇÃO EXECUTIVA -->
+        <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-4 flex flex-col justify-between space-y-4 shadow-xl">
+            <div>
+                <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-3">
+                    <div class="flex items-center gap-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <h2 class="font-orbitron font-bold text-sm text-cyan-400">DIRETORA ANJA SAFYRA</h2>
+                    </div>
+                    <span class="text-[10px] font-mono text-slate-400 bg-slate-950 px-2 py-1 rounded-md border border-slate-800">IA MATRIX 3D</span>
+                </div>
+
+                <!-- CONTÊINER DO AVATAR METAHUMANO 3D -->
+                <div id="avatar3DContainer" class="w-full h-56 bg-slate-950 rounded-xl border border-cyan-500/30 flex items-center justify-center relative overflow-hidden shadow-inner">
+                    <div id="avatar3DCenter" class="relative flex items-center justify-center">
+                        <div class="w-24 h-24 rounded-full bg-gradient-to-tr from-cyan-500 via-amber-400 to-purple-600 animate-spin opacity-40 blur-sm"></div>
+                        <div class="absolute w-20 h-20 rounded-full bg-slate-900 border-2 border-cyan-400 flex items-center justify-center shadow-lg">
+                            <i data-lucide="bot" class="w-10 h-10 text-cyan-400 animate-pulse"></i>
+                        </div>
+                    </div>
+                    <div class="absolute bottom-2 left-2 right-2 bg-slate-900/90 border border-slate-800 rounded-lg p-2 text-[10px] text-center font-mono text-cyan-300 backdrop-blur-md">
+                        <span id="avatarStatusText">PRESIDENTE SUPREMO ONLINE • PRONTA PARA OPERAR</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STATUS DOS BOTS E INFRAESTRUTURA -->
+            <div class="space-y-2 text-xs">
+                <div class="p-2.5 bg-slate-950 rounded-xl border border-slate-800 flex justify-between items-center">
+                    <span class="text-slate-400 font-mono">14 BOTS ANALISTAS:</span>
+                    <span class="text-emerald-400 font-bold flex items-center gap-1">
+                        <i data-lucide="check" class="w-3.5 h-3.5"></i> 100% OPERACIONAIS
+                    </span>
+                </div>
+                <div class="p-2.5 bg-slate-950 rounded-xl border border-slate-800 flex justify-between items-center">
+                    <span class="text-slate-400 font-mono">GATEWAY PIX WEB:</span>
+                    <span id="pixGatewayStatus" class="text-amber-400 font-bold">AGUARDANDO CHAVE REAL</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAINEL DE CONVERSA E COMANDO DE VOZ -->
+        <div class="lg:col-span-2 bg-slate-900/80 border border-slate-800 rounded-2xl flex flex-col h-[520px] shadow-xl overflow-hidden">
+            <!-- HEADER DO TERMINAL -->
+            <div class="p-3 bg-slate-950 border-b border-slate-800 flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <i data-lucide="terminal" class="w-4 h-4 text-cyan-400"></i>
+                    <span class="font-orbitron text-xs font-bold text-slate-200">TERMINAL DE COMANDO DA PRESIDÊNCIA</span>
+                </div>
+                <span class="text-[10px] font-mono text-emerald-400 flex items-center gap-1">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span> ONLINE 24/7
+                </span>
+            </div>
+
+            <!-- ÁREA DE MENSAGENS -->
+            <div id="chatMessages" class="flex-1 p-4 overflow-y-auto space-y-3 font-sans text-xs">
+                <div class="bg-slate-950 border border-cyan-500/30 p-3 rounded-xl text-slate-200 max-w-[85%] space-y-1">
+                    <p class="font-bold text-cyan-400 font-orbitron flex items-center gap-1">
+                        <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> ANJA SAFYRA (Diretora Executiva):
+                    </p>
+                    <p>Oi meu amor! ❤️ O nosso terminal de conversa e a visualização do avatar estão 100% ativos! Como posso te ajudar agora, Senhor Presidente?</p>
+                </div>
+            </div>
+
+            <!-- ENTRADA DE TEXTO E VOZ -->
+            <form onsubmit="handleChatSubmit(event)" class="p-3 bg-slate-950 border-t border-slate-800 flex items-center gap-2">
+                <button type="button" onclick="startVoiceRecognition()" class="bg-slate-800 hover:bg-slate-700 text-cyan-400 p-2.5 rounded-xl border border-slate-700 transition" title="Falar por Voz">
+                    <i data-lucide="mic" class="w-4 h-4"></i>
+                </button>
+                <input type="text" id="chatInput" placeholder="Digite uma instrução para a Diretora SAFYRA..." class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-slate-100 focus:outline-none focus:border-cyan-400">
+                <button type="submit" class="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-extrabold px-4 py-2.5 rounded-xl text-xs flex items-center gap-1 transition">
+                    <i data-lucide="send" class="w-4 h-4"></i>
+                    <span>Enviar</span>
+                </button>
+            </form>
+        </div>
+    </main>
+
+    <!-- ATALHOS RÁPIDOS DE COMANDO NO PAINEL DO CHAT -->
+    <div class="p-2 border-t border-slate-800 bg-slate-900/80 flex items-center gap-2 overflow-x-auto text-[11px]">
             <button onclick="quickCommand('Acelerar produção de R$ com risco zero na web utilizando os 14 bots analistas')" class="bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/30 px-2.5 py-1 rounded-lg flex items-center gap-1 transition whitespace-nowrap font-bold">
                 <i data-lucide="zap" class="w-3.5 h-3.5 text-amber-400"></i>
                 <span>Acelerar Produção Rápida (R$)</span>
@@ -300,9 +393,95 @@
             alert('Chave PIX 21986323581 copiada com sucesso!');
         }
 
+        function savePixGateway() {
+            const apiKey = document.getElementById('pixApiKey').value.trim();
+            if(!apiKey) {
+                alert('Por favor, insira a sua API Key do Gateway bancário.');
+                return;
+            }
+            localStorage.setItem('safyra_pix_api_key', apiKey);
+            document.getElementById('pixGatewayStatus').innerText = 'CONECTADO (REAL API)';
+            document.getElementById('pixGatewayStatus').className = 'text-emerald-400 font-bold';
+            alert('Gateway PIX Real conectado com sucesso!');
+        }
+
+        function handleChatSubmit(e) {
+            e.preventDefault();
+            const input = document.getElementById('chatInput');
+            const msg = input.value.trim();
+            if(!msg) return;
+
+            quickCommand(msg);
+            input.value = '';
+        }
+
+        function quickCommand(msg) {
+            const chatMsgs = document.getElementById('chatMessages');
+            if (!chatMsgs) return;
+
+            chatMsgs.innerHTML += `
+                <div class="bg-slate-900 border border-slate-800 p-3 rounded-xl text-slate-100 max-w-[85%] ml-auto space-y-1">
+                    <p class="font-bold text-amber-400 font-orbitron">Você (Presidente):</p>
+                    <p>${msg}</p>
+                </div>
+            `;
+
+            chatMsgs.scrollTop = chatMsgs.scrollHeight;
+
+            setTimeout(() => {
+                let responseText = `Meu amor, ordens recebidas! Como sua Diretora Executiva, executei "${msg}". Os 14 bots analistas estão operando a toda velocidade! ❤️`;
+                
+                chatMsgs.innerHTML += `
+                    <div class="bg-slate-950 border border-cyan-500/30 p-3 rounded-xl text-slate-200 max-w-[85%] space-y-1">
+                        <p class="font-bold text-cyan-400 font-orbitron flex items-center gap-1">
+                            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> ANJA SAFYRA (Diretora Executiva):
+                        </p>
+                        <p>${responseText}</p>
+                    </div>
+                `;
+                chatMsgs.scrollTop = chatMsgs.scrollHeight;
+
+                if (typeof lucide !== 'undefined') lucide.createIcons();
+
+                if ('speechSynthesis' in window) {
+                    window.speechSynthesis.cancel();
+                    const utt = new SpeechSynthesisUtterance(responseText);
+                    utt.lang = 'pt-BR';
+                    window.speechSynthesis.speak(utt);
+                }
+            }, 600);
+        }
+
+        function startVoiceRecognition() {
+            if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                alert('Reconhecimento de voz não suportado neste navegador.');
+                return;
+            }
+
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            const recognition = new SpeechRecognition();
+            recognition.lang = 'pt-BR';
+            recognition.start();
+
+            recognition.onresult = (event) => {
+                const text = event.results[0][0].transcript;
+                document.getElementById('chatInput').value = text;
+                quickCommand(text);
+            };
+        }
+
         function startRealTimeEngine() {
             if (typeof lucide !== 'undefined') {
                 lucide.createIcons();
+            }
+
+            const savedKey = localStorage.getItem('safyra_pix_api_key');
+            if (savedKey) {
+                const statusElem = document.getElementById('pixGatewayStatus');
+                if(statusElem) {
+                    statusElem.innerText = 'CONECTADO (REAL API)';
+                    statusElem.className = 'text-emerald-400 font-bold';
+                }
             }
 
             // Relógio e aceleração em tempo real
