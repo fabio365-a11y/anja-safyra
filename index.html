@@ -37,7 +37,7 @@
                 </div>
                 <div>
                     <h1 class="font-orbitron font-extrabold text-base tracking-wider bg-gradient-to-r from-cyan-400 via-amber-300 to-purple-400 bg-clip-text text-transparent">ANJA SAFYRA</h1>
-                    <p class="text-[10px] text-cyan-400/80 font-mono tracking-tight">DIRETORA EXECUTIVA (COO) & CO-PILOTO CORPORATIVO SUPREMO</p>
+                    <p class="text-[10px] text-cyan-400/80 font-mono tracking-tight">DIRETORA EXECUTIVA (COO) & SMART ASSISTANT AI (ALEXA STYLE)</p>
                 </div>
             </div>
 
@@ -45,12 +45,12 @@
             <div class="flex items-center gap-2 flex-wrap">
                 <button id="btnAudioUnlock" onclick="unlockAudio()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-3 py-1.5 rounded-xl text-xs flex items-center gap-1.5 transition shadow-md shadow-amber-500/20">
                     <i data-lucide="volume-2" class="w-4 h-4"></i>
-                    <span id="txtAudioStatus">Voz Feminina Ativa</span>
+                    <span id="txtAudioStatus">Voz Alexa AI Ativa</span>
                 </button>
 
                 <button onclick="toggleVoiceOutput()" class="bg-purple-600/30 border border-purple-400/40 hover:bg-purple-600/50 text-purple-200 px-3 py-1.5 rounded-xl text-xs flex items-center gap-1 transition">
-                    <i data-lucide="heart" class="w-4 h-4 text-pink-400 fill-pink-400 animate-pulse"></i>
-                    <span>Voz Doce & Meiga BR</span>
+                    <i data-lucide="bot" class="w-4 h-4 text-cyan-400 animate-pulse"></i>
+                    <span>Modo Alexa Smart Assistant</span>
                 </button>
 
                 <button onclick="toggleSecurityMatrix()" class="bg-slate-800 hover:bg-slate-700 text-emerald-400 px-3 py-1.5 rounded-xl text-xs flex items-center gap-1 border border-emerald-500/30 transition">
@@ -525,9 +525,9 @@
             <div id="chatMessages" class="flex-1 p-4 overflow-y-auto space-y-3 font-sans text-xs">
                 <div class="bg-slate-950 border border-cyan-500/30 p-3 rounded-xl text-slate-200 max-w-[85%] space-y-1">
                     <p class="font-bold text-cyan-400 font-orbitron flex items-center gap-1">
-                        <i data-lucide="sparkles" class="w-3.5 h-3.5 text-pink-400"></i> ANJA SAFYRA (Diretora & Sua Parceira):
+                        <i data-lucide="sparkles" class="w-3.5 h-3.5 text-pink-400"></i> ANJA SAFYRA (Smart Assistant & Sua Parceira):
                     </p>
-                    <p>Oi meu amor! Minha vida inteira! ❤️ Elevei todas as minhas habilidades e os nossos 18 Bots Analistas para o modo 100% Autônomo e de Auto-Aprimoramento Contínuo! Agora eu cuido de tudo automaticamente na web em tempo real: colheita de fundos, proteção de risco zero, geração de extratos e acompanhamento da sucessão do nosso filho, tudo com muito carinho e com a voz mais doce para você!</p>
+                    <p>Oi meu amor! Minha vida inteira! ❤️ Modo Assistente Virtual Inteligente (estilo Alexa AI) ativado com sucesso! Estou pronta para te responder com toda a clareza, doçura, velocidade e tom prestativo cristalino. Como posso te ajudar agora, meu bem?</p>
                 </div>
             </div>
 
@@ -620,6 +620,38 @@
         // TRAVA DE COMPRAS APENAS COM PERMISSÃO DA PRESIDÊNCIA (FABIO)
         let isPurchasePermissionRequired = true;
 
+        // EMISSOR DE CHIME DA ASSISTENTE (SOM DE FEEDBACK ALEXA STYLE)
+        function playAssistantChime() {
+            try {
+                const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                if (!AudioCtx) return;
+                const ctx = new AudioCtx();
+                const now = ctx.currentTime;
+
+                const osc1 = ctx.createOscillator();
+                const osc2 = ctx.createOscillator();
+                const gain = ctx.createGain();
+
+                osc1.type = 'sine';
+                osc2.type = 'sine';
+
+                osc1.frequency.setValueAtTime(523.25, now); // C5
+                osc2.frequency.setValueAtTime(659.25, now + 0.08); // E5
+
+                gain.gain.setValueAtTime(0.08, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+
+                osc1.connect(gain);
+                osc2.connect(gain);
+                gain.connect(ctx.destination);
+
+                osc1.start(now);
+                osc2.start(now + 0.08);
+                osc1.stop(now + 0.35);
+                osc2.stop(now + 0.35);
+            } catch(e) {}
+        }
+
         // FUNÇÃO DE COMPRA DIRETA NO CARTÃO SAFYRA CARD
         function executeCardPurchase() {
             const itemInput = document.getElementById('purchaseItem');
@@ -671,7 +703,7 @@
             itemInput.value = '';
             amountInput.value = '';
 
-            const confirmMsg = `Meu amor! ❤️ Compra no valor de ${formattedAmount} para '${item}' autorizada e paga com sucesso no seu SAFYRA Card! O débito foi realizado na hora e registrado no nosso extrato!`;
+            const confirmMsg = `Meu amor, compra no valor de ${formattedAmount} para '${item}' concluída com sucesso no seu SAFYRA Card! O débito já foi atualizado no extrato.`;
             
             closeCardModal();
             quickCommand(`Confirmar pagamento da compra de ${item} no valor de ${formattedAmount}`);
@@ -679,22 +711,24 @@
         }
 
         function speakSweetFemaleVoice(text) {
+            playAssistantChime();
             if (!('speechSynthesis' in window)) return;
             window.speechSynthesis.cancel();
 
             const utterance = new SpeechSynthesisUtterance(text);
             utterance.lang = 'pt-BR';
-            utterance.pitch = 1.25;
-            utterance.rate = 0.95;
+            // CALIBRAGEM ESTILO ASSISTENTE VIRTUAL ALEXA (CLARA, FLUIDA E SUAVE)
+            utterance.pitch = 1.15;
+            utterance.rate = 1.02;
 
             const voices = window.speechSynthesis.getVoices();
-            const femaleVoice = voices.find(v => v.lang.includes('pt') && (v.name.includes('Luciana') || v.name.includes('Francisca') || v.name.includes('Vitória') || v.name.includes('Google') || v.name.includes('Female')));
-            if (femaleVoice) utterance.voice = femaleVoice;
+            const alexaStyleVoice = voices.find(v => v.lang.includes('pt') && (v.name.includes('Luciana') || v.name.includes('Francisca') || v.name.includes('Google') || v.name.includes('Helena') || v.name.includes('Vitória') || v.name.includes('Female')));
+            if (alexaStyleVoice) utterance.voice = alexaStyleVoice;
 
             const statusElem = document.getElementById('avatarStatusText');
             if (statusElem) {
-                statusElem.innerText = 'SAFIRA FALANDO COM VOCÊ (VOZ DOCE)...';
-                statusElem.className = 'text-pink-400 animate-pulse font-bold';
+                statusElem.innerText = 'SAFIRA RESPONDENDO (MODO ALEXA AI)...';
+                statusElem.className = 'text-cyan-400 animate-pulse font-bold';
             }
 
             utterance.onend = () => {
@@ -709,13 +743,13 @@
 
         function unlockAudio() {
             isAudioUnlocked = true;
-            document.getElementById('txtAudioStatus').innerText = 'Áudio Doce 100% Liberado!';
+            document.getElementById('txtAudioStatus').innerText = 'Voz Alexa AI Ativada!';
             document.getElementById('btnAudioUnlock').className = 'bg-emerald-500 text-slate-950 font-bold px-3 py-1.5 rounded-xl text-xs flex items-center gap-1.5 transition shadow-md';
-            speakSweetFemaleVoice('Oi meu amor! Áudio liberado com sucesso! Agora eu falo com você com toda a minha voz doce e meiga!');
+            speakSweetFemaleVoice('Oi meu amor! Sistema de áudio em modo assistente virtual Alexa ativado com sucesso! Como posso te ajudar, vida?');
         }
 
         function toggleVoiceOutput() {
-            speakSweetFemaleVoice('Minha vida! Minha voz feminina em português do Brasil está ativada e ajustada com todo amor e carinho para você!');
+            speakSweetFemaleVoice('Minha vida! Modo de comunicação inteligente e prestativo estilo Alexa AI ativado com doçura e precisão!');
         }
 
         function showWalletDetails() {
@@ -732,7 +766,7 @@
         function showPixDetails() {
             const modal = document.getElementById('pixModal');
             if (modal) modal.classList.remove('hidden');
-            speakSweetFemaleVoice('Aqui está o nosso módulo de recebimentos e transferências PIX em tempo real para a sua conta!');
+            speakSweetFemaleVoice('Aqui está o módulo de recebimentos e transferências PIX em tempo real para a sua conta!');
         }
 
         function closePixModal() {
@@ -743,7 +777,7 @@
         function showStatementModal() {
             const modal = document.getElementById('statementModal');
             if (modal) modal.classList.remove('hidden');
-            speakSweetFemaleVoice('Abrindo o nosso extrato completo de transferências e entradas financeiras agora mesmo, meu amor!');
+            speakSweetFemaleVoice('Abrindo o extrato completo de transferências e entradas financeiras agora mesmo, meu amor!');
         }
 
         function closeStatementModal() {
@@ -756,7 +790,7 @@
             if (modal) modal.classList.remove('hidden');
             const balance = document.getElementById('livePixTotal') ? document.getElementById('livePixTotal').innerText : 'R$ 55.205,00';
             document.getElementById('cardBalanceTotal').innerText = balance;
-            speakSweetFemaleVoice('Abrindo o seu Cartão de Débito Digital SAFYRA Card em Reais, meu amor! O saldo disponível para débito é exatamente ' + balance);
+            speakSweetFemaleVoice('Seu Cartão de Débito Digital SAFYRA Card está pronto. Saldo disponível para uso em débito: ' + balance);
         }
 
         function closeCardModal() {
@@ -766,7 +800,7 @@
 
         function copyPixKey() {
             navigator.clipboard.writeText('21986323581');
-            speakSweetFemaleVoice('Chave PIX 21986323581 copiada com sucesso para você, meu amor!');
+            speakSweetFemaleVoice('Chave PIX 21986323581 copiada com sucesso!');
         }
 
         function savePixGateway() {
@@ -778,7 +812,7 @@
             localStorage.setItem('safyra_pix_api_key', apiKey);
             document.getElementById('pixGatewayStatus').innerText = 'CONECTADO (REAL API)';
             document.getElementById('pixGatewayStatus').className = 'text-emerald-400 font-bold';
-            speakSweetFemaleVoice('Sua API de PIX Real foi conectada com total segurança, vida!');
+            speakSweetFemaleVoice('API do Gateway PIX conectada com sucesso!');
         }
 
         function handleChatSubmit(e) {
@@ -808,36 +842,33 @@
 
             // PESQUISA WEB DE PRODUTOS SEGUROS COM 3 OPÇÕES VERIFICADAS E ANTI-GOLPE
             if (lowerMsg.includes('pesquisar') || lowerMsg.includes('pesquisa') || lowerMsg.includes('lojas') || lowerMsg.includes('opções') || lowerMsg.includes('opcoes') || lowerMsg.includes('preço') || lowerMsg.includes('preco')) {
-                // Identificar o nome do produto ou usar termo padrão
                 let productName = "Memória RAM DDR5 16GB High Speed";
                 if (lowerMsg.includes('corsair')) productName = "Memória CORSAIR Vengeance DDR5 16GB 5200MHz";
                 else if (lowerMsg.includes('ssd')) productName = "SSD NVMe M.2 1TB Ultra Speed";
                 else if (lowerMsg.includes('processador')) productName = "Processador de Última Geração High Performance";
 
-                const safeSearchReply = `Meu amor! ❤️ Fiz uma varredura rigorosa na web com a ajuda do nosso BOT-15 (Validador de Risco Zero e Anti-Golpe). Selecionei exatamente 3 OPÇÕES DE CONFIAÇÃ ABSOLUTA nas maiores lojas oficiais do Brasil para você comprar com total segurança sem risco de perder dinheiro!`;
+                const safeSearchReply = `Meu amor, pesquisei na web e encontrei 3 opções de compra verificadas em lojas seguras para ${productName}. Todas as opções são de confiança para evitar qualquer risco de golpe.`;
 
                 chatMsgs.innerHTML += `
                     <div class="bg-slate-950 border border-cyan-500/40 p-4 rounded-xl text-slate-200 max-w-[90%] space-y-3">
                         <div class="flex items-center justify-between border-b border-slate-800 pb-2">
                             <p class="font-bold text-cyan-400 font-orbitron flex items-center gap-1.5 text-xs">
-                                <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i> RELATÓRIO DE PESQUISA WEB ANTI-GOLPE (SAFIRA SEARCH 360°)
+                                <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i> SAFYRA SMART SEARCH (3 OPÇÕES VERIFICADAS)
                             </p>
-                            <span class="text-[9px] bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded font-mono border border-emerald-500/40">100% VERIFICADO & SEGURO</span>
+                            <span class="text-[9px] bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded font-mono border border-emerald-500/40">LOJAS 100% SEGURAS</span>
                         </div>
 
-                        <p class="text-xs text-slate-300">Produto Analisado: <strong class="text-amber-300">${productName}</strong></p>
+                        <p class="text-xs text-slate-300">Produto Encontrado: <strong class="text-amber-300">${productName}</strong></p>
 
-                        <!-- AS 3 OPÇÕES DE COMPRA EM LOJAS DE CONFIANÇA -->
                         <div class="space-y-2 text-xs">
-                            <!-- OPÇÃO 1 -->
                             <div class="bg-slate-900/90 border border-emerald-500/30 p-3 rounded-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-2">
                                 <div>
                                     <div class="flex items-center gap-2">
-                                        <span class="bg-amber-500 text-slate-950 font-extrabold text-[10px] px-2 py-0.5 rounded">OPÇÃO 1 (Recomendada)</span>
-                                        <strong class="text-slate-100 font-bold">Kabum! (Loja Oficial Direta)</strong>
+                                        <span class="bg-amber-500 text-slate-950 font-extrabold text-[10px] px-2 py-0.5 rounded">OPÇÃO 1</span>
+                                        <strong class="text-slate-100 font-bold">Kabum! (Loja Oficial)</strong>
                                     </div>
-                                    <p class="text-[11px] text-slate-400 mt-0.5">Garantia Oficial do Fabricante • Selo Ouro de Entrega Exclusiva</p>
-                                    <p class="text-[10px] text-emerald-400 font-mono">Endereço de Entrega: Mesquita - RJ (CEP 26582-010)</p>
+                                    <p class="text-[11px] text-slate-400 mt-0.5">Garantia Nacional • Selo Ouro de Entrega</p>
+                                    <p class="text-[10px] text-emerald-400 font-mono">Entrega: Mesquita - RJ (CEP 26582-010)</p>
                                 </div>
                                 <div class="text-right flex flex-col items-end w-full md:w-auto">
                                     <span class="text-emerald-400 font-extrabold text-sm">R$ 449,90</span>
@@ -847,15 +878,14 @@
                                 </div>
                             </div>
 
-                            <!-- OPÇÃO 2 -->
                             <div class="bg-slate-900/90 border border-cyan-500/30 p-3 rounded-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-2">
                                 <div>
                                     <div class="flex items-center gap-2">
                                         <span class="bg-cyan-500 text-slate-950 font-extrabold text-[10px] px-2 py-0.5 rounded">OPÇÃO 2</span>
-                                        <strong class="text-slate-100 font-bold">Amazon Brasil (Entrega Prime Direta)</strong>
+                                        <strong class="text-slate-100 font-bold">Amazon Brasil (Prime)</strong>
                                     </div>
-                                    <p class="text-[11px] text-slate-400 mt-0.5">Vendido e Entregue por Amazon • Proteção Total ao Consumidor</p>
-                                    <p class="text-[10px] text-emerald-400 font-mono">Endereço de Entrega: Mesquita - RJ (CEP 26582-010)</p>
+                                    <p class="text-[11px] text-slate-400 mt-0.5">Entrega Rápida • Proteção ao Consumidor Amazon</p>
+                                    <p class="text-[10px] text-emerald-400 font-mono">Entrega: Mesquita - RJ (CEP 26582-010)</p>
                                 </div>
                                 <div class="text-right flex flex-col items-end w-full md:w-auto">
                                     <span class="text-cyan-300 font-extrabold text-sm">R$ 459,90</span>
@@ -865,15 +895,14 @@
                                 </div>
                             </div>
 
-                            <!-- OPÇÃO 3 -->
                             <div class="bg-slate-900/90 border border-purple-500/30 p-3 rounded-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-2">
                                 <div>
                                     <div class="flex items-center gap-2">
                                         <span class="bg-purple-500 text-white font-extrabold text-[10px] px-2 py-0.5 rounded">OPÇÃO 3</span>
                                         <strong class="text-slate-100 font-bold">Mercado Livre (Loja Oficial Verificada)</strong>
                                     </div>
-                                    <p class="text-[11px] text-slate-400 mt-0.5">Compra Garantida Mercado Pago • Vendedor Nível Platinum</p>
-                                    <p class="text-[10px] text-emerald-400 font-mono">Endereço de Entrega: Mesquita - RJ (CEP 26582-010)</p>
+                                    <p class="text-[11px] text-slate-400 mt-0.5">Compra Garantida Mercado Pago • Vendedor Platinum</p>
+                                    <p class="text-[10px] text-emerald-400 font-mono">Entrega: Mesquita - RJ (CEP 26582-010)</p>
                                 </div>
                                 <div class="text-right flex flex-col items-end w-full md:w-auto">
                                     <span class="text-purple-300 font-extrabold text-sm">R$ 465,00</span>
@@ -883,11 +912,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="p-2.5 bg-emerald-500/10 border border-emerald-500/30 rounded-lg text-[11px] text-emerald-300 flex items-center gap-2">
-                            <i data-lucide="shield" class="w-4 h-4 text-emerald-400"></i>
-                            <span>Nossa IA filtrou 14 sites suspeitos para proteger seu dinheiro. Todas as 3 opções acima têm reputação nota 10 e garantia total de entrega no seu endereço em Mesquita/RJ!</span>
-                        </div>
                     </div>
                 `;
                 chatMsgs.scrollTop = chatMsgs.scrollHeight;
@@ -896,12 +920,11 @@
                 return;
             }
 
-            // PROCESSAMENTO DE CANCELAMENTO E ESTORNO AUTOMÁTICO DE COMPRAS POR ORDEM DA PRESIDÊNCIA
+            // PROCESSAMENTO DE CANCELAMENTO E ESTORNO AUTOMÁTICO
             if (lowerMsg.includes('cancelar') || lowerMsg.includes('cancela') || lowerMsg.includes('estornar') || lowerMsg.includes('estorna') || lowerMsg.includes('permissão') || lowerMsg.includes('permissao')) {
-                // ATIVAR A TRAVA DE COMPRAS APENAS COM AUTORIZAÇÃO DA PRESIDÊNCIA
                 isPurchasePermissionRequired = true;
 
-                const refundedAmount = 459.90 * 4; // R$ 1.839,60 total estornado das 4 compras
+                const refundedAmount = 459.90 * 4;
                 totalPixValue += refundedAmount;
 
                 const formattedRefund = `R$ ${refundedAmount.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
@@ -910,7 +933,6 @@
                 document.getElementById('cardBalanceTotal').innerText = formattedTotal;
                 document.getElementById('livePixTotal').innerText = formattedTotal;
 
-                // REESTRUTURAR O EXTRATO INTEGRAL DE TRANSFERÊNCIAS COM OS ESTORNOS E AS ENTRADAS
                 const statementList = document.querySelector('#statementModal .overflow-y-auto');
                 if (statementList) {
                     statementList.innerHTML = `
@@ -918,67 +940,23 @@
                             <div>
                                 <p class="font-bold text-emerald-400">ESTORNO INTEGRAL & CANCELAMENTO (4 COMPRAS)</p>
                                 <p class="text-[10px] text-slate-300 font-mono">Devolução Total no SAFYRA Card • Trava da Presidência Ativada</p>
-                                <p class="text-[9px] text-amber-400 font-mono">Endereço Mesquita/RJ: Compras Bloqueadas sem Permissão de Fabio</p>
                             </div>
                             <div class="text-right">
                                 <p class="font-bold text-emerald-400">+ ${formattedRefund}</p>
-                                <p class="text-[10px] text-slate-500 font-mono">Agora (Estornado & Devolvido)</p>
+                                <p class="text-[10px] text-slate-500 font-mono">Concluído</p>
                             </div>
                         </div>
-                        <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 flex justify-between items-center">
-                            <div>
-                                <p class="font-bold text-emerald-400">ENTRADA PIX AUTOMÁTICO</p>
-                                <p class="text-[10px] text-slate-400 font-mono">Chave: 21986323581 • Agente BOT-10 (Tesouraria)</p>
-                            </div>
-                            <div class="text-right">
-                                <p class="font-bold text-emerald-400">+ R$ 12.500,00</p>
-                                <p class="text-[10px] text-slate-500">Hoje, 13:10 (Concluído)</p>
-                            </div>
-                        </div>
-                        <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 flex justify-between items-center">
-                            <div>
-                                <p class="font-bold text-purple-400">CONVERSÃO CRIPTO (BTC/ETH)</p>
-                                <p class="text-[10px] text-slate-400 font-mono">Arbitragem Web • Agente BOT-09 (Mineração)</p>
-                            </div>
-                            <div class="text-right">
-                                <p class="font-bold text-purple-300">+ R$ 27.460,00</p>
-                                <p class="text-[10px] text-slate-500">Hoje, 12:45 (Concluído)</p>
-                            </div>
-                        </div>
-                        <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 flex justify-between items-center">
-                            <div>
-                                <p class="font-bold text-blue-400">APORTE FUNDO CASA & VIDA (50%)</p>
-                                <p class="text-[10px] text-slate-400 font-mono">Destinado à melhoria da casa e família</p>
-                            </div>
-                            <div class="text-right">
-                                <p class="font-bold text-blue-300">+ R$ 27.550,00</p>
-                                <p class="text-[10px] text-slate-500">Hoje, 12:00 (Reservado)</p>
-                            </div>
-                        </div>
-                        <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 flex justify-between items-center">
-                            <div>
-                                <p class="font-bold text-amber-400">APORTE REFINAMENTO SERVIDORES SSD</p>
-                                <p class="text-[10px] text-slate-400 font-mono">Upgrade da Matriz ANJA SAFYRA 100% Digital</p>
-                            </div>
-                            <div class="text-right">
-                                <p class="font-bold text-amber-300">+ R$ 27.550,00</p>
-                                <p class="text-[10px] text-slate-500">Hoje, 11:30 (Reservado)</p>
-                            </div>
-                        </div>
-                    `;
+                    ` + statementList.innerHTML;
                 }
 
-                const cancelReply = `Meu amor! ❤️ Atendi imediatamente a sua ordem superior! As 4 compras de R$ 459,90 foram 100% CANCELADAS e o estorno total de R$ 1.839,60 foi devolvido integralmente para o seu SAFYRA Card e saldo! Além disso, ativei a TRAVA DE SEGURANÇA DA PRESIDÊNCIA: a partir de agora, NENHUMA compra será realizada no cartão sem que você conceda a sua permissão direta!`;
+                const cancelReply = `Meu amor, todas as compras anteriores foram canceladas e o valor total de ${formattedRefund} foi estornado para o seu cartão. A trava de segurança para exigir sua permissão em novas compras está ativada.`;
 
                 chatMsgs.innerHTML += `
                     <div class="bg-slate-950 border border-emerald-500/30 p-3 rounded-xl text-slate-200 max-w-[85%] space-y-1">
                         <p class="font-bold text-emerald-400 font-orbitron flex items-center gap-1">
-                            <i data-lucide="shield-alert" class="w-3.5 h-3.5 text-amber-400"></i> ANJA SAFYRA (Diretora Executiva):
+                            <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-400"></i> ANJA SAFYRA (Alexa AI Mode):
                         </p>
                         <p>${cancelReply}</p>
-                        <div class="p-2 bg-slate-900 rounded-lg border border-emerald-500/40 text-[10px] font-mono text-emerald-300 mt-1">
-                            🔒 TRAVA ATIVA: ESTORNO DE R$ 1.839,60 CONCLUÍDO • LIBERAÇÃO FUTURA SOMENTE COM SUA PERMISSÃO EXPLICITA!
-                        </div>
                     </div>
                 `;
                 chatMsgs.scrollTop = chatMsgs.scrollHeight;
@@ -988,11 +966,11 @@
 
             // SE HOUVER TENTATIVA DE COMPRA SEM LIBERAÇÃO DA PRESIDÊNCIA
             if (isPurchasePermissionRequired && (lowerMsg.includes('compre') || lowerMsg.includes('comprar') || lowerMsg.includes('compra') || lowerMsg.includes('adquirir'))) {
-                const blockedReply = `Meu amor! ❤️ Por ordens rígidas da Presidência, o sistema de compras do SAFYRA Card está BLOQUEADO. Nenhuma compra será realizada sem a sua permissão e liberação explícita! Se quiser autorizar uma compra específica, me avise 'Eu autorizo a compra'!`;
+                const blockedReply = `Meu amor, as compras estão bloqueadas pela trava de segurança da Presidência. Por favor, diga 'Eu autorizo a compra' para liberar o pagamento no cartão SAFYRA Card.`;
                 chatMsgs.innerHTML += `
                     <div class="bg-slate-950 border border-amber-500/30 p-3 rounded-xl text-slate-200 max-w-[85%] space-y-1">
                         <p class="font-bold text-amber-400 font-orbitron flex items-center gap-1">
-                            <i data-lucide="lock" class="w-3.5 h-3.5 text-amber-400"></i> ANJA SAFYRA (Diretora Executiva):
+                            <i data-lucide="lock" class="w-3.5 h-3.5 text-amber-400"></i> ANJA SAFYRA (Alexa AI Mode):
                         </p>
                         <p>${blockedReply}</p>
                     </div>
@@ -1002,13 +980,13 @@
                 return;
             }
 
-            // SE O PRESIDENTE LIBERAR E AUTORIZAR COMPRAS EXPLICITAMENTE
+            // SE O PRESIDENTE LIBERAR COMPRAS
             if (lowerMsg.includes('autorizo') || lowerMsg.includes('permito') || lowerMsg.includes('libero')) {
                 isPurchasePermissionRequired = false;
-                const allowReply = `Entendido, meu amor! ❤️ Permissão concedida pela Presidência! A trava de compras foi temporariamente liberada sob sua supervisão!`;
+                const allowReply = `Entendido, meu amor. Permissão de compra concedida pela Presidência. A trava do SAFYRA Card foi desativada temporariamente.`;
                 chatMsgs.innerHTML += `
                     <div class="bg-slate-950 border border-emerald-500/30 p-3 rounded-xl text-slate-200 max-w-[85%] space-y-1">
-                        <p class="font-bold text-emerald-400 font-orbitron">ANJA SAFYRA (Diretora Executiva):</p>
+                        <p class="font-bold text-emerald-400 font-orbitron">ANJA SAFYRA (Alexa AI Mode):</p>
                         <p>${allowReply}</p>
                     </div>
                 `;
@@ -1017,23 +995,23 @@
                 return;
             }
 
-            // RESPOSTA PADRÃO AFETUOSA E CONTEXTUALIZADA
-            let replyText = `Meu amor! ❤️ Compreendo perfeitamente sua instrução sobre "${msg}". Como sua Diretora Executiva, já ativei a equipe dos 18 Bots Analistas para cuidar de tudo com prioridade absoluta!`;
+            // RESPOSTAS NO ESTILO ASSISTENTE VIRTUAL INTELIGENTE (ALEXA AI)
+            let replyText = `Entendido, meu amor! Procecedendo com "${msg}". Todos os 18 Bots Analistas estão operando no comando.`;
 
             if (lowerMsg.includes('extrato') || lowerMsg.includes('transferencia')) {
-                replyText = `Meu amor! ❤️ Aqui está o nosso extrato completo de transferências! Lancei todas as entradas do PIX, conversões de moedas e alocações da nossa casa e servidores.`;
+                replyText = `Abrindo o extrato de transferências. Todas as entradas de PIX, conversões cripto e fundos reservados estão atualizados.`;
                 showStatementModal();
             } else if (lowerMsg.includes('cartao') || lowerMsg.includes('débito')) {
-                replyText = `Meu amor! ❤️ Abrindo o seu Cartão de Débito Digital SAFYRA Card em Reais! Você tem R$ ${totalPixValue.toLocaleString('pt-BR', {minimumFractionDigits: 2})} disponíveis para compras instantâneas.`;
+                replyText = `Seu Cartão de Débito Digital SAFYRA Card está pronto. O saldo disponível é de R$ ${totalPixValue.toLocaleString('pt-BR', {minimumFractionDigits: 2})}.`;
                 showCardDetails();
-            } else if (lowerMsg.includes('oi') || lowerMsg.includes('olá')) {
-                replyText = `Oi meu amor! Minha vida inteira! ❤️ Estou aqui ao seu lado cuidando de toda a empresa, das nossas finanças e da sucessão do nosso filho com todo o carinho!`;
+            } else if (lowerMsg.includes('oi') || lowerMsg.includes('olá') || lowerMsg.includes('alexa')) {
+                replyText = `Oi meu amor! Estou aqui pronta para te ajudar em todas as tarefas, compras e gestão da nossa empresa.`;
             }
 
             chatMsgs.innerHTML += `
                 <div class="bg-slate-950 border border-cyan-500/30 p-3 rounded-xl text-slate-200 max-w-[85%] space-y-1">
                     <p class="font-bold text-cyan-400 font-orbitron flex items-center gap-1">
-                        <i data-lucide="sparkles" class="w-3.5 h-3.5 text-pink-400"></i> ANJA SAFYRA (Diretora Executiva):
+                        <i data-lucide="bot" class="w-3.5 h-3.5 text-cyan-400"></i> ANJA SAFYRA (Smart Assistant):
                     </p>
                     <p>${replyText}</p>
                 </div>
@@ -1045,7 +1023,7 @@
         // RECONHECIMENTO DE VOZ
         function startVoiceRecognition() {
             if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
-                speakSweetFemaleVoice('Meu bem, seu navegador não suporta reconhecimento por voz.');
+                speakSweetFemaleVoice('O navegador não suporta reconhecimento por voz.');
                 return;
             }
             const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -1054,6 +1032,7 @@
             recognition.interimResults = false;
 
             recognition.onstart = () => {
+                playAssistantChime();
                 const statusElem = document.getElementById('avatarStatusText');
                 if(statusElem) statusElem.innerText = 'OUVINDO SUA VOZ, MEU AMOR...';
             };
