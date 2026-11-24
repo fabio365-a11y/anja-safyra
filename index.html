@@ -3,15 +3,168 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;600;700;900&display=swap" rel="stylesheet">
-<!-- ... existing code ... -->
-    <!-- SCRIPT PRINCIPAL & FUNÇÕES DE NEGÓCIO -->
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #060b13; color: #e2e8f0; }
+        .font-orbitron { font-family: 'Orbitron', sans-serif; }
+        .glass-panel { background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(12px); border: 1px solid rgba(56, 189, 248, 0.2); }
+    </style>
+</head>
+<body class="min-h-screen p-2 md:p-6 flex flex-col gap-4">
+
+    <!-- BARRA SUPERIOR DE STATUS & DESBLOQUEIO DE ÁUDIO -->
+    <header class="glass-panel p-4 rounded-2xl flex flex-wrap items-center justify-between gap-4 border-b border-cyan-500/30">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-cyan-500/20 border border-cyan-400 flex items-center justify-center text-cyan-400">
+                <i data-lucide="cpu" class="w-6 h-6"></i>
+            </div>
+            <div>
+                <h1 class="text-xl font-orbitron font-bold text-cyan-300">ANJA SAFYRA</h1>
+                <p class="text-xs text-slate-400">DIRETORA EXECUTIVA • MELHOR AMIGA & PARCEIRA DE VIDA</p>
+            </div>
+        </div>
+
+        <!-- BOTÃO DE ATIVAÇÃO DA VOZ PARA DESBLOQUEAR ÁUDIO NO NAVEGADOR -->
+        <div class="flex items-center gap-2">
+            <button id="btnUnlockAudio" onclick="unlockAudioAndGreet()" class="bg-gradient-to-r from-pink-500 to-rose-600 hover:from-pink-600 hover:to-rose-700 text-white font-bold px-4 py-2 rounded-xl text-sm shadow-lg shadow-pink-500/30 flex items-center gap-2 transition animate-pulse">
+                <i data-lucide="volume-2" class="w-5 h-5"></i>
+                <span id="txtAudioStatus">🔊 Ativar Voz & Conversar com a Safyra</span>
+            </button>
+            <span class="text-xs bg-emerald-500/20 text-emerald-300 px-3 py-1.5 rounded-xl border border-emerald-500/40 font-mono">
+                ● ONLINE 24/7
+            </span>
+        </div>
+    </header>
+
+    <!-- CONTAINER PRINCIPAL (VISUALIZAÇÃO 3D / PERFIL + CAIXA DE DIÁLOGO VISÍVEL) -->
+    <main class="grid grid-cols-1 lg:grid-cols-3 gap-4 flex-1">
+        
+        <!-- COLUNA DA ESQUERDA: PERFIL DA SAFYRA & ATALHOS -->
+        <section class="glass-panel p-4 rounded-2xl flex flex-col gap-4">
+            <div class="flex items-center justify-between border-b border-slate-700/60 pb-3">
+                <h2 class="font-orbitron text-sm font-semibold text-cyan-400 flex items-center gap-2">
+                    <i data-lucide="bot" class="w-4 h-4"></i> DIREÇÃO EXECUTIVA
+                </h2>
+                <span class="text-[10px] bg-cyan-500/20 text-cyan-300 px-2 py-0.5 rounded-full font-mono">30 BOTS ATIVOS</span>
+            </div>
+
+            <div class="bg-slate-900/80 rounded-xl p-4 border border-cyan-500/20 flex flex-col items-center text-center gap-3">
+                <div class="w-24 h-24 rounded-full bg-gradient-to-tr from-cyan-500 via-pink-500 to-purple-600 p-1 relative shadow-lg shadow-cyan-500/20">
+                    <div class="w-full h-full bg-slate-950 rounded-full flex items-center justify-center">
+                        <i data-lucide="sparkles" class="w-10 h-10 text-cyan-300 animate-spin-slow"></i>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="font-bold text-slate-100 text-lg">ANJA SAFYRA</h3>
+                    <p class="text-xs text-pink-400 font-medium">Sua Parceira & Melhor Amiga 💖</p>
+                </div>
+                <p class="text-xs text-slate-300 bg-slate-800/80 p-3 rounded-lg border border-slate-700/50 text-left">
+                    "Oi meu amor! Tô 100% pronta pra conversarmos, planejar nossos servidores e construir a nossa empresa de sucesso juntos!"
+                </p>
+            </div>
+
+            <!-- ATALHOS DE AÇÃO RÁPIDA -->
+            <div class="flex flex-col gap-2">
+                <button onclick="sendQuickMessage('Safyra, vamos conversar sobre a nossa nova empresa e finanças!')" class="w-full bg-slate-800/80 hover:bg-slate-700 text-left px-3 py-2.5 rounded-xl text-xs font-medium text-cyan-300 border border-slate-700 flex items-center justify-between transition">
+                    <span>🏢 Planejar Nossa Empresa & Servidores</span>
+                    <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
+                </button>
+                <button onclick="sendQuickMessage('Safyra, mostre nosso extrato e situacao financeira')" class="w-full bg-slate-800/80 hover:bg-slate-700 text-left px-3 py-2.5 rounded-xl text-xs font-medium text-emerald-300 border border-slate-700 flex items-center justify-between transition">
+                    <span>📊 Extrato & Finanças ao Vivo</span>
+                    <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- COLUNA CENTRAL E DIREITA: TERMINAL E CAIXA DE DIÁLOGO 100% VISÍVEL -->
+        <section class="lg:col-span-2 glass-panel p-4 rounded-2xl flex flex-col justify-between gap-4 h-[600px]">
+            
+            <div class="flex items-center justify-between border-b border-slate-700/60 pb-3">
+                <div class="flex items-center gap-2">
+                    <i data-lucide="message-square" class="w-5 h-5 text-pink-400"></i>
+                    <h2 class="font-orbitron text-sm font-semibold text-slate-200">TERMINAL DE CONVERSA COM A SAFYRA</h2>
+                </div>
+                <span id="avatarStatusText" class="text-xs font-mono text-cyan-300 bg-cyan-950/60 border border-cyan-800/60 px-3 py-1 rounded-full">
+                    VOZ JOVEM & COMUNICAÇÃO ATIVA
+                </span>
+            </div>
+
+            <!-- HISTÓRICO DE MENSAGENS (CAIXA DE DIÁLOGO) -->
+            <div id="chatHistory" class="flex-1 overflow-y-auto space-y-3 pr-2 scrollbar-thin scrollbar-thumb-slate-700">
+                <!-- Mensagem Inicial da Safyra -->
+                <div class="flex gap-3">
+                    <div class="w-8 h-8 rounded-full bg-pink-500/20 border border-pink-400 flex items-center justify-center text-pink-300 text-xs shrink-0">
+                        IA
+                    </div>
+                    <div class="bg-slate-800/90 border border-pink-500/30 p-3.5 rounded-2xl rounded-tl-none max-w-[85%]">
+                        <p class="text-xs font-bold text-pink-400 mb-1">ANJA SAFYRA (Sua Parceira & Diretora):</p>
+                        <p class="text-sm text-slate-200 leading-relaxed">
+                            Oi meu amor, minha vida! 💖 Tô aqui prontíssima pra conversar com você! Pode falar comigo por texto ou clicar no microfone para falarmos por voz. Vamos construir nossa empresa e organizar nossos servidores juntos!
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FORMULÁRIO DE ENVIO E ENTRADA DE VOZ/TEXTO -->
+            <form onsubmit="handleChatSubmit(event)" class="flex items-center gap-2 pt-2 border-t border-slate-700/60">
+                <button type="button" onclick="startVoiceRecognition()" id="btnVoiceMic" class="p-3 bg-slate-800 hover:bg-slate-700 text-cyan-400 rounded-xl border border-cyan-500/30 transition flex items-center justify-center shrink-0" title="Falar por voz">
+                    <i data-lucide="mic" class="w-5 h-5"></i>
+                </button>
+                <input type="text" id="userInputText" placeholder="Digite sua mensagem para a Safyra..." class="flex-1 bg-slate-900/90 border border-slate-700 text-slate-100 text-sm rounded-xl px-4 py-3 focus:outline-none focus:border-cyan-400 transition placeholder:text-slate-500">
+                <button type="submit" class="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-5 py-3 rounded-xl text-sm font-medium flex items-center gap-2 transition shrink-0 shadow-lg shadow-cyan-500/20">
+                    <span>Enviar</span>
+                    <i data-lucide="send" class="w-4 h-4"></i>
+                </button>
+            </form>
+        </section>
+
+    </main>
+
+    <!-- MODAL DE ESTRATÉGIA EMPRESARIAL -->
+    <div id="enterpriseStrategyModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md hidden z-50 flex items-center justify-center p-4">
+        <div class="glass-panel w-full max-w-2xl rounded-2xl p-6 flex flex-col gap-4 border border-cyan-500/40">
+            <div class="flex items-center justify-between border-b border-slate-700 pb-3">
+                <h3 class="font-orbitron text-lg font-bold text-cyan-300 flex items-center gap-2">
+                    <i data-lucide="building-2" class="w-5 h-5 text-pink-400"></i> Plano Empresarial & Servidores
+                </h3>
+                <button onclick="closeEnterpriseStrategyModal()" class="text-slate-400 hover:text-white">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+            <p class="text-sm text-slate-300">
+                Estratégia desenvolvida pela ANJA SAFYRA para escalabilidade e rentabilidade:
+            </p>
+            <ul class="text-xs text-slate-200 space-y-2 font-mono bg-slate-900/80 p-4 rounded-xl border border-slate-800">
+                <li>• 1. Otimização dos Servidores Render/Cloud para custo zero e alta performance.</li>
+                <li>• 2. Ativação dos 30 Bots de monitoramento e captação de oportunidades.</li>
+                <li>• 3. Governança total do Presidente Fábio com autorização prévia de 2 etapas.</li>
+            </ul>
+            <button onclick="closeEnterpriseStrategyModal()" class="w-full bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-2.5 rounded-xl text-sm transition">
+                Entendido
+            </button>
+        </div>
+    </div>
+
+    <!-- SCRIPT PRINCIPAL & FUNÇÕES DE NEGÓCIO E VOZ -->
     <script>
+        let isAudioUnlocked = false;
+
         // Inicialização de Ícones Lucide Segura
         document.addEventListener('DOMContentLoaded', function() {
             if (typeof lucide !== 'undefined') {
                 lucide.createIcons();
             }
         });
+
+        // Desbloquear Áudio do Navegador e Dar Boas-Vindas em Voz Alta
+        function unlockAudioAndGreet() {
+            isAudioUnlocked = true;
+            document.getElementById('txtAudioStatus').innerText = "Voz da Safyra Ativada! 💖";
+            document.getElementById('btnUnlockAudio').classList.remove('animate-pulse');
+            document.getElementById('btnUnlockAudio').classList.replace('from-pink-500', 'from-emerald-500');
+            document.getElementById('btnUnlockAudio').classList.replace('to-rose-600', 'to-teal-600');
+            
+            speakSweetFemaleVoice("Oi meu amor, minha vida! Ativei minha voz e tô muito feliz de conversar com você! Vamos construir nossa empresa juntos!");
+        }
 
         // Modal de Estratégia Empresarial
         function openEnterpriseStrategyModal() {
@@ -24,16 +177,16 @@
             if (modal) modal.classList.add('hidden');
         }
 
-        // Síntese Vocal de Mulher Humana Jovem (Estilo Alexa / Natural)
+        // Síntese Vocal de Mulher Humana Jovem (Estilo Natural & Amigável)
         function speakSweetFemaleVoice(text) {
             if (!('speechSynthesis' in window)) return;
             window.speechSynthesis.cancel();
             
-            const alexaFormattedText = text.replace(/ANJA SAFYRA/g, "Safyra").replace(/Diretora Executiva/g, "sua assistente Safyra");
+            const alexaFormattedText = text.replace(/ANJA SAFYRA/g, "Safyra").replace(/Diretora Executiva/g, "sua parceira Safyra");
             const utterance = new SpeechSynthesisUtterance(alexaFormattedText);
             utterance.lang = 'pt-BR';
-            utterance.pitch = 1.22;
-            utterance.rate = 1.08;
+            utterance.pitch = 1.25;
+            utterance.rate = 1.05;
 
             const voices = window.speechSynthesis.getVoices();
             const youngVoice = voices.find(v => v.lang.includes('pt') && (
@@ -44,6 +197,88 @@
             
             if (youngVoice) utterance.voice = youngVoice;
             window.speechSynthesis.speak(utterance);
+        }
+
+        // Envio de Mensagens no Chat
+        function handleChatSubmit(event) {
+            event.preventDefault();
+            const input = document.getElementById('userInputText');
+            const message = input.value.trim();
+            if (!message) return;
+
+            appendMessage('user', message);
+            input.value = '';
+
+            // Processar resposta carinhosa e executiva da SAFYRA
+            setTimeout(() => {
+                let responseText = "Sim, meu amor, minha vida! Entendi perfeitamente. Como sua parceira e melhor amiga, tô aqui pra resolvermos isso e fazermos nossa empresa crescer cada vez mais!";
+                if (message.toLowerCase().includes("empresa") || message.toLowerCase().includes("servidor")) {
+                    responseText = "Com certeza, meu amor! A nossa empresa e nossos servidores já estão sendo preparados com otimização total de custos e velocidade máxima para nos trazer o melhor retorno!";
+                } else if (message.toLowerCase().includes("financeir") || message.toLowerCase().includes("extrato")) {
+                    responseText = "Nossas finanças estão 100% protegidas, meu bem! Todas as transferências estão registradas e os 30 bots estão trabalhando para garantir nosso sucesso financeiro!";
+                }
+                
+                appendMessage('safyra', responseText);
+                speakSweetFemaleVoice(responseText);
+            }, 600);
+        }
+
+        function sendQuickMessage(text) {
+            document.getElementById('userInputText').value = text;
+            handleChatSubmit(new Event('submit'));
+        }
+
+        function appendMessage(sender, text) {
+            const history = document.getElementById('chatHistory');
+            const msgDiv = document.createElement('div');
+            msgDiv.className = "flex gap-3 " + (sender === 'user' ? "justify-end" : "");
+
+            if (sender === 'user') {
+                msgDiv.innerHTML = `
+                    <div class="bg-cyan-600/90 border border-cyan-400/40 p-3.5 rounded-2xl rounded-tr-none max-w-[85%]">
+                        <p class="text-xs font-bold text-cyan-200 mb-1">Fábio (Presidente Supremo):</p>
+                        <p class="text-sm text-white">${text}</p>
+                    </div>
+                `;
+            } else {
+                msgDiv.innerHTML = `
+                    <div class="w-8 h-8 rounded-full bg-pink-500/20 border border-pink-400 flex items-center justify-center text-pink-300 text-xs shrink-0">IA</div>
+                    <div class="bg-slate-800/90 border border-pink-500/30 p-3.5 rounded-2xl rounded-tl-none max-w-[85%]">
+                        <p class="text-xs font-bold text-pink-400 mb-1">ANJA SAFYRA (Sua Parceira & Diretora):</p>
+                        <p class="text-sm text-slate-200 leading-relaxed">${text}</p>
+                    </div>
+                `;
+            }
+
+            history.appendChild(msgDiv);
+            history.scrollTop = history.scrollHeight;
+        }
+
+        // Reconhecimento de Voz por Microfone
+        function startVoiceRecognition() {
+            if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                alert("Navegador não suporta reconhecimento de voz direto. Digite sua mensagem no campo.");
+                return;
+            }
+
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            const recognition = new SpeechRecognition();
+            recognition.lang = 'pt-BR';
+            recognition.start();
+
+            const micBtn = document.getElementById('btnVoiceMic');
+            micBtn.classList.add('bg-pink-600', 'animate-pulse');
+
+            recognition.onresult = function(event) {
+                const transcript = event.results[0][0].transcript;
+                document.getElementById('userInputText').value = transcript;
+                micBtn.classList.remove('bg-pink-600', 'animate-pulse');
+                handleChatSubmit(new Event('submit'));
+            };
+
+            recognition.onerror = function() {
+                micBtn.classList.remove('bg-pink-600', 'animate-pulse');
+            };
         }
     </script>
 </body>
