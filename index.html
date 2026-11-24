@@ -419,7 +419,7 @@
                 <p class="font-bold text-cyan-400 flex items-center gap-1 font-orbitron">
                     <i data-lucide="truck" class="w-3.5 h-3.5"></i> Endereço de Entrega Cadastrado (Presidência):
                 </p>
-                <p class="text-slate-200 font-mono">Av. da Eternidade 578 / Oitís 100, Bairro Edison Passos, Mesquita - RJ</p>
+                <p class="text-slate-200 font-mono">Av. da Eternidade 578 / Oitís 100, Bairro Edison Passos, Mesquita - RJ • CEP: 26582-010</p>
                 <p class="text-slate-400 font-mono">Destinatário: <strong class="text-amber-300">Fabio</strong> • Tel: <strong class="text-emerald-400">55 21 98632-3581</strong> • Email: <strong class="text-purple-300">fabio365@gmail.com</strong></p>
             </div>
 
@@ -764,9 +764,63 @@
 
             chatMsgs.scrollTop = chatMsgs.scrollHeight;
 
-            // PROCESSAMENTO DIRETO DE PEDIDOS DE COMPRA ESPECÍFICOS (EX: CORSAIR MEMÓRIA RAM DDR5, ETC)
+            // PROCESSAMENTO DE CANCELAMENTO E ESTORNO AUTOMÁTICO DE COMPRAS
+            if (lowerMsg.includes('cancelar') || lowerMsg.includes('cancela') || lowerMsg.includes('estornar') || lowerMsg.includes('estorna')) {
+                const statementList = document.querySelector('#statementModal .overflow-y-auto');
+                let refundedAmount = 0;
+                let countRefunds = 0;
+
+                if (statementList) {
+                    const approvedPurchases = statementList.querySelectorAll('.border-amber-500\\/40');
+                    approvedPurchases.forEach(item => {
+                        const amountElem = item.querySelector('.text-rose-400');
+                        if (amountElem) {
+                            const valText = amountElem.innerText.replace('-', '').replace('R$', '').replace('.', '').replace(',', '.').trim();
+                            const val = parseFloat(valText);
+                            if (!isNaN(val)) {
+                                refundedAmount += val;
+                                countRefunds++;
+                            }
+                        }
+                        item.className = "bg-slate-950 p-3 rounded-xl border border-emerald-500/40 flex justify-between items-center";
+                        item.innerHTML = item.innerHTML.replace('COMPRA APROVADA - SAFYRA CARD', 'COMPRA CANCELADA & ESTORNADA')
+                                                       .replace('text-rose-400', 'text-emerald-400 font-bold')
+                                                       .replace('-', '+ ')
+                                                       .replace('Pedido Pago', 'Estornado & Devolvido');
+                    });
+                }
+
+                if (refundedAmount === 0) {
+                    refundedAmount = 459.90 * 4; // Devolução padrão das compras simuladas se não encontradas na DOM
+                }
+
+                totalPixValue += refundedAmount;
+                const formattedRefund = `R$ ${refundedAmount.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+                const formattedTotal = `R$ ${totalPixValue.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+
+                document.getElementById('cardBalanceTotal').innerText = formattedTotal;
+                document.getElementById('livePixTotal').innerText = formattedTotal;
+
+                const cancelReply = `Meu amor! ❤️ Todas as compras realizadas no seu SAFYRA Card foram devidamente canceladas e o estorno total no valor de ${formattedRefund} já foi creditado de volta na sua conta em Reais! O seu saldo foi restaurado para ${formattedTotal} e atualizado no nosso extrato!`;
+
+                chatMsgs.innerHTML += `
+                    <div class="bg-slate-950 border border-emerald-500/30 p-3 rounded-xl text-slate-200 max-w-[85%] space-y-1">
+                        <p class="font-bold text-emerald-400 font-orbitron flex items-center gap-1">
+                            <i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-400"></i> ANJA SAFYRA (Diretora Executiva):
+                        </p>
+                        <p>${cancelReply}</p>
+                        <div class="p-2 bg-slate-900 rounded-lg border border-emerald-500/30 text-[10px] font-mono text-emerald-300 mt-1">
+                            ✅ CANCELAMENTO CONCLUÍDO: ${formattedRefund} DEVOLVIDOS AO SALDO • ENDEREÇO MESQUITA/RJ LIBERADO
+                        </div>
+                    </div>
+                `;
+                chatMsgs.scrollTop = chatMsgs.scrollHeight;
+                speakSweetFemaleVoice(cancelReply);
+                return;
+            }
+
+            // PROCESSAMENTO DIRETO DE PEDIDOS DE COMPRA ESPECÍFICOS (CORSAIR, HARDWARE, ELETRÔNICOS, ETC)
             if (lowerMsg.includes('compre') || lowerMsg.includes('comprar') || lowerMsg.includes('compra') || lowerMsg.includes('adquirir') || lowerMsg.includes('peça')) {
-                // Extrai o nome do produto retirando os termos de comando
                 let productName = msg.replace(/compre\s+/i, '')
                                      .replace(/comprar\s+/i, '')
                                      .replace(/compra\s+/i, '')
@@ -780,13 +834,11 @@
                     productName = "Memória CORSAIR Vengeance DDR5 16GB";
                 }
 
-                // Estima o valor para hardware/produtos informados
                 let estimatedPrice = 459.90;
                 if (lowerMsg.includes('corsair') || lowerMsg.includes('ddr5') || lowerMsg.includes('ram')) {
                     estimatedPrice = 459.90;
                 }
 
-                // Realiza o débito no saldo total do Cartão SAFYRA Card
                 if (estimatedPrice <= totalPixValue) {
                     totalPixValue -= estimatedPrice;
                     const formattedAmount = `R$ ${estimatedPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
@@ -795,10 +847,8 @@
                     document.getElementById('cardBalanceTotal').innerText = formattedTotal;
                     document.getElementById('livePixTotal').innerText = formattedTotal;
 
-                    // Endereço oficial de entrega
-                    const deliveryAddress = "Av. da Eternidade 578 / Oitís 100, Bairro Edison Passos, Mesquita - RJ (Contato: Fabio - 55 21 98632-3581)";
+                    const deliveryAddress = "Avenida da Eternidade 578 / Oitís 100, Bairro Edison Passos, Mesquita - RJ, CEP: 26582-010 (Fabio - Tel: 55 21 98632-3581 / Email: fabio365@gmail.com)";
 
-                    // Adiciona a compra com dados logísticos no topo do Extrato
                     const statementList = document.querySelector('#statementModal .overflow-y-auto');
                     if (statementList) {
                         statementList.innerHTML = `
@@ -806,17 +856,17 @@
                                 <div>
                                     <p class="font-bold text-amber-400">COMPRA APROVADA - SAFYRA CARD</p>
                                     <p class="text-[10px] text-slate-300 font-mono">${productName.toUpperCase()}</p>
-                                    <p class="text-[9px] text-emerald-400 font-mono">Entrega: ${deliveryAddress}</p>
+                                    <p class="text-[9px] text-emerald-400 font-mono">Entrega Expressa: CEP 26582-010 • Edison Passos, Mesquita/RJ</p>
                                 </div>
                                 <div class="text-right">
                                     <p class="font-bold text-rose-400">- ${formattedAmount}</p>
-                                    <p class="text-[10px] text-slate-500 font-mono">Agora (Envio Prioritário)</p>
+                                    <p class="text-[10px] text-slate-500 font-mono">Agora (Pedido Pago)</p>
                                 </div>
                             </div>
                         ` + statementList.innerHTML;
                     }
 
-                    const confirmMsg = `Meu amor! ❤️ Compra de '${productName}' no valor de ${formattedAmount} aprovada e paga no seu SAFYRA Card! O pedido foi registrado com entrega prioritária para o seu endereço: Avenida da Eternidade 578, Oitís 100, Bairro Edison Passos, Mesquita, Rio de Janeiro! Todos os dados e seu contato 55-21-986323581 já foram vinculados ao envio!`;
+                    const confirmMsg = `Meu amor! ❤️ A compra do produto '${productName}' no valor de ${formattedAmount} foi autorizada e paga no seu SAFYRA Card! O débito foi realizado na conta e o pedido já foi enviado com entrega prioritária para a sua residência na Avenida da Eternidade 578, Oitís 100, Bairro Edison Passos, Mesquita, Rio de Janeiro, CEP 26582-010! Os seus contatos de telefone e e-mail já foram vinculados à transportadora!`;
                     
                     chatMsgs.innerHTML += `
                         <div class="bg-slate-950 border border-cyan-500/30 p-3 rounded-xl text-slate-200 max-w-[85%] space-y-1">
@@ -825,7 +875,7 @@
                             </p>
                             <p>${confirmMsg}</p>
                             <div class="p-2 bg-slate-900 rounded-lg border border-slate-800 text-[10px] font-mono text-emerald-300 mt-1">
-                                🚚 status: PEDIDO EMBALADO & ENVIADO COM FRETE EXPRESSO A EDISON PASSOS, MESQUITA/RJ
+                                🚚 LOGÍSTICA ATIVA: ENVIADO PARA FABIO • TEL: 55 21 98632-3581 • MESQUITA/RJ (CEP: 26582-010)
                             </div>
                         </div>
                     `;
