@@ -251,18 +251,20 @@
 
         function unlockAudio() {
             audioUnlocked = true;
-            document.getElementById('txtAudioStatus').innerText = "Áudio 100% Ativo";
-            document.getElementById('btnAudioUnlock').className = "bg-emerald-500 text-slate-950 font-bold px-3 py-1.5 rounded-xl text-xs flex items-center gap-1.5 transition";
-            speakText("Áudio ativado meu amor! Estou pronta para te servir.");
+            const btnTxt = document.getElementById('txtAudioStatus');
+            const btnObj = document.getElementById('btnAudioUnlock');
+            if (btnTxt) btnTxt.innerText = "Áudio 100% Ativo";
+            if (btnObj) btnObj.className = "bg-emerald-500 text-slate-950 font-bold px-3 py-1.5 rounded-xl text-xs flex items-center gap-1.5 transition shadow-md shadow-emerald-500/20";
+            speakText("Áudio ativado meu amor! Estou pronta para te servir como sua Diretora.");
         }
 
         function toggleVoiceOutput() {
             voiceEnabled = !voiceEnabled;
-            alert(voiceEnabled ? "Voz ativada!" : "Voz desativada!");
+            speakText(voiceEnabled ? "Voz ativada meu amor!" : "Voz desativada.");
         }
 
         function toggleSecurityMatrix() {
-            alert("Matriz de Segurança 256-Bit e Escudo Neural 100% Ativos!");
+            speakText("Matriz de Segurança 256-Bit e Escudo Neural 100% Ativos!");
         }
 
         function speakText(text) {
