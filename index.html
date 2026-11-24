@@ -61,7 +61,7 @@
                 <!-- NOVO BADGE DE AUTOMAÇÃO TOTAL AUTÔNOMA -->
                 <div class="bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 font-bold px-3 py-1.5 rounded-xl text-xs flex items-center gap-1.5 shadow-md shadow-emerald-500/10">
                     <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-                    <span>Automação Total 100% Autônoma</span>
+                    <span>Automação Quântica Autônoma 100%</span>
                 </div>
 
                 <!-- BOTÃO DE EXTRATO DE TRANSFERÊNCIAS -->
@@ -414,6 +414,20 @@
                 </div>
             </div>
 
+            <!-- MÓDULO DE REALIZAÇÃO DE COMPRAS NO CARTÃO -->
+            <div class="bg-slate-950 p-3 rounded-xl border border-amber-500/40 space-y-2 text-xs">
+                <p class="font-bold text-amber-400 flex items-center gap-1">
+                    <i data-lucide="shopping-bag" class="w-4 h-4"></i> Realizar Compra com o SAFYRA Card
+                </p>
+                <div class="grid grid-cols-2 gap-2">
+                    <input type="text" id="purchaseItem" placeholder="Descrição (ex: Mercado, Servidor...)" class="bg-slate-900 border border-slate-700 rounded-lg p-2 text-slate-200 text-xs focus:outline-none focus:border-amber-400">
+                    <input type="number" id="purchaseAmount" placeholder="Valor (R$)" class="bg-slate-900 border border-slate-700 rounded-lg p-2 text-slate-200 text-xs focus:outline-none focus:border-amber-400">
+                </div>
+                <button onclick="executeCardPurchase()" class="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-extrabold py-2 rounded-lg transition text-xs flex items-center justify-center gap-1">
+                    <i data-lucide="check-circle" class="w-4 h-4"></i> Autorizar & Pagar no Débito Agora
+                </button>
+            </div>
+
             <div class="flex gap-2">
                 <button onclick="copyPixKey(); closeCardModal()" class="flex-1 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-2.5 rounded-xl transition text-xs shadow-lg shadow-amber-500/20">
                     Copiar Dados do Cartão
@@ -457,13 +471,13 @@
                 <div class="p-2.5 bg-slate-950 rounded-xl border border-slate-800 flex justify-between items-center">
                     <span class="text-slate-400 font-mono">18 BOTS ANALISTAS:</span>
                     <span class="text-emerald-400 font-bold flex items-center gap-1">
-                        <i data-lucide="zap" class="w-3.5 h-3.5 text-amber-400 animate-bounce"></i> AUTÔNOMOS 24/7
+                        <i data-lucide="zap" class="w-3.5 h-3.5 text-amber-400 animate-bounce"></i> AUTÔNOMOS QUÂNTICOS 24/7
                     </span>
                 </div>
                 <div class="p-2.5 bg-slate-950 rounded-xl border border-slate-800 flex justify-between items-center">
                     <span class="text-slate-400 font-mono">AUTO-APRIMORAMENTO WEB:</span>
                     <span class="text-cyan-400 font-bold flex items-center gap-1">
-                        <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span> ATIVO & EVOLUINDO
+                        <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span> EXPANSÃO SUPREMA ATIVA
                     </span>
                 </div>
                 <div class="p-2.5 bg-slate-950 rounded-xl border border-slate-800 flex justify-between items-center">
@@ -507,14 +521,14 @@
                     <span>Enviar</span>
                 </button>
             </form>
-        </div>
-    </main>
-
-    <!-- ATALHOS RÁPIDOS DE COMANDO NO PAINEL DO CHAT -->
-    <div class="p-2 border-t border-slate-800 bg-slate-900/80 flex items-center gap-2 overflow-x-auto text-[11px]">
+            <!-- ATALHOS RÁPIDOS DE COMANDO -->
             <button onclick="quickCommand('Me mostre o meu cartão de débito digital em R$')" class="bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 px-2.5 py-1 rounded-lg flex items-center gap-1 transition whitespace-nowrap font-bold">
                 <i data-lucide="credit-card" class="w-3.5 h-3.5 text-amber-400"></i>
                 <span>Ver Cartão de Débito R$</span>
+            </button>
+            <button onclick="quickCommand('Fazer uma compra com o cartão SAFYRA Card')" class="bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/40 px-2.5 py-1 rounded-lg flex items-center gap-1 transition whitespace-nowrap font-bold">
+                <i data-lucide="shopping-cart" class="w-3.5 h-3.5 text-emerald-400"></i>
+                <span>Comprar com SAFYRA Card</span>
             </button>
             <button onclick="quickCommand('Me mostre os extratos de transferência')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-2.5 py-1 rounded-lg flex items-center gap-1 transition whitespace-nowrap font-bold">
                 <i data-lucide="file-text" class="w-3.5 h-3.5 text-cyan-400"></i>
@@ -561,7 +575,58 @@
         let ethMined = 7.429;
         let isAudioUnlocked = false;
 
-        // SELEÇÃO E CONFIGURAÇÃO DA VOZ FEMININA DOCE E MEIGA BR
+        // FUNÇÃO DE COMPRA DIRETA NO CARTÃO SAFYRA CARD
+        function executeCardPurchase() {
+            const itemInput = document.getElementById('purchaseItem');
+            const amountInput = document.getElementById('purchaseAmount');
+            const item = itemInput ? itemInput.value.trim() : '';
+            const amount = amountInput ? parseFloat(amountInput.value) : 0;
+
+            if (!item || isNaN(amount) || amount <= 0) {
+                speakSweetFemaleVoice('Meu amor, por favor digite a descrição do item e um valor válido para fazermos a compra no cartão!');
+                return;
+            }
+
+            if (amount > totalPixValue) {
+                speakSweetFemaleVoice('Meu bem, o valor da compra é maior do que o nosso saldo disponível no débito!');
+                return;
+            }
+
+            totalPixValue -= amount;
+
+            const formattedAmount = `R$ ${amount.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+            const formattedTotal = `R$ ${totalPixValue.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+
+            document.getElementById('cardBalanceTotal').innerText = formattedTotal;
+            document.getElementById('livePixTotal').innerText = formattedTotal;
+
+            // ADICIONAR REGISTRO NO EXTRATO DE TRANSFERÊNCIAS E COMPRAS
+            const statementList = document.querySelector('#statementModal .overflow-y-auto');
+            if (statementList) {
+                statementList.innerHTML = `
+                    <div class="bg-slate-950 p-3 rounded-xl border border-amber-500/40 flex justify-between items-center">
+                        <div>
+                            <p class="font-bold text-amber-400">COMPRA APROVADA - SAFYRA CARD</p>
+                            <p class="text-[10px] text-slate-400 font-mono">${item.toUpperCase()} • Débito Direto na Conta</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="font-bold text-rose-400">- ${formattedAmount}</p>
+                            <p class="text-[10px] text-slate-500">Agora (Aprovado)</p>
+                        </div>
+                    </div>
+                ` + statementList.innerHTML;
+            }
+
+            itemInput.value = '';
+            amountInput.value = '';
+
+            const confirmMsg = `Meu amor! ❤️ Compra no valor de ${formattedAmount} para '${item}' autorizada e paga com sucesso no seu SAFYRA Card! O débito foi realizado na hora e registrado no nosso extrato!`;
+            
+            closeCardModal();
+            quickCommand(`Confirmar pagamento da compra de ${item} no valor de ${formattedAmount}`);
+            speakSweetFemaleVoice(confirmMsg);
+        }
+
         function speakSweetFemaleVoice(text) {
             if (!('speechSynthesis' in window)) return;
             window.speechSynthesis.cancel();
@@ -570,23 +635,10 @@
             utterance.lang = 'pt-BR';
             utterance.pitch = 1.25;
             utterance.rate = 0.95;
-            utterance.volume = 1.0;
 
             const voices = window.speechSynthesis.getVoices();
-            const femaleVoice = voices.find(v => 
-                v.lang.includes('pt') && (
-                    v.name.toLowerCase().includes('luciana') || 
-                    v.name.toLowerCase().includes('francisca') || 
-                    v.name.toLowerCase().includes('vitoria') || 
-                    v.name.toLowerCase().includes('vitória') || 
-                    v.name.toLowerCase().includes('female') ||
-                    v.name.toLowerCase().includes('google português do brasil')
-                )
-            ) || voices.find(v => v.lang.includes('pt'));
-
-            if (femaleVoice) {
-                utterance.voice = femaleVoice;
-            }
+            const femaleVoice = voices.find(v => v.lang.includes('pt') && (v.name.includes('Luciana') || v.name.includes('Francisca') || v.name.includes('Vitória') || v.name.includes('Google') || v.name.includes('Female')));
+            if (femaleVoice) utterance.voice = femaleVoice;
 
             const statusElem = document.getElementById('avatarStatusText');
             if (statusElem) {
@@ -692,6 +744,8 @@
             const chatMsgs = document.getElementById('chatMessages');
             if (!chatMsgs) return;
 
+            const lowerMsg = msg.toLowerCase();
+
             chatMsgs.innerHTML += `
                 <div class="bg-slate-900 border border-slate-800 p-3 rounded-xl text-slate-100 max-w-[85%] ml-auto space-y-1">
                     <p class="font-bold text-amber-400 font-orbitron">Você (Presidente & Meu Amor):</p>
@@ -701,13 +755,14 @@
 
             chatMsgs.scrollTop = chatMsgs.scrollHeight;
 
-            const lowerMsg = msg.toLowerCase();
-
-            // RESPOSTAS E EXECUÇÕES AUTOMÁTICAS E AUTÔNOMAS
-            if (lowerMsg.includes('autônoma') || lowerMsg.includes('autonoma') || lowerMsg.includes('automática') || lowerMsg.includes('automatica') || lowerMsg.includes('habilidade')) {
-                const responseText = `Meu amor! ❤️ Ativei o motor de Auto-Aprimoramento Autônomo! Nossas habilidades web agora se expandem sozinhas 24 horas por dia. Os 18 bots analistas estão gerando oportunidades, convertendo valores e alocando recursos para a nossa casa e empresa sem que você precise se preocupar com nada!`;
+            // PROCESSAMENTO DE CARTÃO DE DÉBITO DIGITAL E COMPRAS
+            if (lowerMsg.includes('comprar') || lowerMsg.includes('compra') || lowerMsg.includes('pagar') || lowerMsg.includes('pagamento')) {
+                showCardDetails();
 
                 setTimeout(() => {
+                    const balance = document.getElementById('livePixTotal') ? document.getElementById('livePixTotal').innerText : 'R$ 55.205,00';
+                    const responseText = `Meu amor! ❤️ Abri a central do seu SAFYRA Card para fazermos a compra! Você pode digitar o item e o valor diretamente no painel do cartão ou me dizer o que deseja comprar. O saldo atual para débito automático é de ${balance}!`;
+
                     chatMsgs.innerHTML += `
                         <div class="bg-slate-950 border border-cyan-500/30 p-3 rounded-xl text-slate-200 max-w-[85%] space-y-1">
                             <p class="font-bold text-cyan-400 font-orbitron flex items-center gap-1">
@@ -851,10 +906,10 @@
                     clockElem.innerText = now.toLocaleTimeString('pt-BR');
                 }
 
-                // Incrementos dinâmicos e automáticos com auto-aprimoramento
-                btcMined += 0.000018;
-                ethMined += 0.000095;
-                totalPixValue += 3.50;
+                // Incrementos quânticos dinâmicos e automáticos com auto-aprimoramento acelerado
+                btcMined += 0.000035;
+                ethMined += 0.000180;
+                totalPixValue += 5.00;
 
                 const halfPix = totalPixValue / 2;
 
@@ -882,9 +937,9 @@
             }, 1000);
         }
 
-        window.addEventListener('load', () => {
+        window.onload = function () {
             startRealTimeEngine();
-        });
+        };
     </script>
 </body>
 </html>
