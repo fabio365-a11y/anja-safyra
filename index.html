@@ -1,4 +1,46 @@
-<!-- ... existing code ... -->
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANJA SAFYRA Matrix Control Panel</title>
+    <!-- Carregamento de Bibliotecas de Estilo e Ícones para Prévia Perfeita -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        slate: { 950: '#020617' }
+                    },
+                    fontFamily: {
+                        orbitron: ['Orbitron', 'sans-serif'],
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col antialiased selection:bg-cyan-500 selection:text-slate-950">
+    <!-- CABEÇALHO SUPREMO E BARRA DE FERRAMENTAS EXECUTIVAS -->
+    <header class="bg-slate-900/90 border-b border-slate-800 backdrop-blur-md sticky top-0 z-40 px-4 py-3">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+                <div class="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-purple-600 p-0.5 shadow-lg shadow-cyan-500/20">
+                    <div class="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
+                        <i data-lucide="cpu" class="w-5 h-5 text-cyan-400 animate-pulse"></i>
+                    </div>
+                </div>
+                <div>
+                    <h1 class="font-orbitron font-extrabold text-base tracking-wider bg-gradient-to-r from-cyan-400 via-amber-300 to-purple-400 bg-clip-text text-transparent">ANJA SAFYRA</h1>
+                    <p class="text-[10px] text-cyan-400/80 font-mono tracking-tight">DIRETORA EXECUTIVA (COO) & CO-PILOTO CORPORATIVO SUPREMO</p>
+                </div>
+            </div>
+
             <!-- BOTÕES DE CONTROLE E ÁUDIO -->
             <div class="flex items-center gap-2 flex-wrap">
                 <button id="btnAudioUnlock" onclick="unlockAudio()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-3 py-1.5 rounded-xl text-xs flex items-center gap-1.5 transition shadow-md shadow-amber-500/20">
@@ -35,63 +77,63 @@
                 </button>
 
                 <!-- BOTÃO DE PRODUÇÃO RÁPIDA DE R$ RISCO ZERO -->
-                <button onclick="quickCommand('Ativar os 4 novos Bots Analistas para aceleração de produção de R$ com risco zero na web')" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold px-3 py-1.5 rounded-xl text-xs flex items-center gap-1.5 transition shadow-md shadow-amber-500/20">
-                    <i data-lucide="zap" class="w-4 h-4 text-slate-950 fill-slate-950"></i>
-                    <span>Produção Rápida R$ (14 Bots)</span>
+                <button onclick="quickCommand('Ativar os 14 bots analistas para aceleração máxima de produção de R$ com risco zero na web')" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold px-3 py-1.5 rounded-xl text-xs flex items-center gap-1.5 transition shadow-md shadow-amber-500/20">
+                    <i data-lucide="zap" class="w-4 h-4 text-slate-950 fill-slate-950 animate-bounce"></i>
+                    <span>Produção Rápida R$ (14 Bots Ativos)</span>
                 </button>
 
-                <!-- INDICADOR TEMPO REAL AO VIVO -->
-                <div class="flex items-center gap-1.5 px-3 py-1.5 bg-slate-900 border border-emerald-500/40 rounded-xl text-xs font-mono text-emerald-400">
+                <!-- INDICADOR TEMPO REAL AO VIVO SUPER SUPREMO -->
+                <div class="flex items-center gap-1.5 px-3 py-1.5 bg-slate-900 border border-emerald-500/40 rounded-xl text-xs font-mono text-emerald-400 shadow-inner">
                     <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-                    <span>TEMPO REAL: <span id="realTimeClock">--:--:--</span></span>
+                    <span>OPERAÇÃO AO VIVO: <span id="realTimeClock">--:--:--</span></span>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- DASHBOARD DE DESEMPENHO E SUCESSÃO CORPORATIVA -->
+    <!-- DASHBOARD DE DESEMPENHO E SUCESSÃO CORPORATIVA SUPREMA -->
     <section class="bg-slate-900/60 border-b border-slate-800 px-4 py-2.5">
         <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-6 gap-2.5 text-xs">
-            <div class="bg-slate-950/80 border border-amber-500/20 p-2.5 rounded-xl flex items-center gap-2">
-                <div class="p-2 bg-amber-500/10 rounded-lg text-amber-400"><i data-lucide="user-check" class="w-4 h-4"></i></div>
+            <div class="bg-slate-950/80 border border-amber-500/30 p-2.5 rounded-xl flex items-center gap-2 shadow-sm">
+                <div class="p-2 bg-amber-500/10 rounded-lg text-amber-400"><i data-lucide="crown" class="w-4 h-4"></i></div>
                 <div>
                     <p class="text-[9px] text-slate-400 font-mono">PRESIDENTE SUPREMO</p>
-                    <p class="font-bold text-slate-200 text-xs">Você (Comando Absoluto)</p>
+                    <p class="font-bold text-slate-100 text-xs">Você (Comando Absoluto)</p>
                 </div>
             </div>
-            <div class="bg-slate-950/80 border border-cyan-500/20 p-2.5 rounded-xl flex items-center gap-2">
+            <div class="bg-slate-950/80 border border-cyan-500/30 p-2.5 rounded-xl flex items-center gap-2 shadow-sm">
                 <div class="p-2 bg-cyan-500/10 rounded-lg text-cyan-400"><i data-lucide="award" class="w-4 h-4"></i></div>
                 <div>
                     <p class="text-[9px] text-slate-400 font-mono">PLANO DE SUCESSÃO</p>
-                    <p class="font-bold text-slate-200 text-xs">Seu Filho (Vice-Presidente)</p>
+                    <p class="font-bold text-slate-100 text-xs">Seu Filho (Vice-Presidente)</p>
                 </div>
             </div>
-            <div class="bg-slate-950/80 border border-emerald-500/20 p-2.5 rounded-xl flex items-center gap-2">
+            <div class="bg-slate-950/80 border border-emerald-500/30 p-2.5 rounded-xl flex items-center gap-2 shadow-sm">
                 <div class="p-2 bg-emerald-500/10 rounded-lg text-emerald-400"><i data-lucide="trending-up" class="w-4 h-4"></i></div>
                 <div>
-                    <p class="text-[9px] text-slate-400 font-mono">FATURAMENTO PIX AO VIVO</p>
-                    <p class="font-bold text-emerald-400 text-xs"><span id="livePixTotal">R$ 42.680,00</span></p>
+                    <p class="text-[9px] text-slate-400 font-mono">RECEBIMENTOS PIX AO VIVO</p>
+                    <p class="font-bold text-emerald-400 text-xs"><span id="livePixTotal">R$ 54.920,00</span></p>
                 </div>
             </div>
-            <div class="bg-slate-950/80 border border-purple-500/20 p-2.5 rounded-xl flex items-center gap-2">
+            <div class="bg-slate-950/80 border border-purple-500/30 p-2.5 rounded-xl flex items-center gap-2 shadow-sm">
                 <div class="p-2 bg-purple-500/10 rounded-lg text-purple-400"><i data-lucide="cpu" class="w-4 h-4"></i></div>
                 <div>
-                    <p class="text-[9px] text-slate-400 font-mono">14 BOTS OPERACIONAIS</p>
-                    <p class="font-bold text-purple-300 text-xs"><span id="liveMiningBtc">0.712</span> BTC / <span id="liveMiningEth">5.89</span> ETH</p>
+                    <p class="text-[9px] text-slate-400 font-mono">MATRIZ 14 BOTS ANALISTAS</p>
+                    <p class="font-bold text-purple-300 text-xs"><span id="liveMiningBtc">0.915</span> BTC / <span id="liveMiningEth">7.42</span> ETH</p>
                 </div>
             </div>
-            <div class="bg-slate-950/80 border border-blue-500/20 p-2.5 rounded-xl flex items-center gap-2">
+            <div class="bg-slate-950/80 border border-blue-500/30 p-2.5 rounded-xl flex items-center gap-2 shadow-sm">
                 <div class="p-2 bg-blue-500/10 rounded-lg text-blue-400"><i data-lucide="home" class="w-4 h-4"></i></div>
                 <div>
-                    <p class="text-[9px] text-slate-400 font-mono">FUNDO CASA & VIDA</p>
-                    <p class="font-bold text-blue-300 text-xs"><span id="fundHomeTotal">R$ 21.340,00</span></p>
+                    <p class="text-[9px] text-slate-400 font-mono">FUNDO CASA & VIDA (50%)</p>
+                    <p class="font-bold text-blue-300 text-xs"><span id="fundHomeTotal">R$ 27.460,00</span></p>
                 </div>
             </div>
-            <div class="bg-slate-950/80 border border-emerald-500/20 p-2.5 rounded-xl flex items-center gap-2">
+            <div class="bg-slate-950/80 border border-emerald-500/30 p-2.5 rounded-xl flex items-center gap-2 shadow-sm">
                 <div class="p-2 bg-emerald-500/10 rounded-lg text-emerald-400"><i data-lucide="shield-check" class="w-4 h-4"></i></div>
                 <div>
-                    <p class="text-[9px] text-slate-400 font-mono">ANALISTAS RISCO ZERO</p>
-                    <p class="font-bold text-amber-300 text-xs">100% Proteção de Lucros</p>
+                    <p class="text-[9px] text-slate-400 font-mono">DESEMPENHO RISCO ZERO</p>
+                    <p class="font-bold text-amber-300 text-xs">100% Retorno & Perda Zero</p>
                 </div>
             </div>
         </div>
@@ -228,13 +270,42 @@
         </div>
 <!-- ... existing code ... -->
     <script>
-        // MOTOR DE ATUALIZAÇÃO EM TEMPO REAL AO VIVO
-        let totalPixValue = 42680.00;
-        let btcMined = 0.7120;
-        let ethMined = 5.890;
+        // MOTOR DE ATUALIZAÇÃO EM TEMPO REAL AO VIVO SUPREMO
+        let totalPixValue = 54920.00;
+        let btcMined = 0.9150;
+        let ethMined = 7.420;
+
+        function showWalletDetails() {
+            const modal = document.getElementById('walletModal');
+            if (modal) modal.classList.remove('hidden');
+        }
+
+        function closeWalletModal() {
+            const modal = document.getElementById('walletModal');
+            if (modal) modal.classList.add('hidden');
+        }
+
+        function showPixDetails() {
+            const modal = document.getElementById('pixModal');
+            if (modal) modal.classList.remove('hidden');
+        }
+
+        function closePixModal() {
+            const modal = document.getElementById('pixModal');
+            if (modal) modal.classList.add('hidden');
+        }
+
+        function copyPixKey() {
+            navigator.clipboard.writeText('21986323581');
+            alert('Chave PIX 21986323581 copiada com sucesso!');
+        }
 
         function startRealTimeEngine() {
-            // Relógio em tempo real
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+
+            // Relógio e aceleração em tempo real
             setInterval(() => {
                 const now = new Date();
                 const clockElem = document.getElementById('realTimeClock');
@@ -242,10 +313,10 @@
                     clockElem.innerText = now.toLocaleTimeString('pt-BR');
                 }
 
-                // Aceleração Turbo de ganhos pelos 14 Bots Analistas Digitais (Ganhos Sem Perdas)
-                btcMined += 0.000008;
-                ethMined += 0.000050;
-                totalPixValue += 1.25;
+                // Ganhos acelerados pelos 14 Bots sem perdas (R$ 2,50/s)
+                btcMined += 0.000012;
+                ethMined += 0.000075;
+                totalPixValue += 2.50;
 
                 const halfPix = totalPixValue / 2;
 
@@ -270,52 +341,13 @@
                 if (modalBtcElem) modalBtcElem.innerText = btcMined.toFixed(4);
                 if (liveEthElem) liveEthElem.innerText = ethMined.toFixed(3);
                 if (modalUsdElem) modalUsdElem.innerText = Math.round(btcMined * 95400).toLocaleString('en-US');
-
             }, 1000);
         }
 
-        // Iniciar motor de tempo real assim que a página carregar
-        window.addEventListener('DOMContentLoaded', () => {
+        // Inicialização ao carregar a página
+        window.addEventListener('load', () => {
             startRealTimeEngine();
         });
-
-        // FUNÇÕES DO SISTEMA PIX E CARTEIRA DIGITAL
-        function showWalletDetails() {
-            const modal = document.getElementById('walletModal');
-            if (modal) modal.classList.remove('hidden');
-        }
-
-        function closeWalletModal() {
-            const modal = document.getElementById('walletModal');
-            if (modal) modal.classList.add('hidden');
-        }
-
-        function showPixDetails() {
-            const modal = document.getElementById('pixModal');
-            if (modal) modal.classList.remove('hidden');
-        }
-
-        function closePixModal() {
-            const modal = document.getElementById('pixModal');
-            if (modal) modal.classList.add('hidden');
-        }
-
-        function copyPixKey() {
-            const key = "21986323581";
-            navigator.clipboard.writeText(key).then(() => {
-                alert("Chave PIX (21986323581) copiada com sucesso para a área de transferência!");
-            }).catch(() => {
-                const input = document.createElement('input');
-                input.value = key;
-                document.body.appendChild(input);
-                input.select();
-                document.execCommand('copy');
-                document.body.removeChild(input);
-                alert("Chave PIX (21986323581) copiada!");
-            });
-        }
-
-        // ... existing code ...
     </script>
 </body>
 </html>
