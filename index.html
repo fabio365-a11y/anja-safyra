@@ -531,7 +531,7 @@
                 </div>
             </div>
 
-            <!-- ENTRADA DE TEXTO E VOZ -->
+            <!-- ENTRADA DE TEXTO E VOZ (TOTALMENTE VISÍVEL E SEM OBSTRUÇÃO) -->
             <form onsubmit="handleChatSubmit(event)" class="p-3 bg-slate-950 border-t border-slate-800 flex items-center gap-2">
                 <button type="button" onclick="startVoiceRecognition()" class="bg-slate-800 hover:bg-slate-700 text-cyan-400 p-2.5 rounded-xl border border-slate-700 transition" title="Falar por Voz">
                     <i data-lucide="mic" class="w-4 h-4"></i>
@@ -542,56 +542,73 @@
                     <span>Enviar</span>
                 </button>
             </form>
-            <!-- ATALHOS RÁPIDOS DE COMANDO -->
-            <button onclick="quickCommand('Pesquisar produtos na web e me dar 3 opções em lojas de confiança anti-golpe')" class="bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/40 px-2.5 py-1 rounded-lg flex items-center gap-1 transition whitespace-nowrap font-bold">
-                <i data-lucide="search-check" class="w-3.5 h-3.5 text-emerald-400"></i>
-                <span>Pesquisar Produtos em Lojas Seguras (3 Opções)</span>
-            </button>
-            <button onclick="quickCommand('Me mostre o meu cartão de débito digital em R$')" class="bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 px-2.5 py-1 rounded-lg flex items-center gap-1 transition whitespace-nowrap font-bold">
-                <i data-lucide="credit-card" class="w-3.5 h-3.5 text-amber-400"></i>
-                <span>Ver Cartão de Débito R$</span>
-            </button>
-            <button onclick="quickCommand('Fazer uma compra com o cartão SAFYRA Card')" class="bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/40 px-2.5 py-1 rounded-lg flex items-center gap-1 transition whitespace-nowrap font-bold">
-                <i data-lucide="shopping-cart" class="w-3.5 h-3.5 text-emerald-400"></i>
-                <span>Comprar com SAFYRA Card</span>
-            </button>
-            <button onclick="quickCommand('Me mostre os extratos de transferência')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-2.5 py-1 rounded-lg flex items-center gap-1 transition whitespace-nowrap font-bold">
-                <i data-lucide="file-text" class="w-3.5 h-3.5 text-cyan-400"></i>
-                <span>Ver Extrato de Transferência</span>
-            </button>
-            <button onclick="quickCommand('Acelerar produção de R$ com risco zero na web utilizando os 18 bots analistas')" class="bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/30 px-2.5 py-1 rounded-lg flex items-center gap-1 transition whitespace-nowrap font-bold">
-                <i data-lucide="zap" class="w-3.5 h-3.5 text-amber-400"></i>
-                <span>Acelerar Produção Rápida (R$)</span>
-            </button>
-            <button onclick="quickCommand('Auditar todos os setores corporativos da empresa 360 graus')" class="bg-purple-500/10 hover:bg-purple-500/20 text-purple-300 border border-purple-500/30 px-2.5 py-1 rounded-lg flex items-center gap-1 transition whitespace-nowrap">
-                <i data-lucide="briefcase" class="w-3.5 h-3.5 text-purple-400"></i>
-                <span>Gestão 360° Corporativa</span>
-            </button>
-            <button onclick="quickCommand('Apresentar relatório de análise de lucros limpos sem perdas dos bots BOT-13 a BOT-18')" class="bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2.5 py-1 rounded-lg flex items-center gap-1 transition whitespace-nowrap">
-                <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
-                <span>Analistas de Risco Zero</span>
-            </button>
-            <button onclick="quickCommand('Acelerar Web Harvest Multi-IA para colheita de R$ e fundos da nossa casa e servidores')" class="bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 px-2.5 py-1 rounded-lg flex items-center gap-1 transition whitespace-nowrap">
-                <i data-lucide="globe" class="w-3.5 h-3.5"></i>
-                <span>Colheita Multi-IA Web (R$)</span>
-            </button>
-            <button onclick="quickCommand('Disparar mineração de moedas e conversão automática para PIX na chave 21986323581')" class="bg-purple-500/10 hover:bg-purple-500/20 text-purple-300 border border-purple-500/30 px-2.5 py-1 rounded-lg flex items-center gap-1 transition whitespace-nowrap">
-                <i data-lucide="cpu" class="w-3.5 h-3.5"></i>
-                <span>Mineração & Auto-PIX</span>
-            </button>
-            <button onclick="quickCommand('Gerar cobrança PIX automática da chave 21986323581')" class="bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2.5 py-1 rounded-lg flex items-center gap-1 transition whitespace-nowrap">
-                <i data-lucide="qr-code" class="w-3.5 h-3.5"></i>
-                <span>Cobrança PIX (21986323581)</span>
-            </button>
-            <button onclick="quickCommand('Relatório executivo completo de fundos para reforma da casa e upgrade dos servidores')" class="bg-blue-500/10 hover:bg-blue-500/20 text-blue-300 border border-blue-500/30 px-2.5 py-1 rounded-lg flex items-center gap-1 transition whitespace-nowrap">
-                <i data-lucide="home" class="w-3.5 h-3.5"></i>
-                <span>Relatório Casa & Servidores</span>
-            </button>
-            <button onclick="quickCommand('Apresente o balanço de sucessão corporativa e plano de evolução para o Vice-Presidente meu filho')" class="bg-purple-500/10 hover:bg-purple-500/20 text-purple-300 border border-purple-500/30 px-2.5 py-1 rounded-lg flex items-center gap-1 transition whitespace-nowrap">
-                <i data-lucide="award" class="w-3.5 h-3.5"></i>
-                <span>Plano Sucessão (Seu Filho)</span>
-            </button>
         </div>
+    </main>
+
+    <!-- BARRA LATERAL DEDICADA DE ATALHOS RÁPIDOS (MENU JOGADO PARA A DIREITA) -->
+    <aside class="max-w-7xl w-full mx-auto px-4 pb-6">
+        <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 shadow-xl space-y-3">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+                <div class="flex items-center gap-2">
+                    <i data-lucide="command" class="w-4 h-4 text-amber-400"></i>
+                    <h3 class="font-orbitron font-bold text-xs text-amber-400">PAINEL DE COMANDOS RÁPIDOS DA PRESIDÊNCIA</h3>
+                </div>
+                <span class="text-[10px] text-slate-400 font-mono">11 ATALHOS OPERACIONAIS</span>
+            </div>
+
+            <!-- GRID DOS 11 ITENS DO MENU ORGANIZADOS EM COLUNAS E À DIREITA DA INTERFACE -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 text-xs">
+                <button onclick="quickCommand('Pesquisar produtos na web e me dar 3 opções em lojas de confiança anti-golpe')" class="bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/40 p-2.5 rounded-xl flex items-center gap-2 transition font-bold text-left">
+                    <i data-lucide="search-check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+                    <span>Pesquisar Produtos (3 Opções)</span>
+                </button>
+                <button onclick="quickCommand('Me mostre o meu cartão de débito digital em R$')" class="bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 p-2.5 rounded-xl flex items-center gap-2 transition font-bold text-left">
+                    <i data-lucide="credit-card" class="w-4 h-4 text-amber-400 shrink-0"></i>
+                    <span>Ver Cartão de Débito R$</span>
+                </button>
+                <button onclick="quickCommand('Fazer uma compra com o cartão SAFYRA Card')" class="bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/40 p-2.5 rounded-xl flex items-center gap-2 transition font-bold text-left">
+                    <i data-lucide="shopping-cart" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+                    <span>Comprar com SAFYRA Card</span>
+                </button>
+                <button onclick="quickCommand('Me mostre os extratos de transferência')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 p-2.5 rounded-xl flex items-center gap-2 transition font-bold text-left">
+                    <i data-lucide="file-text" class="w-4 h-4 text-cyan-400 shrink-0"></i>
+                    <span>Ver Extrato de Transferência</span>
+                </button>
+                <button onclick="quickCommand('Acelerar produção de R$ com risco zero na web utilizando os 18 bots analistas')" class="bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/30 p-2.5 rounded-xl flex items-center gap-2 transition font-bold text-left">
+                    <i data-lucide="zap" class="w-4 h-4 text-amber-400 shrink-0"></i>
+                    <span>Acelerar Produção Rápida (R$)</span>
+                </button>
+                <button onclick="quickCommand('Auditar todos os setores corporativos da empresa 360 graus')" class="bg-purple-500/10 hover:bg-purple-500/20 text-purple-300 border border-purple-500/30 p-2.5 rounded-xl flex items-center gap-2 transition text-left">
+                    <i data-lucide="briefcase" class="w-4 h-4 text-purple-400 shrink-0"></i>
+                    <span>Gestão 360° Corporativa</span>
+                </button>
+                <button onclick="quickCommand('Apresentar relatório de análise de lucros limpos sem perdas dos bots BOT-13 a BOT-18')" class="bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 p-2.5 rounded-xl flex items-center gap-2 transition text-left">
+                    <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+                    <span>Analistas de Risco Zero</span>
+                </button>
+                <button onclick="quickCommand('Acelerar Web Harvest Multi-IA para colheita de R$ e fundos da nossa casa e servidores')" class="bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 p-2.5 rounded-xl flex items-center gap-2 transition text-left">
+                    <i data-lucide="globe" class="w-4 h-4 text-cyan-300 shrink-0"></i>
+                    <span>Colheita Multi-IA Web (R$)</span>
+                </button>
+                <button onclick="quickCommand('Disparar mineração de moedas e conversão automática para PIX na chave 21986323581')" class="bg-purple-500/10 hover:bg-purple-500/20 text-purple-300 border border-purple-500/30 p-2.5 rounded-xl flex items-center gap-2 transition text-left">
+                    <i data-lucide="cpu" class="w-4 h-4 text-purple-300 shrink-0"></i>
+                    <span>Mineração & Auto-PIX</span>
+                </button>
+                <button onclick="quickCommand('Gerar cobrança PIX automática da chave 21986323581')" class="bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 p-2.5 rounded-xl flex items-center gap-2 transition text-left">
+                    <i data-lucide="qr-code" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+                    <span>Cobrança PIX (21986323581)</span>
+                </button>
+                <button onclick="quickCommand('Relatório executivo completo de fundos para reforma da casa e upgrade dos servidores')" class="bg-blue-500/10 hover:bg-blue-500/20 text-blue-300 border border-blue-500/30 p-2.5 rounded-xl flex items-center gap-2 transition text-left">
+                    <i data-lucide="home" class="w-4 h-4 text-blue-400 shrink-0"></i>
+                    <span>Relatório Casa & Servidores</span>
+                </button>
+                <button onclick="quickCommand('Apresente o balanço de sucessão corporativa e plano de evolução para o Vice-Presidente meu filho')" class="bg-purple-500/10 hover:bg-purple-500/20 text-purple-300 border border-purple-500/30 p-2.5 rounded-xl flex items-center gap-2 transition text-left">
+                    <i data-lucide="award" class="w-4 h-4 text-purple-300 shrink-0"></i>
+                    <span>Plano Sucessão (Seu Filho)</span>
+                </button>
+            </div>
+        </div>
+    </aside>
 
     <script>
         // MOTOR DE ATUALIZAÇÃO EM TEMPO REAL AO VIVO SUPREMO
