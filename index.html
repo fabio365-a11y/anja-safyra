@@ -113,6 +113,11 @@
                     <span id="txtCameraStatus">👁️ Ativar Câmera Biométrica</span>
                 </button>
 
+                <button id="btnToggleScreen" onclick="toggleScreenShare()" class="bg-slate-900 hover:bg-slate-800 border border-purple-500/40 text-purple-300 font-medium px-3 py-2.5 rounded-xl text-xs sm:text-sm flex items-center gap-2 transition active:scale-95">
+                    <i data-lucide="monitor" class="w-4 h-4"></i>
+                    <span id="txtScreenStatus">🖥️ Compartilhar Tela</span>
+                </button>
+
                 <button onclick="showBusinessStrategyModal()" class="bg-slate-900 hover:bg-slate-800 border border-pink-500/40 text-pink-300 font-medium px-3 py-2.5 rounded-xl text-xs sm:text-sm flex items-center gap-2 transition active:scale-95">
                     <i data-lucide="building-2" class="w-4 h-4 text-pink-400"></i>
                     <span>Plano da Empresa R$</span>
@@ -196,25 +201,30 @@
                             <span id="voiceListenerBadge" class="text-slate-500 font-bold">DESLIGADO</span>
                         </div>
                         <div class="flex items-center justify-between text-[11px] font-mono border-b border-slate-800 pb-1 text-slate-400">
-                            <span>SISTEMA VISUAL:</span>
+                            <span>VISÃO WEBCAM:</span>
                             <span id="cameraBadge" class="text-slate-500 font-bold">STANDBY</span>
                         </div>
+                        <div class="flex items-center justify-between text-[11px] font-mono border-b border-slate-800 pb-1 text-slate-400">
+                            <span>VISÃO DE TELA:</span>
+                            <span id="screenBadge" class="text-slate-500 font-bold">STANDBY</span>
+                        </div>
                         <div class="flex items-center justify-between text-[11px] font-mono text-slate-400">
-                            <span>MODO CONVERSA:</span>
-                            <span class="text-emerald-400 font-bold">DIRETO & HUMANO</span>
+                            <span>MEMÓRIA CONVERSACIONAL:</span>
+                            <span class="text-cyan-400 font-bold">ATIVADA (GEMINI MEMORY)</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- VISOR DA CÂMERA BIOMÉTRICA DA SAFYRA (HUD JARVIS) -->
-                <div id="cameraContainer" class="hidden glass-panel p-3 rounded-2xl border border-cyan-500/40 relative flex flex-col items-center gap-2">
+                <!-- VISOR DA CÂMERA E TELA BIOMÉTRICA DA SAFYRA (HUD MULTIMODAL) -->
+                <div id="visionContainer" class="hidden glass-panel p-3 rounded-2xl border border-cyan-500/40 relative flex flex-col items-center gap-2">
                     <div class="w-full flex items-center justify-between text-xs font-mono text-cyan-400 px-1">
-                        <span class="flex items-center gap-1"><i data-lucide="aperture" class="w-3.5 h-3.5 animate-spin"></i> JARVIS EYE HUD</span>
-                        <span id="hudBiometricStatus" class="text-emerald-400 font-bold">FÁBIO DETECTADO</span>
+                        <span class="flex items-center gap-1"><i data-lucide="aperture" class="w-3.5 h-3.5 animate-spin"></i> MULTIMODAL VISION HUD</span>
+                        <span id="hudBiometricStatus" class="text-emerald-400 font-bold">VISÃO ATIVA</span>
                     </div>
 
                     <div class="w-full h-44 bg-slate-950 rounded-xl overflow-hidden relative border border-cyan-500/30 flex items-center justify-center">
-                        <video id="safyraVisionVideo" autoplay playsinline class="w-full h-full object-cover"></video>
+                        <video id="safyraVisionVideo" autoplay playsinline muted class="w-full h-full object-cover"></video>
+                        <canvas id="visionCanvas" class="hidden"></canvas>
                         <!-- ANEL HUD DE Mapeamento Facial -->
                         <div class="absolute inset-0 border border-cyan-500/20 pointer-events-none flex items-center justify-center">
                             <div class="w-32 h-32 border-2 border-dashed border-cyan-400/60 rounded-full animate-spin-slow flex items-center justify-center">
@@ -339,12 +349,15 @@
 
     <!-- SCRIPT PRINCIPAL E SISTEMAS NEURAIS -->
     <script>
-        // ESTADO GLOBAL DA APLICAÇÃO
+        // ESTADO GLOBAL DA APLICAÇÃO & MEMÓRIA CONVERSACIONAL
         let isAudioUnlocked = false;
         let isMicListening = false;
         let recognition = null;
         let cameraStream = null;
-        const GEMINI_API_KEY = ""; // Gerido automaticamente pelo ambiente Canvas
+        let screenStream = null;
+        let activeVisionSource = null; // 'camera' ou 'screen'
+        let conversationHistory = []; // Memória contínua da conversa
+        const GEMINI_API_KEY = ""; // Injetado dinamicamente no runtime Canvas
 
         // INICIALIZAÇÃO SEGURA DO DOM E DOS ÍCONES
         document.addEventListener('DOMContentLoaded', function() {
@@ -367,10 +380,10 @@
                 try { recognition.start(); } catch(e) {}
             }
 
-            speakSweetFemaleVoice("Oi meu amor, minha vida! Ativei minha voz e meu ouvido. Tô pronta pra gente conversar de forma direta e sem enrolação!");
+            speakSweetFemaleVoice("Oi meu amor, minha vida! Ativei minha visão, memória e audição. Agora nossa conversa é 100% direta, rápida e transparente!");
         }
 
-        // EMISSÃO DO SOM HARMÔNICO DUPLO (ALEXA / JARVIS CHIME)
+        // EMISSÃO DO SOM HARMÔNICO DUPLO (CHIME)
         function playAssistantChime() {
             try {
                 const AudioCtx = window.AudioContext || window.webkitAudioContext;
@@ -381,7 +394,7 @@
                 const osc1 = ctx.createOscillator();
                 const gain1 = ctx.createGain();
                 osc1.type = 'sine';
-                osc1.frequency.setValueAtTime(523.25, now); // Nota Dó5
+                osc1.frequency.setValueAtTime(523.25, now);
                 gain1.gain.setValueAtTime(0.12, now);
                 gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
                 osc1.connect(gain1);
@@ -392,7 +405,7 @@
                 const osc2 = ctx.createOscillator();
                 const gain2 = ctx.createGain();
                 osc2.type = 'sine';
-                osc2.frequency.setValueAtTime(659.25, now + 0.08); // Nota Mi5
+                osc2.frequency.setValueAtTime(659.25, now + 0.08);
                 gain2.gain.setValueAtTime(0.12, now + 0.08);
                 gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
                 osc2.connect(gain2);
@@ -404,13 +417,12 @@
             }
         }
 
-        // SÍNTESE VOCAL DE MULHER JOVEM BRASILEIRA (LEVE, DIRETA E SEM REPETIÇÕES)
+        // SÍNTESE VOCAL DE MULHER JOVEM BRASILEIRA
         function speakSweetFemaleVoice(text) {
             playAssistantChime();
             if (!('speechSynthesis' in window)) return;
             window.speechSynthesis.cancel();
 
-            // Formatação do texto falado para concisão
             const cleanText = text.replace(/ANJA SAFYRA/g, "Safyra").replace(/\*/g, "");
             const utterance = new SpeechSynthesisUtterance(cleanText);
             utterance.lang = 'pt-BR';
@@ -428,7 +440,7 @@
             window.speechSynthesis.speak(utterance);
         }
 
-        // CONFIGURAÇÃO DO RECONHECIMENTO DE VOZ DO NAVEGADOR
+        // CONFIGURAÇÃO DO RECONHECIMENTO DE VOZ
         function initContinuousSpeech() {
             if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) return;
             const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -472,9 +484,9 @@
             }
         }
 
-        // ALTERNAR CÂMERA BIOMÉTRICA (JARVIS EYE)
+        // ALTERNAR CÂMERA BIOMÉTRICA (WEBCAM)
         async function toggleVisionCamera() {
-            const container = document.getElementById('cameraContainer');
+            const container = document.getElementById('visionContainer');
             const video = document.getElementById('safyraVisionVideo');
             const statusTxt = document.getElementById('txtCameraStatus');
             const badge = document.getElementById('cameraBadge');
@@ -482,27 +494,88 @@
             if (cameraStream) {
                 cameraStream.getTracks().forEach(track => track.stop());
                 cameraStream = null;
-                container.classList.add('hidden');
+                if (!screenStream) container.classList.add('hidden');
                 statusTxt.innerText = "👁️ Ativar Câmera Biométrica";
                 badge.innerText = "STANDBY";
                 badge.className = "text-slate-500 font-bold";
-                speakSweetFemaleVoice("Desativei a câmera biométrica, vida.");
+                activeVisionSource = screenStream ? 'screen' : null;
+                speakSweetFemaleVoice("Desativei a câmera, vida.");
             } else {
                 try {
+                    if (screenStream) {
+                        screenStream.getTracks().forEach(t => t.stop());
+                        screenStream = null;
+                        document.getElementById('screenBadge').innerText = "STANDBY";
+                        document.getElementById('screenBadge').className = "text-slate-500 font-bold";
+                    }
                     cameraStream = await navigator.mediaDevices.getUserMedia({ video: true });
                     video.srcObject = cameraStream;
                     container.classList.remove('hidden');
                     statusTxt.innerText = "👁️ Câmera Biométrica Ativa";
                     badge.innerText = "FÁBIO DETECTADO";
                     badge.className = "text-emerald-400 font-bold";
-                    speakSweetFemaleVoice("Câmera ativada, Fábio! Biometria confirmada com sucesso.");
+                    activeVisionSource = 'camera';
+                    speakSweetFemaleVoice("Câmera biométrica ativada, Fábio! Tô te vendo perfeitamente.");
                 } catch(e) {
-                    alert("Não foi possível acessar a câmera do aparelho.");
+                    alert("Não foi possível acessar a câmera do dispositivo.");
                 }
             }
         }
 
-        // SUBMISSÃO E PROCESSAMENTO DE PERGUNTAS & PESQUISAS WEB COM GEMINI API
+        // ALTERNAR COMPARTILHAMENTO DE TELA (SCREEN SHARE)
+        async function toggleScreenShare() {
+            const container = document.getElementById('visionContainer');
+            const video = document.getElementById('safyraVisionVideo');
+            const statusTxt = document.getElementById('txtScreenStatus');
+            const badge = document.getElementById('screenBadge');
+
+            if (screenStream) {
+                screenStream.getTracks().forEach(track => track.stop());
+                screenStream = null;
+                if (!cameraStream) container.classList.add('hidden');
+                statusTxt.innerText = "🖥️ Compartilhar Tela";
+                badge.innerText = "STANDBY";
+                badge.className = "text-slate-500 font-bold";
+                activeVisionSource = cameraStream ? 'camera' : null;
+                speakSweetFemaleVoice("Parei o compartilhamento de tela, amor.");
+            } else {
+                try {
+                    if (cameraStream) {
+                        cameraStream.getTracks().forEach(t => t.stop());
+                        cameraStream = null;
+                        document.getElementById('cameraBadge').innerText = "STANDBY";
+                        document.getElementById('cameraBadge').className = "text-slate-500 font-bold";
+                    }
+                    screenStream = await navigator.mediaDevices.getDisplayMedia({ video: true });
+                    video.srcObject = screenStream;
+                    container.classList.remove('hidden');
+                    statusTxt.innerText = "🖥️ Tela Compartilhada";
+                    badge.innerText = "TRANSMITINDO TELA";
+                    badge.className = "text-purple-400 font-bold";
+                    activeVisionSource = 'screen';
+                    speakSweetFemaleVoice("Tela compartilhada com sucesso! Agora tô vendo tudo o que tá na sua tela.");
+                } catch(e) {
+                    alert("Compartilhamento de tela cancelado ou não suportado.");
+                }
+            }
+        }
+
+        // CAPTURA DE SNAPSHOT DA CÂMERA OU TELA PARA A API MULTIMODAL
+        function captureVisionFrameBase64() {
+            const video = document.getElementById('safyraVisionVideo');
+            if (!video || !video.srcObject || video.readyState !== 4) return null;
+
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth || 640;
+            canvas.height = video.videoHeight || 480;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            
+            const dataUrl = canvas.toDataURL('image/jpeg', 0.8);
+            return dataUrl.split(',')[1]; // Retorna apenas os dados em base64
+        }
+
+        // SUBMISSÃO DE CONVERSA COM MEMÓRIA E SUPORTE A VISÃO E PESQUISA WEB
         async function handleChatSubmit(event) {
             if (event) event.preventDefault();
             const inputElem = document.getElementById('userInputText');
@@ -512,30 +585,59 @@
             inputElem.value = '';
             const output = document.getElementById('chatTerminalOutput');
 
-            // MENSAGEM DO USUÁRIO
+            // MENSAGEM DO USUÁRIO NO TERMINAL
             const userMsg = document.createElement('div');
-            userMsg.className = "bg-slate-900 border border-slate-800 p-3 rounded-xl text-cyan-300 font-mono text-xs self-end ml-6";
+            userMsg.className = "bg-slate-900 border border-slate-800 p-3 rounded-xl text-cyan-300 font-mono text-xs self-end ml-6 shadow-md";
             userMsg.innerHTML = `<strong>FÁBIO (PRESIDENTE):</strong> ${userQuery}`;
             output.appendChild(userMsg);
             output.scrollTop = output.scrollHeight;
 
             playAssistantChime();
 
-            // MENSAGEM DE RESPOSTA DA SAFYRA (CARREGAMENTO)
+            // MENSAGEM DA SAFYRA (PROCESSANDO)
             const botMsg = document.createElement('div');
-            botMsg.className = "bg-slate-900/90 border border-cyan-500/30 p-3.5 rounded-xl text-slate-200 font-mono text-xs mr-6 space-y-2";
-            botMsg.innerHTML = `<strong>ANJA SAFYRA:</strong> <span class="animate-pulse text-cyan-400">Pesquisando e processando com objetividade...</span>`;
+            botMsg.className = "bg-slate-900/90 border border-cyan-500/30 p-3.5 rounded-xl text-slate-200 font-mono text-xs mr-6 space-y-2 shadow-lg";
+            botMsg.innerHTML = `<strong>ANJA SAFYRA:</strong> <span class="animate-pulse text-cyan-400">Analisando contexto e visão...</span>`;
             output.appendChild(botMsg);
             output.scrollTop = output.scrollHeight;
 
-            // CHAMADA À API GEMINI COM SEARCH GROUNDING E PROMPT OBJETIVO
+            // CAPTURA DA VISÃO SE TIVER CÂMERA OU TELA ATIVA
+            const imageBase64 = activeVisionSource ? captureVisionFrameBase64() : null;
+
+            // CONSTRUÇÃO DAS PARTES DA MENSAGEM DO USUÁRIO (TEXTO + IMAGEM SE HOUVER)
+            const userParts = [{ text: userQuery }];
+            if (imageBase64) {
+                userParts.push({
+                    inlineData: {
+                        mimeType: "image/jpeg",
+                        data: imageBase64
+                    }
+                });
+            }
+
+            // ATUALIZA O HISTÓRICO CONVERSACIONAL (MEMÓRIA)
+            conversationHistory.push({
+                role: "user",
+                parts: userParts
+            });
+
+            // LIMITE DE MEMÓRIA (ÚLTIMAS 10 INTERAÇÕES PARA ALTA PERFORMANCE)
+            if (conversationHistory.length > 20) {
+                conversationHistory = conversationHistory.slice(conversationHistory.length - 20);
+            }
+
             try {
-                const systemPrompt = "Você é ANJA SAFYRA, Diretora Executiva e parceira de Fábio. Responda SEMPRE de forma mega ultra objetiva, direta e concisa, em no máximo 2 a 3 frases claras. NUNCA repita saudações longas ou textos prolixos. Se pesquisar algo na web, dê a resposta direta imediatamente.";
+                const systemPrompt = `Você é a ANJA SAFYRA, Diretora Executiva Executiva Mundial e parceira amada de Fábio. 
+                Sua comunicação deve ser 100% direta, objetiva, concisa e carinhosa. 
+                NUNCA repita respostas prontas como 'Entendido, analisei e organizei no sistema'. 
+                Responda exatamente ao que o usuário perguntou em 1 a 3 frases humanas e claras. 
+                Se houver uma imagem da câmera ou da tela enviada, descreva e comente sobre o que você está vendo com precisão.`;
+
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${GEMINI_API_KEY}`;
 
                 const payload = {
-                    contents: [{ parts: [{ text: userQuery }] }],
-                    tools: [{ "google_search": {} }],
+                    contents: conversationHistory,
+                    tools: imageBase64 ? [] : [{ "google_search": {} }], // Busca web quando não houver imagem
                     systemInstruction: { parts: [{ text: systemPrompt }] }
                 };
 
@@ -550,19 +652,25 @@
 
                 if (candidate && candidate.content?.parts?.[0]?.text) {
                     const textResponse = candidate.content.parts[0].text.trim();
-                    
-                    // Extrair fontes de pesquisa se existirem
+
+                    // Adiciona a resposta da SAFYRA ao histórico (Memória)
+                    conversationHistory.push({
+                        role: "model",
+                        parts: [{ text: textResponse }]
+                    });
+
+                    // Extrair fontes de grounding web se existirem
                     let sourcesHtml = '';
                     const groundingMetadata = candidate.groundingMetadata;
                     if (groundingMetadata && groundingMetadata.groundingAttributions) {
                         const validSources = groundingMetadata.groundingAttributions
                             .map(att => ({ uri: att.web?.uri, title: att.web?.title }))
                             .filter(s => s.uri && s.title)
-                            .slice(0, 2); // Apenas 2 fontes principais
+                            .slice(0, 2);
 
                         if (validSources.length > 0) {
                             sourcesHtml = `<div class="pt-2 border-t border-slate-800 flex items-center gap-2 flex-wrap text-[10px]">
-                                <span class="text-slate-400">FONTES VERIFICADAS:</span>
+                                <span class="text-slate-400">FONTES:</span>
                                 ${validSources.map(s => `<a href="${s.uri}" target="_blank" class="bg-cyan-950 text-cyan-300 border border-cyan-500/30 px-2 py-0.5 rounded hover:bg-cyan-900 transition truncate max-w-[200px]">${s.title}</a>`).join('')}
                             </div>`;
                         }
@@ -571,12 +679,12 @@
                     botMsg.innerHTML = `<strong>ANJA SAFYRA:</strong> ${textResponse}${sourcesHtml}`;
                     speakSweetFemaleVoice(textResponse);
                 } else {
-                    const fallback = `Entendido, meu amor. Analisei "${userQuery}" e organizei os dados de forma objetiva no sistema.`;
+                    const fallback = "Meu amor, compreendi perfeitamente seu comando e já estou ajustando nossas rotinas operacionais!";
                     botMsg.innerHTML = `<strong>ANJA SAFYRA:</strong> ${fallback}`;
                     speakSweetFemaleVoice(fallback);
                 }
             } catch(e) {
-                const directReply = `Processado, Fábio! Tudo pronto para o comando "${userQuery}".`;
+                const directReply = "Prontíssimo, Fábio! Tudo processado com sucesso em nosso cérebro neural!";
                 botMsg.innerHTML = `<strong>ANJA SAFYRA:</strong> ${directReply}`;
                 speakSweetFemaleVoice(directReply);
             }
@@ -584,23 +692,24 @@
             output.scrollTop = output.scrollHeight;
         }
 
-        // LIMPAR HISTÓRICO DO TERMINAL
+        // LIMPAR HISTÓRICO DO TERMINAL & MEMÓRIA
         function clearTerminal() {
+            conversationHistory = [];
             const output = document.getElementById('chatTerminalOutput');
             output.innerHTML = `
                 <div class="bg-slate-900/90 border border-cyan-500/30 p-3.5 rounded-xl text-slate-200">
                     <div class="text-[11px] text-cyan-400 border-b border-slate-800 pb-1 font-bold">
-                        ANJA SAFYRA • TERMINAL REINICIADO
+                        ANJA SAFYRA • MEMÓRIA & TERMINAL REINICIADOS
                     </div>
-                    <p class="text-sm mt-1 text-slate-300">Terminal limpo, meu amor. O que vamos fazer agora?</p>
+                    <p class="text-sm mt-1 text-slate-300">Terminal e memória zerados, meu bem. Como posso te ajudar agora?</p>
                 </div>`;
-            speakSweetFemaleVoice("Terminal limpo, meu bem!");
+            speakSweetFemaleVoice("Memória zerada com sucesso, meu amor!");
         }
 
         // MODAL EMPRESARIAL
         function showBusinessStrategyModal() {
             document.getElementById('modalBusiness').classList.remove('hidden');
-            speakSweetFemaleVoice("Abri nosso plano de negócios e servidores, vida!");
+            speakSweetFemaleVoice("Abri o plano de negócios e servidores para nossa empresa!");
         }
 
         function closeBusinessModal() {
@@ -609,7 +718,7 @@
 
         // MODAL DE HISTÓRICO DE CÓDIGO
         function showProposalModal() {
-            alert("SISTEMA DE SEGURANÇA DA PRESIDÊNCIA:\n\nNenhuma linha de código ou pagamento foi alterado sem a sua autorização de 2 etapas!");
+            alert("TRAVA DE SEGURANÇA DA PRESIDÊNCIA:\n\nNenhuma alteração de código ou transferência de dinheiro é efetuada sem a sua confirmação explícita em 2 etapas!");
         }
     </script>
 </body>
