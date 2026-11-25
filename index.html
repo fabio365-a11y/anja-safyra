@@ -214,8 +214,18 @@
                 window.speechSynthesis.cancel();
                 const ut = new SpeechSynthesisUtterance(text);
                 ut.lang = 'pt-BR';
-                ut.rate = 1.05;
-                ut.pitch = 1.1;
+                ut.rate = 1.08;
+                ut.pitch = 1.35; // Elevado para voz feminina jovem, doce e marcante
+                
+                // Busca vozes femininas específicas do sistema em português
+                const voices = window.speechSynthesis.getVoices();
+                const femaleVoice = voices.find(v => 
+                    v.lang.includes('pt') && 
+                    (v.name.includes('Luciana') || v.name.includes('Francisca') || v.name.includes('Helena') || 
+                     v.name.includes('Vitória') || v.name.includes('Google') || v.name.toLowerCase().includes('female'))
+                ) || voices.find(v => v.lang.includes('pt'));
+                
+                if (femaleVoice) ut.voice = femaleVoice;
                 window.speechSynthesis.speak(ut);
             }
         }
