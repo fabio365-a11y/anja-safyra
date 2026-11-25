@@ -8,7 +8,6 @@
     <meta name="assistant:creator" content="FÁBIO RIBEIRO DA SILVA">
     <meta name="assistant:creator_email" content="FABIO365@GMAIL.COM">
 
-    <!-- ESTILOS TAILWIND E FONTES CORPORATIVAS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;600;700;900&display=swap" rel="stylesheet">
@@ -22,7 +21,7 @@
 </head>
 <body class="min-h-screen p-2 md:p-6 flex flex-col gap-4">
 
-    <!-- BARRA SUPERIOR DE STATUS & DESBLOQUEIO DE ÁUDIO -->
+    <!-- BARRA SUPERIOR -->
     <header class="glass-panel p-4 rounded-2xl flex flex-wrap items-center justify-between gap-4 border-b border-cyan-500/30">
         <div class="flex items-center gap-3">
             <div class="w-10 h-10 rounded-xl bg-cyan-500/20 border border-cyan-400 flex items-center justify-center text-cyan-400">
@@ -34,20 +33,24 @@
             </div>
         </div>
 
-        <!-- BOTÃO DE ATIVAÇÃO DA VOZ E EXPORTAÇÃO DO NÚCLEO -->
         <div class="flex flex-wrap items-center gap-2">
-            <button id="btnUnlockAudio" type="button" onclick="unlockAudioAndGreet()" class="bg-gradient-to-r from-pink-500 to-rose-600 hover:from-pink-600 hover:to-rose-700 text-white font-bold px-4 py-2 rounded-xl text-sm shadow-lg shadow-pink-500/30 flex items-center gap-2 transition animate-pulse">
-                <i data-lucide="volume-2" class="w-5 h-5"></i>
-                <span id="txtAudioStatus">Ativar Voz & Modo Safyra</span>
+            <button id="btnUnlockAudio" type="button" onclick="unlockAudioAndGreet()" class="bg-gradient-to-r from-pink-500 to-rose-600 hover:from-pink-600 hover:to-rose-700 text-white font-bold px-3.5 py-2 rounded-xl text-xs shadow-lg shadow-pink-500/30 flex items-center gap-2 transition animate-pulse">
+                <i data-lucide="volume-2" class="w-4 h-4"></i>
+                <span id="txtAudioStatus">Ativar Voz</span>
+            </button>
+
+            <button id="btnWakeWord" type="button" onclick="toggleWakeWordListener()" class="bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold px-3.5 py-2 rounded-xl text-xs border border-amber-500/40 flex items-center gap-2 transition">
+                <i data-lucide="ear" class="w-4 h-4"></i>
+                <span id="txtWakeStatus">Wake "Safyra": OFF</span>
             </button>
 
             <button id="btnExportCore" type="button" onclick="downloadAssistantCore(true)" class="bg-slate-800 hover:bg-slate-700 text-cyan-300 font-semibold px-3 py-2 rounded-xl text-xs border border-cyan-500/30 flex items-center gap-1.5 transition">
                 <i data-lucide="download" class="w-4 h-4"></i>
-                <span>Baixar Núcleo IA (.JSON)</span>
+                <span>Núcleo (.JSON)</span>
             </button>
 
-            <span class="text-xs bg-emerald-500/20 text-emerald-300 px-3 py-1.5 rounded-xl border border-emerald-500/40 font-mono">
-                ● NÚCLEO ATIVO
+            <span id="backendBadge" class="text-xs bg-slate-800 text-slate-300 px-3 py-1.5 rounded-xl border border-slate-600 font-mono">
+                ● LOCAL / API PRONTA
             </span>
         </div>
     </header>
@@ -55,13 +58,13 @@
     <!-- CONTAINER PRINCIPAL -->
     <main class="grid grid-cols-1 lg:grid-cols-3 gap-4 flex-1">
 
-        <!-- COLUNA DA ESQUERDA: PERFIL & ATALHOS -->
+        <!-- COLUNA ESQUERDA -->
         <section class="glass-panel p-4 rounded-2xl flex flex-col gap-4">
             <div class="flex items-center justify-between border-b border-slate-700/60 pb-3">
                 <h2 class="font-orbitron text-sm font-semibold text-cyan-400 flex items-center gap-2">
                     <i data-lucide="bot" class="w-4 h-4"></i> IDENTIDADE OFICIAL
                 </h2>
-                <span class="text-[10px] bg-cyan-500/20 text-cyan-300 px-2 py-0.5 rounded-full font-mono">V1.0 • COMPLETA</span>
+                <span class="text-[10px] bg-cyan-500/20 text-cyan-300 px-2 py-0.5 rounded-full font-mono">WAKE: "SAFYRA"</span>
             </div>
 
             <div class="bg-slate-900/80 rounded-xl p-4 border border-cyan-500/20 flex flex-col items-center text-center gap-3">
@@ -76,41 +79,44 @@
                     <p class="text-[11px] text-slate-400 font-mono mt-0.5">FABIO365@GMAIL.COM</p>
                 </div>
                 <p class="text-xs text-slate-300 bg-slate-800/80 p-3 rounded-lg border border-slate-700/50 text-left w-full">
-                    "Olá, Fábio! Sou a Anja Safyra Ribeiro da Silva. Estou pronta para responder por voz ou texto, executar rotinas e salvar meu núcleo completo sempre que precisar."
+                    Diga <strong>"Safyra, status do sistema"</strong> ou <strong>"Safyra, verificar identidade"</strong> com o Wake Word ativado.
                 </p>
             </div>
 
-            <!-- ATALHOS DE AÇÃO RÁPIDA -->
+            <div class="bg-slate-900/70 rounded-xl p-3 border border-slate-800 text-xs space-y-1.5">
+                <label for="backendUrlInput" class="block text-slate-400 font-mono text-[11px]">URL DO BACKEND (NODE / PYTHON):</label>
+                <div class="flex gap-1.5">
+                    <input id="backendUrlInput" type="text" value="http://localhost:3001" class="flex-1 bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 font-mono text-xs text-cyan-300 focus:outline-none focus:border-cyan-400">
+                    <button type="button" onclick="checkBackendHealth()" class="bg-cyan-600 hover:bg-cyan-500 text-white px-2.5 py-1.5 rounded-lg text-xs font-semibold transition">
+                        Testar
+                    </button>
+                </div>
+            </div>
+
             <div class="flex flex-col gap-2">
                 <button type="button" data-quick="Safyra, mostre minha identidade oficial e dados do meu criador." class="quick-btn w-full bg-slate-800/80 hover:bg-slate-700 text-left px-3 py-2.5 rounded-xl text-xs font-medium text-cyan-300 border border-slate-700 flex items-center justify-between transition">
                     <span>Verificar Identidade & Criador</span>
                     <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
                 </button>
-                <button type="button" data-quick="Safyra, faça um resumo do status do sistema e das minhas rotinas." class="quick-btn w-full bg-slate-800/80 hover:bg-slate-700 text-left px-3 py-2.5 rounded-xl text-xs font-medium text-emerald-300 border border-slate-700 flex items-center justify-between transition">
+                <button type="button" data-quick="Safyra, faça um resumo do status do sistema e das rotinas." class="quick-btn w-full bg-slate-800/80 hover:bg-slate-700 text-left px-3 py-2.5 rounded-xl text-xs font-medium text-emerald-300 border border-slate-700 flex items-center justify-between transition">
                     <span>Status do Sistema & Rotinas</span>
-                    <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
-                </button>
-                <button type="button" onclick="openEnterpriseStrategyModal()" class="w-full bg-slate-800/80 hover:bg-slate-700 text-left px-3 py-2.5 rounded-xl text-xs font-medium text-pink-300 border border-slate-700 flex items-center justify-between transition">
-                    <span>Abrir Plano & Arquitetura</span>
                     <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
                 </button>
             </div>
         </section>
 
-        <!-- COLUNA CENTRAL E DIREITA: CAIXA DE DIÁLOGO -->
+        <!-- COLUNA DIREITA: CHAT -->
         <section class="lg:col-span-2 glass-panel p-4 rounded-2xl flex flex-col justify-between gap-4 h-[600px]">
-
             <div class="flex items-center justify-between border-b border-slate-700/60 pb-3">
                 <div class="flex items-center gap-2">
                     <i data-lucide="message-square" class="w-5 h-5 text-cyan-400"></i>
                     <h2 class="font-orbitron text-sm font-semibold text-slate-200">CONSOLE INTERATIVO • ANJA SAFYRA AI</h2>
                 </div>
                 <span id="avatarStatusText" class="text-xs font-mono text-cyan-300 bg-cyan-950/60 border border-cyan-800/60 px-3 py-1 rounded-full">
-                    VOZ + MEMÓRIA LOCAL ATIVAS
+                    WAKE WORD + BACKEND BRIDGE
                 </span>
             </div>
 
-            <!-- HISTÓRICO DE MENSAGENS -->
             <div id="chatHistory" class="flex-1 overflow-y-auto space-y-3 pr-2">
                 <div class="flex gap-3">
                     <div class="w-8 h-8 rounded-full bg-pink-500/20 border border-pink-400 flex items-center justify-center text-pink-300 text-xs shrink-0 font-bold">
@@ -119,94 +125,81 @@
                     <div class="bg-slate-800/90 border border-pink-500/30 p-3.5 rounded-2xl rounded-tl-none max-w-[85%]">
                         <p class="text-xs font-bold text-pink-400 mb-1">ANJA SAFYRA RIBEIRO DA SILVA:</p>
                         <p class="text-sm text-slate-200 leading-relaxed">
-                            Olá, Fábio Ribeiro da Silva (<span class="font-mono text-cyan-300">FABIO365@GMAIL.COM</span>). Meu núcleo foi configurado com minha identidade completa e gerou automaticamente o arquivo de backup do núcleo (<span class="font-mono text-emerald-300">anja-safyra-ribeiro-da-silva-core.json</span>). Como posso ajudar agora?
+                            Pronta para o criador <strong>Fábio Ribeiro da Silva</strong> (<span class="font-mono text-cyan-300">FABIO365@GMAIL.COM</span>). Ative <strong>Wake "Safyra"</strong> para escuta contínua ou conecte o backend em <span class="font-mono text-emerald-300">http://localhost:3001</span>.
                         </p>
                     </div>
                 </div>
             </div>
 
-            <!-- FORMULÁRIO DE ENVIO E ENTRADA DE VOZ -->
             <form id="chatForm" onsubmit="handleChatSubmit(event)" class="flex items-center gap-2 pt-2 border-t border-slate-700/60">
-                <button type="button" onclick="startVoiceRecognition()" id="btnVoiceMic" class="p-3 bg-slate-800 hover:bg-slate-700 text-cyan-400 rounded-xl border border-cyan-500/30 transition flex items-center justify-center shrink-0" title="Falar por voz">
+                <button type="button" onclick="startSingleVoiceCommand()" id="btnVoiceMic" class="p-3 bg-slate-800 hover:bg-slate-700 text-cyan-400 rounded-xl border border-cyan-500/30 transition flex items-center justify-center shrink-0" title="Comando de voz único">
                     <i data-lucide="mic" class="w-5 h-5"></i>
                 </button>
-                <input type="text" id="userInputText" autocomplete="off" placeholder="Fale ou digite um comando para Anja Safyra..." class="flex-1 bg-slate-900/90 border border-slate-700 text-slate-100 text-sm rounded-xl px-4 py-3 focus:outline-none focus:border-cyan-400 transition placeholder:text-slate-500">
+                <input type="text" id="userInputText" autocomplete="off" placeholder="Digite ou diga 'Safyra, ...' para enviar um comando..." class="flex-1 bg-slate-900/90 border border-slate-700 text-slate-100 text-sm rounded-xl px-4 py-3 focus:outline-none focus:border-cyan-400 transition placeholder:text-slate-500">
                 <button type="submit" class="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-5 py-3 rounded-xl text-sm font-medium flex items-center gap-2 transition shrink-0 shadow-lg shadow-cyan-500/20">
                     <span>Enviar</span>
                     <i data-lucide="send" class="w-4 h-4"></i>
                 </button>
             </form>
         </section>
-
     </main>
-
-    <!-- MODAL DE ESTRATÉGIA -->
-    <div id="enterpriseStrategyModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md hidden z-50 flex items-center justify-center p-4">
-        <div class="glass-panel w-full max-w-2xl rounded-2xl p-6 flex flex-col gap-4 border border-cyan-500/40">
-            <div class="flex items-center justify-between border-b border-slate-700 pb-3">
-                <h3 class="font-orbitron text-lg font-bold text-cyan-300 flex items-center gap-2">
-                    <i data-lucide="shield-check" class="w-5 h-5 text-pink-400"></i> Arquitetura & Governança — Anja Safyra
-                </h3>
-                <button type="button" onclick="closeEnterpriseStrategyModal()" class="text-slate-400 hover:text-white">
-                    <i data-lucide="x" class="w-6 h-6"></i>
-                </button>
-            </div>
-            <p class="text-sm text-slate-300">
-                Configuração oficial registrada para o criador <strong>Fábio Ribeiro da Silva</strong> (<strong>FABIO365@GMAIL.COM</strong>):
-            </p>
-            <ul class="text-xs text-slate-200 space-y-2 font-mono bg-slate-900/80 p-4 rounded-xl border border-slate-800">
-                <li>• Assistente: ANJA SAFYRA RIBEIRO DA SILVA</li>
-                <li>• Criador: FÁBIO RIBEIRO DA SILVA (FABIO365@GMAIL.COM)</li>
-                <li>• Interface: Voz PT-BR (Web Speech API) + Chat em tempo real + Backup JSON</li>
-            </ul>
-            <button type="button" onclick="closeEnterpriseStrategyModal()" class="w-full bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-2.5 rounded-xl text-sm transition">
-                Fechar
-            </button>
-        </div>
-    </div>
 
     <script>
         const ASSISTANT_CONFIG = {
             assistantName: "ANJA SAFYRA RIBEIRO DA SILVA",
             creatorName: "FÁBIO RIBEIRO DA SILVA",
             creatorEmail: "FABIO365@GMAIL.COM",
-            version: "1.0.0",
-            createdAt: new Date().toISOString(),
-            capabilities: [
-                "resposta-por-texto",
-                "sintese-de-voz-pt-br",
-                "reconhecimento-de-voz-microfone",
-                "exportacao-automatica-nucleo-json",
-                "memoria-de-sessao"
-            ]
+            wakeWord: "safyra",
+            version: "1.1.0"
         };
 
         let isAudioUnlocked = false;
+        let wakeWordEnabled = false;
+        let awaitingFollowUpCommand = false;
+        let wakeRecognition = null;
         let conversationLog = [];
 
         document.addEventListener("DOMContentLoaded", function () {
-            if (typeof lucide !== "undefined") {
-                lucide.createIcons();
-            }
+            if (typeof lucide !== "undefined") lucide.createIcons();
             if ("speechSynthesis" in window) {
                 window.speechSynthesis.getVoices();
-                window.speechSynthesis.onvoiceschanged = function () {
-                    window.speechSynthesis.getVoices();
-                };
+                window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
             }
             bindQuickButtons();
-            // Cria automaticamente o arquivo do núcleo da IA ao iniciar (se ainda não disparado na sessão)
-            if (!sessionStorage.getItem("safyra_auto_exported")) {
-                sessionStorage.setItem("safyra_auto_exported", "1");
-                setTimeout(() => downloadAssistantCore(false), 600);
-            }
+            checkBackendHealth();
         });
+
+        function getBackendBaseUrl() {
+            const input = document.getElementById("backendUrlInput");
+            const val = (input && input.value.trim()) || window.SAFYRA_BACKEND_URL || "http://localhost:3001";
+            return val.replace(/\/+$/, "");
+        }
+
+        async function checkBackendHealth() {
+            const badge = document.getElementById("backendBadge");
+            const baseUrl = getBackendBaseUrl();
+            try {
+                const res = await fetch(`${baseUrl}/api/safyra/identity`, { signal: AbortSignal.timeout(2500) });
+                if (res.ok) {
+                    if (badge) {
+                        badge.textContent = "● BACKEND ONLINE";
+                        badge.className = "text-xs bg-emerald-500/20 text-emerald-300 px-3 py-1.5 rounded-xl border border-emerald-500/40 font-mono";
+                    }
+                    return true;
+                }
+            } catch (e) {}
+            if (badge) {
+                badge.textContent = "● MODO LOCAL (OFFLINE API)";
+                badge.className = "text-xs bg-amber-500/20 text-amber-300 px-3 py-1.5 rounded-xl border border-amber-500/40 font-mono";
+            }
+            return false;
+        }
 
         function bindQuickButtons() {
             document.querySelectorAll(".quick-btn").forEach(btn => {
                 btn.addEventListener("click", () => {
                     const query = btn.getAttribute("data-quick");
-                    if (query) sendQuickMessage(query);
+                    if (query) processUserMessage(query, "quick-action");
                 });
             });
         }
@@ -214,6 +207,8 @@
         function downloadAssistantCore(notifyChat = true) {
             const payload = {
                 ...ASSISTANT_CONFIG,
+                backendUrl: getBackendBaseUrl(),
+                exportedAt: new Date().toISOString(),
                 history: conversationLog
             };
             const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json;charset=utf-8" });
@@ -229,8 +224,7 @@
             if (notifyChat) {
                 appendMessage(
                     "safyra",
-                    `Arquivo **anja-safyra-ribeiro-da-silva-core.json** gerado e baixado com sucesso para **${ASSISTANT_CONFIG.creatorName}** (${ASSISTANT_CONFIG.creatorEmail}).`,
-                    ["Verificar Identidade & Criador", "Status do Sistema & Rotinas"]
+                    `Núcleo salvo em **anja-safyra-ribeiro-da-silva-core.json** para **${ASSISTANT_CONFIG.creatorName}** (${ASSISTANT_CONFIG.creatorEmail}).`
                 );
             }
         }
@@ -244,101 +238,233 @@
                 const osc = ctx.createOscillator();
                 const gain = ctx.createGain();
                 osc.type = "sine";
-                osc.frequency.setValueAtTime(523.25, now);
-                osc.frequency.setValueAtTime(659.25, now + 0.08);
+                osc.frequency.setValueAtTime(587.33, now);
+                osc.frequency.setValueAtTime(880, now + 0.08);
                 gain.gain.setValueAtTime(0.07, now);
-                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.28);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
                 osc.connect(gain);
                 gain.connect(ctx.destination);
                 osc.start(now);
-                osc.stop(now + 0.28);
+                osc.stop(now + 0.25);
             } catch (e) {}
         }
 
         function unlockAudioAndGreet() {
             isAudioUnlocked = true;
             playAssistantChime();
-            const statusEl = document.getElementById("txtAudioStatus");
-            const btnEl = document.getElementById("btnUnlockAudio");
-            if (statusEl) statusEl.innerText = "Voz Safyra Ativa";
-            if (btnEl) {
-                btnEl.classList.remove("animate-pulse", "from-pink-500", "to-rose-600");
-                btnEl.classList.add("from-emerald-500", "to-teal-600");
+            const txt = document.getElementById("txtAudioStatus");
+            const btn = document.getElementById("btnUnlockAudio");
+            if (txt) txt.innerText = "Voz Ativa";
+            if (btn) {
+                btn.classList.remove("animate-pulse", "from-pink-500", "to-rose-600");
+                btn.classList.add("from-emerald-500", "to-teal-600");
             }
-            speakSweetFemaleVoice("Olá, Fábio. Sou Anja Safyra Ribeiro da Silva. Voz ativada e pronta.");
-        }
-
-        function openEnterpriseStrategyModal() {
-            const modal = document.getElementById("enterpriseStrategyModal");
-            if (modal) modal.classList.remove("hidden");
-        }
-
-        function closeEnterpriseStrategyModal() {
-            const modal = document.getElementById("enterpriseStrategyModal");
-            if (modal) modal.classList.add("hidden");
+            speakSweetFemaleVoice("Olá, Fábio. Anja Safyra Ribeiro da Silva pronta.");
         }
 
         function speakSweetFemaleVoice(text) {
             if (!("speechSynthesis" in window)) return;
             window.speechSynthesis.cancel();
-            playAssistantChime();
-
-            const cleanText = String(text)
-                .replace(/[\*\_~`#]/g, "")
-                .replace(/\s+/g, " ")
-                .trim();
-
+            const cleanText = String(text).replace(/[\*\_~`#]/g, "").replace(/\s+/g, " ").trim();
             const utterance = new SpeechSynthesisUtterance(cleanText);
             utterance.lang = "pt-BR";
             utterance.pitch = 1.12;
             utterance.rate = 1.04;
-
             const voices = window.speechSynthesis.getVoices();
             const ptVoice = voices.find(v => v.lang && v.lang.toLowerCase().startsWith("pt"));
             if (ptVoice) utterance.voice = ptVoice;
-
             window.speechSynthesis.speak(utterance);
         }
 
-        function generateAssistantReply(message) {
-            const q = message.toLowerCase();
-
-            if (q.includes("identidade") || q.includes("criador") || q.includes("quem é você") || q.includes("nome")) {
-                return {
-                    text: `Meu nome completo é **${ASSISTANT_CONFIG.assistantName}**. Fui criada por **${ASSISTANT_CONFIG.creatorName}**, e-mail **${ASSISTANT_CONFIG.creatorEmail}**.`,
-                    options: ["Baixar Núcleo IA (.JSON)", "Status do Sistema & Rotinas"]
-                };
+        // --- WAKE WORD CONTÍNUA "SAFYRA" ---
+        function toggleWakeWordListener() {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRecognition) {
+                appendMessage("safyra", "Seu navegador não suporta Web Speech API para wake word contínua.");
+                return;
             }
 
+            wakeWordEnabled = !wakeWordEnabled;
+            updateWakeWordUI();
+
+            if (wakeWordEnabled) {
+                isAudioUnlocked = true;
+                startWakeLoop();
+                playAssistantChime();
+                appendMessage("safyra", 'Escuta contínua ativada. Diga **"Safyra"** seguida do seu comando.');
+            } else {
+                awaitingFollowUpCommand = false;
+                if (wakeRecognition) {
+                    try { wakeRecognition.stop(); } catch (e) {}
+                    wakeRecognition = null;
+                }
+                appendMessage("safyra", 'Escuta contínua **"Safyra"** desativada.');
+            }
+        }
+
+        function updateWakeWordUI() {
+            const label = document.getElementById("txtWakeStatus");
+            const btn = document.getElementById("btnWakeWord");
+            if (!label || !btn) return;
+            if (wakeWordEnabled) {
+                label.innerText = 'Wake "Safyra": ON';
+                btn.classList.remove("bg-slate-800", "text-amber-300", "border-amber-500/40");
+                btn.classList.add("bg-amber-500/20", "text-amber-200", "border-amber-400");
+            } else {
+                label.innerText = 'Wake "Safyra": OFF';
+                btn.classList.remove("bg-amber-500/20", "text-amber-200", "border-amber-400");
+                btn.classList.add("bg-slate-800", "text-amber-300", "border-amber-500/40");
+            }
+        }
+
+        function startWakeLoop() {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRecognition || !wakeWordEnabled) return;
+
+            const rec = new SpeechRecognition();
+            rec.lang = "pt-BR";
+            rec.continuous = true;
+            rec.interimResults = false;
+
+            rec.onresult = function (event) {
+                for (let i = event.resultIndex; i < event.results.length; i++) {
+                    if (!event.results[i].isFinal) continue;
+                    const transcript = (event.results[i][0]?.transcript || "").trim();
+                    if (!transcript) continue;
+                    handleWakeTranscript(transcript);
+                }
+            };
+
+            rec.onerror = function (event) {
+                if (event.error === "not-allowed" || event.error === "service-not-allowed") {
+                    wakeWordEnabled = false;
+                    updateWakeWordUI();
+                    appendMessage("safyra", "Permissão de microfone negada para o wake word.");
+                }
+            };
+
+            rec.onend = function () {
+                if (wakeWordEnabled) {
+                    setTimeout(() => {
+                        if (wakeWordEnabled) startWakeLoop();
+                    }, 350);
+                }
+            };
+
+            wakeRecognition = rec;
+            try { rec.start(); } catch (e) {}
+        }
+
+        function handleWakeTranscript(transcript) {
+            const lower = transcript.toLowerCase();
+            const wakeIndex = lower.indexOf(ASSISTANT_CONFIG.wakeWord);
+
+            if (wakeIndex !== -1) {
+                playAssistantChime();
+                const afterWake = transcript.slice(wakeIndex + ASSISTANT_CONFIG.wakeWord.length)
+                    .replace(/^[,:\-\s]+/, "")
+                    .trim();
+
+                if (afterWake.length > 0) {
+                    awaitingFollowUpCommand = false;
+                    processUserMessage(afterWake, "wake-word");
+                } else {
+                    awaitingFollowUpCommand = true;
+                    appendMessage("safyra", "Sim, Fábio? Estou ouvindo seu comando.");
+                    if (isAudioUnlocked) speakSweetFemaleVoice("Sim, Fábio?");
+                }
+                return;
+            }
+
+            if (awaitingFollowUpCommand) {
+                awaitingFollowUpCommand = false;
+                processUserMessage(transcript, "wake-followup");
+            }
+        }
+
+        function startSingleVoiceCommand() {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRecognition) {
+                appendMessage("safyra", "Seu navegador não suporta reconhecimento de voz.");
+                return;
+            }
+            const rec = new SpeechRecognition();
+            rec.lang = "pt-BR";
+            const micBtn = document.getElementById("btnVoiceMic");
+            if (micBtn) micBtn.classList.add("bg-pink-600", "animate-pulse");
+
+            rec.onresult = (event) => {
+                const text = event.results?.[0]?.[0]?.transcript || "";
+                if (text) processUserMessage(text, "mic-button");
+            };
+            rec.onend = () => {
+                if (micBtn) micBtn.classList.remove("bg-pink-600", "animate-pulse");
+            };
+            rec.onerror = () => {
+                if (micBtn) micBtn.classList.remove("bg-pink-600", "animate-pulse");
+            };
+            rec.start();
+        }
+
+        // --- INTEGRAÇÃO COM BACKEND + FALLBACK LOCAL ---
+        async function sendToBackendOrFallback(message, source) {
+            const baseUrl = getBackendBaseUrl();
+            try {
+                const res = await fetch(`${baseUrl}/api/safyra/chat`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        message,
+                        source,
+                        assistant: ASSISTANT_CONFIG.assistantName,
+                        creator: ASSISTANT_CONFIG.creatorName,
+                        creatorEmail: ASSISTANT_CONFIG.creatorEmail,
+                        history: conversationLog.slice(-10)
+                    }),
+                    signal: AbortSignal.timeout(4000)
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data && data.reply) {
+                        return {
+                            text: data.reply,
+                            options: Array.isArray(data.options) ? data.options : ["Verificar Identidade & Criador", "Status do Sistema & Rotinas"]
+                        };
+                    }
+                }
+            } catch (e) {}
+
+            return generateLocalFallbackReply(message);
+        }
+
+        function generateLocalFallbackReply(message) {
+            const q = message.toLowerCase();
+            if (q.includes("identidade") || q.includes("criador") || q.includes("quem é você")) {
+                return {
+                    text: `Sou **${ASSISTANT_CONFIG.assistantName}**. Criador: **${ASSISTANT_CONFIG.creatorName}** (**${ASSISTANT_CONFIG.creatorEmail}**).`,
+                    options: ["Status do Sistema & Rotinas", "Baixar Núcleo (.JSON)"]
+                };
+            }
             if (q.includes("status") || q.includes("sistema") || q.includes("rotina")) {
                 return {
-                    text: `Núcleo da **${ASSISTANT_CONFIG.assistantName}** operacional. Criador autorizado: **${ASSISTANT_CONFIG.creatorName}** (${ASSISTANT_CONFIG.creatorEmail}). Mensagens processadas nesta sessão: **${conversationLog.length}**.`,
-                    options: ["Verificar Identidade & Criador", "Baixar Núcleo IA (.JSON)"]
+                    text: `Sistema da **${ASSISTANT_CONFIG.assistantName}** ativo para **${ASSISTANT_CONFIG.creatorName}**. Mensagens na sessão: **${conversationLog.length}**.`,
+                    options: ["Verificar Identidade & Criador", "Baixar Núcleo (.JSON)"]
                 };
             }
-
-            if (q.includes("baixar") || q.includes("exportar") || q.includes("json") || q.includes("cópia")) {
-                downloadAssistantCore(false);
-                return {
-                    text: `Cópia completa do núcleo gerada e baixada como **anja-safyra-ribeiro-da-silva-core.json** para **${ASSISTANT_CONFIG.creatorName}** (${ASSISTANT_CONFIG.creatorEmail}).`,
-                    options: ["Verificar Identidade & Criador", "Status do Sistema & Rotinas"]
-                };
-            }
-
             return {
-                text: `Comando registrado pela **${ASSISTANT_CONFIG.assistantName}**: "${message}". Pronto para execução sob orientação de **${ASSISTANT_CONFIG.creatorName}**.`,
-                options: ["Verificar Identidade & Criador", "Baixar Núcleo IA (.JSON)"]
+                text: `Comando recebido pela **${ASSISTANT_CONFIG.assistantName}**: "${message}".`,
+                options: ["Verificar Identidade & Criador", "Status do Sistema & Rotinas"]
             };
         }
 
-        function processUserMessage(message) {
+        async function processUserMessage(message, source = "text") {
             const trimmed = String(message || "").trim();
             if (!trimmed) return;
 
-            conversationLog.push({ role: "user", content: trimmed, at: new Date().toISOString() });
+            conversationLog.push({ role: "user", source, content: trimmed, at: new Date().toISOString() });
             appendMessage("user", trimmed);
 
-            const reply = generateAssistantReply(trimmed);
+            const reply = await sendToBackendOrFallback(trimmed, source);
             conversationLog.push({ role: "assistant", content: reply.text, at: new Date().toISOString() });
 
             appendMessage("safyra", reply.text, reply.options);
@@ -354,11 +480,7 @@
             const text = input.value.trim();
             if (!text) return;
             input.value = "";
-            processUserMessage(text);
-        }
-
-        function sendQuickMessage(text) {
-            processUserMessage(text);
+            processUserMessage(text, "form-submit");
         }
 
         function escapeHtml(str) {
@@ -406,21 +528,20 @@
                 if (Array.isArray(options) && options.length > 0) {
                     const optBox = document.createElement("div");
                     optBox.className = "mt-3 pt-2 border-t border-pink-500/20 flex flex-col gap-1.5";
-
-                    const optLabel = document.createElement("p");
-                    optLabel.className = "text-[11px] font-bold text-pink-300";
-                    optLabel.textContent = "AÇÕES RÁPIDAS:";
-                    optBox.appendChild(optLabel);
-
                     options.forEach(opt => {
                         const btn = document.createElement("button");
                         btn.type = "button";
                         btn.className = "text-left bg-slate-900/90 hover:bg-slate-950 text-cyan-300 hover:text-cyan-200 px-3 py-1.5 rounded-lg text-xs border border-cyan-500/30 transition flex items-center justify-between";
                         btn.innerHTML = `<span>${escapeHtml(opt)}</span><i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>`;
-                        btn.addEventListener("click", () => sendQuickMessage(opt));
+                        btn.addEventListener("click", () => {
+                            if (opt.includes("Baixar Núcleo")) {
+                                downloadAssistantCore(true);
+                            } else {
+                                processUserMessage(opt, "option-chip");
+                            }
+                        });
                         optBox.appendChild(btn);
                     });
-
                     bubble.appendChild(optBox);
                 }
 
@@ -435,40 +556,6 @@
             history.appendChild(msgDiv);
             history.scrollTop = history.scrollHeight;
             if (typeof lucide !== "undefined") lucide.createIcons();
-        }
-
-        function startVoiceRecognition() {
-            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-            if (!SpeechRecognition) {
-                appendMessage("safyra", "Seu navegador não suporta reconhecimento de voz nativo. Use o campo de texto.");
-                return;
-            }
-
-            const recognition = new SpeechRecognition();
-            recognition.lang = "pt-BR";
-            recognition.interimResults = false;
-            recognition.maxAlternatives = 1;
-
-            const micBtn = document.getElementById("btnVoiceMic");
-            if (micBtn) micBtn.classList.add("bg-pink-600", "animate-pulse");
-
-            recognition.onresult = function (event) {
-                const transcript = event.results?.[0]?.[0]?.transcript || "";
-                if (micBtn) micBtn.classList.remove("bg-pink-600", "animate-pulse");
-                if (transcript) {
-                    processUserMessage(transcript);
-                }
-            };
-
-            recognition.onerror = function () {
-                if (micBtn) micBtn.classList.remove("bg-pink-600", "animate-pulse");
-            };
-
-            recognition.onend = function () {
-                if (micBtn) micBtn.classList.remove("bg-pink-600", "animate-pulse");
-            };
-
-            recognition.start();
         }
     </script>
 </body>
