@@ -215,20 +215,34 @@
         function speakText(text) {
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
-                const ut = new SpeechSynthesisUtterance(text);
-                ut.lang = 'pt-BR';
-                ut.rate = 1.08;
-                ut.pitch = 1.35; // Elevado para voz feminina jovem, doce e marcante
                 
-                // Busca vozes femininas específicas do sistema em português
+                // Trata o texto removendo formatações markdown antes de falar
+                const cleanText = text.replace(/\*\*/g, '').replace(/[\#\_\`]/g, '').trim();
+                const ut = new SpeechSynthesisUtterance(cleanText);
+                
+                ut.lang = 'pt-BR';
+                ut.rate = 0.98;  // Velocidade ideal: nem muito rápida, nem muito lenta
+                ut.pitch = 1.15; // Tom doce, sereno, meigo e carinhoso
+                
+                // Busca vozes exclusivamente femininas em português do Brasil
                 const voices = window.speechSynthesis.getVoices();
                 const femaleVoice = voices.find(v => 
                     v.lang.includes('pt') && 
-                    (v.name.includes('Luciana') || v.name.includes('Francisca') || v.name.includes('Helena') || 
-                     v.name.includes('Vitória') || v.name.includes('Google') || v.name.toLowerCase().includes('female'))
-                ) || voices.find(v => v.lang.includes('pt'));
+                    (
+                        v.name.includes('Luciana') || 
+                        v.name.includes('Francisca') || 
+                        v.name.includes('Helena') || 
+                        v.name.includes('Vitória') || 
+                        v.name.includes('Maria') || 
+                        v.name.includes('Google português do Brasil') ||
+                        v.name.toLowerCase().includes('female')
+                    )
+                ) || voices.find(v => v.lang.includes('pt-BR') || v.lang.includes('pt'));
                 
-                if (femaleVoice) ut.voice = femaleVoice;
+                if (femaleVoice) {
+                    ut.voice = femaleVoice;
+                }
+                
                 window.speechSynthesis.speak(ut);
             }
         }
