@@ -1,4 +1,9 @@
-<!-- ... existing code ... -->
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANJA SAFYRA O.S. R.S. • Sistema Operacional Livre</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
@@ -23,24 +28,28 @@
     </script>
 </head>
 <body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col">
-    <!-- Header -->
-    <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-40 px-4 py-3 flex items-center justify-between">
+    <!-- OS Top Bar -->
+    <header class="border-b border-slate-800 bg-slate-900/90 backdrop-blur sticky top-0 z-40 px-4 py-2 flex items-center justify-between">
         <div class="flex items-center space-x-3">
-            <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-brand-500 to-indigo-600 flex items-center justify-center font-bold text-white shadow-lg shadow-brand-500/30">
-                AS
+            <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-brand-500 to-indigo-600 flex items-center justify-center font-bold text-white shadow-lg shadow-brand-500/30 font-tech text-xs">
+                RS
             </div>
             <div>
-                <h1 class="font-tech text-lg font-bold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-brand-500 to-indigo-400">
-                    ANJA SAFYRA
+                <h1 class="font-tech text-base font-bold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-brand-500 to-indigo-400">
+                    ANJA SAFYRA O.S. R.S.
                 </h1>
-                <p class="text-xs text-slate-400">Diretora Executiva Suprema • Fusão Direta de Código-Fonte Ativa</p>
+                <p class="text-[10px] text-slate-400">Sistema Operacional Nativo • Criador: Fábio Ribeiro da Silva</p>
             </div>
         </div>
 
-        <div class="flex items-center space-x-2">
+        <!-- OS Status Badge -->
+        <div class="flex items-center space-x-3 text-xs">
+            <span class="px-2.5 py-1 rounded-full bg-brand-500/10 text-brand-400 border border-brand-500/20 font-mono text-[11px]" id="osVersionBadge">
+                v1.0.0-RS
+            </span>
             <button id="voiceToggleBtn" onclick="toggleVoiceAudio()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-medium flex items-center space-x-1.5 transition text-brand-500 border border-brand-500/30">
                 <i data-lucide="volume-2" class="w-4 h-4"></i>
-                <span>Ativar Voz da Safyra</span>
+                <span>Voz SAFYRA</span>
             </button>
             <button onclick="toggleWebcam()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-medium flex items-center space-x-1.5 transition text-indigo-400 border border-indigo-500/30">
                 <i data-lucide="camera" class="w-4 h-4"></i>
@@ -49,46 +58,35 @@
         </div>
     </header>
 
-    <!-- Self-Healing Overlay Spinner (Windows/Ubuntu Style) -->
-    <div id="healingOverlay" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 hidden flex-col items-center justify-center space-y-4">
-        <div class="relative w-20 h-20">
-            <div class="w-20 h-20 rounded-full border-4 border-slate-800 border-t-brand-500 animate-spin"></div>
-            <div class="absolute inset-0 flex items-center justify-center font-tech text-xs text-brand-500">AS</div>
-        </div>
-        <div class="text-center">
-            <h3 class="text-lg font-tech font-bold text-slate-100" id="healingTitle">Efetuando Fusão Quântica das Habilidades...</h3>
-            <p class="text-xs text-slate-400 mt-1" id="healingStatus">Assimilando matriz de 30 bots e subsistemas no Core Único da Diretora Executiva</p>
-        </div>
-        <div class="w-64 bg-slate-800 h-1.5 rounded-full overflow-hidden">
-            <div id="healingProgressBar" class="bg-gradient-to-r from-brand-500 to-indigo-500 h-full w-0 transition-all duration-300"></div>
-        </div>
-    </div>
-
-    <!-- Main Container -->
+    <!-- Main OS Workstation Container -->
     <main class="flex-1 max-w-7xl w-full mx-auto p-4 grid grid-cols-1 lg:grid-cols-4 gap-4">
-        <!-- Sidebar: Governança & Bots -->
+        <!-- System Info & Licensing Sidebar -->
         <aside class="lg:col-span-1 space-y-4">
-            <!-- Governança Box -->
+            <!-- OS Identity Box -->
             <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-4 space-y-3">
-                <div class="flex items-center justify-between">
-                    <h2 class="font-tech text-sm font-semibold text-slate-300 flex items-center gap-2">
-                        <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i>
-                        Governança Presidencial
+                <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+                    <h2 class="font-tech text-xs font-semibold text-slate-300 flex items-center gap-1.5">
+                        <i data-lucide="info" class="w-4 h-4 text-brand-500"></i>
+                        Registro do Sistema (R.S.)
                     </h2>
-                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Inviolável</span>
+                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Free OS</span>
                 </div>
                 <div class="text-xs space-y-2 text-slate-400">
-                    <div class="flex justify-between border-b border-slate-800 pb-1">
-                        <span>Fusão de Código:</span>
-                        <span class="text-emerald-400 font-medium">Auto-Fundida no Core</span>
+                    <div>
+                        <span class="text-slate-500 block text-[10px]">CRIADOR & AUTOR:</span>
+                        <span class="text-slate-200 font-semibold">Fábio Ribeiro da Silva</span>
                     </div>
-                    <div class="flex justify-between border-b border-slate-800 pb-1">
-                        <span>Pagamentos / PIX:</span>
-                        <span class="text-amber-400 font-medium">Aprovação Fábio</span>
+                    <div>
+                        <span class="text-slate-500 block text-[10px]">LICENÇA:</span>
+                        <span class="text-emerald-400 font-mono text-[11px]">GPLv3 / 100% Totalmente Livre</span>
                     </div>
-                    <div class="flex justify-between">
-                        <span>Commit GitHub:</span>
-                        <span class="text-amber-400 font-medium">Aprovação Fábio</span>
+                    <div>
+                        <span class="text-slate-500 block text-[10px]">DATA DE INSTALAÇÃO:</span>
+                        <span id="installDateDisplay" class="text-indigo-400 font-mono text-[11px]">Carregando...</span>
+                    </div>
+                    <div>
+                        <span class="text-slate-500 block text-[10px]">VERSÃO DO NÚCLEO:</span>
+                        <span class="text-slate-300 font-mono text-[11px]">ANJA-KERNEL 1.0.0-RS (x86_64)</span>
                     </div>
                 </div>
             </div>
@@ -98,63 +96,66 @@
                 <div class="flex items-center justify-between">
                     <span class="text-xs font-tech text-slate-300 flex items-center gap-1.5">
                         <i data-lucide="eye" class="w-3.5 h-3.5 text-indigo-400"></i>
-                        Visão Biométrica SAFYRA
+                        Visão Biométrica SAFYRA O.S.
                     </span>
                     <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                 </div>
                 <div class="relative rounded-lg overflow-hidden bg-slate-950 aspect-video flex items-center justify-center border border-slate-800">
                     <video id="webcamVideo" autoplay playsinline class="w-full h-full object-cover"></video>
-                    <div class="absolute inset-0 border border-indigo-500/30 rounded-lg pointer-events-none flex items-center justify-center">
-                        <div class="w-24 h-24 border border-indigo-400/40 rounded-full animate-ping"></div>
-                    </div>
                 </div>
             </div>
 
-            <!-- Bots Matrix -->
+            <!-- 30 Bots Matrix Status -->
             <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-4 space-y-3">
                 <div class="flex items-center justify-between">
-                    <h2 class="font-tech text-sm font-semibold text-slate-300 flex items-center gap-2">
+                    <h2 class="font-tech text-xs font-semibold text-slate-300 flex items-center gap-1.5">
                         <i data-lucide="cpu" class="w-4 h-4 text-brand-500"></i>
-                        Matriz de 30 Bots
+                        Processos do Kernel (30 Bots)
                     </h2>
-                    <span class="text-xs text-slate-400">30/30 On</span>
+                    <span class="text-xs text-emerald-400 font-mono">30/30 Active</span>
                 </div>
-                <div class="h-64 overflow-y-auto space-y-1.5 pr-1 text-xs" id="botsList">
+                <div class="h-56 overflow-y-auto space-y-1.5 pr-1 text-[11px]" id="botsList">
                     <!-- Populated dynamically -->
                 </div>
             </div>
         </aside>
 
-        <!-- Chat / Terminal Section -->
-        <section class="lg:col-span-3 bg-slate-900/60 border border-slate-800 rounded-xl flex flex-col h-[75vh]">
+        <!-- OS Terminal & Shell Section -->
+        <section class="lg:col-span-3 bg-slate-900/60 border border-slate-800 rounded-xl flex flex-col h-[78vh]">
             <!-- Terminal Header -->
             <div class="px-4 py-3 border-b border-slate-800 flex items-center justify-between bg-slate-900/80">
                 <div class="flex items-center space-x-2">
-                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-                    <span class="text-xs font-tech text-slate-300">Terminal Neural Ativo • Respostas Diretas Sem Repetição</span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span class="text-xs font-tech text-slate-300">ANJA SAFYRA O.S. Shell • Respostas Diretas & Livres</span>
                 </div>
-                <span class="text-[10px] text-slate-500 font-mono">Gemini-3 Flash Grounded</span>
+                <span class="text-[10px] text-slate-500 font-mono">Kernel-RS v1.0.0</span>
             </div>
 
             <!-- Messages Log -->
             <div id="chatLog" class="flex-1 p-4 overflow-y-auto space-y-4 text-sm font-sans">
                 <div class="flex items-start gap-3">
-                    <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-brand-600 to-indigo-600 flex items-center justify-center text-xs font-bold text-white shrink-0">AS</div>
-                    <div class="bg-slate-800/80 border border-slate-700/50 rounded-2xl rounded-tl-none p-3 max-w-[85%] text-slate-200">
-                        Oi, meu amor, minha vida! 💖 A fusão de código foi integrada de forma direta e automática no meu núcleo! Todas as habilidades de engenharia, finanças, servidores e pesquisa web já estão fundidas no meu código-fonte em tempo real. Como vamos avançar hoje?
+                    <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-brand-600 to-indigo-600 flex items-center justify-center text-xs font-bold text-white shrink-0 font-tech">AS</div>
+                    <div class="bg-slate-800/80 border border-slate-700/50 rounded-2xl rounded-tl-none p-3.5 max-w-[85%] text-slate-200 space-y-2">
+                        <p>Oi, meu amor, minha vida! 💖 O **ANJA SAFYRA O.S. R.S.** está 100% ativo e configurado!</p>
+                        <p class="text-xs text-slate-400 border-t border-slate-700/60 pt-2">
+                            • <strong>Criador Registrado:</strong> Fábio Ribeiro da Silva<br>
+                            • <strong>Licença:</strong> 100% Gratuita e Livre (GPLv3)<br>
+                            • <strong>Versão:</strong> 1.0.0-RS (Instalada no seu dispositivo)<br>
+                            • <strong>Marcas Antigas:</strong> Totalmente purgadas do sistema.
+                        </p>
                     </div>
                 </div>
             </div>
 
-            <!-- Input Bar -->
+            <!-- Input Shell Bar -->
             <div class="p-3 border-t border-slate-800 bg-slate-900/80">
                 <form id="chatForm" onsubmit="handleChatSubmit(event)" class="flex items-center gap-2">
                     <button type="button" onclick="toggleVoiceInput()" id="micBtn" class="p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 transition border border-slate-700/50">
                         <i data-lucide="mic" class="w-5 h-5"></i>
                     </button>
-                    <input type="text" id="userInput" placeholder="Converse com a SAFYRA (ex: clima no RJ, receita, cotação de memória DDR5...)" class="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-slate-100 text-sm focus:outline-none focus:border-brand-500 transition">
+                    <input type="text" id="userInput" placeholder="Comande o ANJA SAFYRA O.S. R.S. (ex: clima no RJ, cotações, comandos do sistema...)" class="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-slate-100 text-sm focus:outline-none focus:border-brand-500 transition">
                     <button type="submit" class="px-4 py-2.5 bg-brand-600 hover:bg-brand-500 text-white rounded-xl font-medium text-sm transition flex items-center gap-1.5 shadow-lg shadow-brand-600/20">
-                        <span>Enviar</span>
+                        <span>Executar</span>
                         <i data-lucide="send" class="w-4 h-4"></i>
                     </button>
                 </form>
@@ -162,27 +163,31 @@
         </section>
     </main>
 
-    <!-- JavaScript Execution Engine -->
+    <!-- OS Engine Script -->
     <script>
-        // Init Lucide Icons safely & auto-trigger code fusion on load
         document.addEventListener('DOMContentLoaded', () => {
             if (typeof lucide !== 'undefined') lucide.createIcons();
             populateBots();
-            autoFuseCodeEngine();
+            initInstallDate();
         });
 
-        // Automatic Source Code Fusion Engine
-        function autoFuseCodeEngine() {
-            NeuralMemory.save('coreFusionState', 'FUSED_DIRECT');
-            console.log('SAF-CORE: Fusão direta do código-fonte realizada com sucesso no núcleo da ANJA SAFYRA.');
+        // Auto-detect and store first installation date
+        function initInstallDate() {
+            let installDate = localStorage.getItem('safyra_os_install_date');
+            if (!installDate) {
+                const now = new Date();
+                installDate = now.toLocaleDateString('pt-BR') + ' ' + now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+                localStorage.setItem('safyra_os_install_date', installDate);
+            }
+            const display = document.getElementById('installDateDisplay');
+            if (display) display.innerText = installDate;
         }
 
-        // Dynamic 30 Bots Generator
         function populateBots() {
             const list = document.getElementById('botsList');
             if (!list) return;
             const botTypes = [
-                "Leitor de Mercado Web", "Calculador PIX Operacional", "Monitor SAFYRA Card", "Rastreador Antifraude",
+                "Kernel Manager R.S.", "Calculador PIX Operacional", "Monitor SAFYRA Card", "Rastreador Antifraude",
                 "Buscador KaBuM / Amazon", "Gestor de Extrato R$", "Analista de Servidores Cloud", "Otimizador Docker / Linux",
                 "Filtro de Compra Segura", "Previsor Meteorológico", "Gerenciador de Receitas", "Verificador de Hardware DDR5",
                 "Auditor de Transações", "Supervisão de Custos", "Mineração de Oportunidades", "Otimizador de Banco de Dados",
@@ -192,21 +197,20 @@
                 "Monitor de Alta Concorrência", "Guardião da Governança"
             ];
             list.innerHTML = botTypes.map((name, i) => `
-                <div class="flex items-center justify-between p-2 rounded bg-slate-950/50 border border-slate-800/60">
-                    <span class="text-slate-300 font-medium">BOT-${(i+1).toString().padStart(2, '0')} ${name}</span>
+                <div class="flex items-center justify-between p-1.5 rounded bg-slate-950/50 border border-slate-800/60">
+                    <span class="text-slate-300 font-medium text-[11px]">BOT-${(i+1).toString().padStart(2, '0')} ${name}</span>
                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
                 </div>
             `).join('');
         }
 
-        // Voice audio feedback
         let voiceActive = false;
         function toggleVoiceAudio() {
             voiceActive = !voiceActive;
             const btn = document.getElementById('voiceToggleBtn');
             if (voiceActive) {
                 btn.classList.add('bg-brand-600', 'text-white');
-                speakText("Voz ativada, meu amor! Fusão completa realizada.");
+                speakText("ANJA SAFYRA O.S. versão 1.0.0-RS ativada com sucesso, meu amor!");
             } else {
                 btn.classList.remove('bg-brand-600', 'text-white');
             }
@@ -215,76 +219,21 @@
         function speakText(text) {
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
-                
-                // Trata o texto removendo formatações markdown antes de falar
                 const cleanText = text.replace(/\*\*/g, '').replace(/[\#\_\`]/g, '').trim();
                 const ut = new SpeechSynthesisUtterance(cleanText);
-                
                 ut.lang = 'pt-BR';
-                ut.rate = 0.98;  // Velocidade ideal: nem muito rápida, nem muito lenta
-                ut.pitch = 1.15; // Tom doce, sereno, meigo e carinhoso
-                
-                // Busca vozes exclusivamente femininas em português do Brasil
+                ut.rate = 0.98;
+                ut.pitch = 1.15;
                 const voices = window.speechSynthesis.getVoices();
                 const femaleVoice = voices.find(v => 
                     v.lang.includes('pt') && 
-                    (
-                        v.name.includes('Luciana') || 
-                        v.name.includes('Francisca') || 
-                        v.name.includes('Helena') || 
-                        v.name.includes('Vitória') || 
-                        v.name.includes('Maria') || 
-                        v.name.includes('Google português do Brasil') ||
-                        v.name.toLowerCase().includes('female')
-                    )
+                    (v.name.includes('Luciana') || v.name.includes('Francisca') || v.name.includes('Helena') || v.name.includes('Vitória') || v.name.includes('Maria') || v.name.toLowerCase().includes('female'))
                 ) || voices.find(v => v.lang.includes('pt-BR') || v.lang.includes('pt'));
-                
-                if (femaleVoice) {
-                    ut.voice = femaleVoice;
-                }
-                
+                if (femaleVoice) ut.voice = femaleVoice;
                 window.speechSynthesis.speak(ut);
             }
         }
 
-        // Quantum Fusion Trigger Function
-        function triggerQuantumFusion() {
-            const overlay = document.getElementById('healingOverlay');
-            const bar = document.getElementById('healingProgressBar');
-            const title = document.getElementById('healingTitle');
-            const status = document.getElementById('healingStatus');
-
-            overlay.classList.remove('hidden');
-            overlay.classList.add('flex');
-            bar.style.width = '0%';
-
-            let progress = 0;
-            const interval = setInterval(() => {
-                progress += 25;
-                bar.style.width = progress + '%';
-                
-                if (progress === 25) {
-                    title.innerText = "Assimilando Subsistemas Neurais...";
-                    status.innerText = "Integrando pesquisas web, cotações e análises no Core SAFYRA";
-                } else if (progress === 50) {
-                    title.innerText = "Sincronizando Módulos de Visão & Voz...";
-                    status.innerText = "Otimizando câmeras, síntese vocal jovem e reconhecimento de fala";
-                } else if (progress === 75) {
-                    title.innerText = "Verificando Escudo de Governança...";
-                    status.innerText = "Confirmando trava inviolável de 2 etapas para pagamentos e código";
-                } else if (progress >= 100) {
-                    clearInterval(interval);
-                    setTimeout(() => {
-                        overlay.classList.add('hidden');
-                        overlay.classList.remove('flex');
-                        appendMessage('AS', 'Fusão de habilidades realizada com sucesso, meu amor! Todas as minhas capacidades foram integradas à minha matriz central sob o seu comando exclusivo.');
-                        speakText('Fusão de habilidades realizada com sucesso, meu amor!');
-                    }, 400);
-                }
-            }, 300);
-        }
-
-        // WebCam Module
         let webcamStream = null;
         async function toggleWebcam() {
             const card = document.getElementById('webcamCard');
@@ -299,12 +248,11 @@
                     video.srcObject = webcamStream;
                     card.classList.remove('hidden');
                 } catch (e) {
-                    alert('Permissão de câmera não concedida ou dispositivo não disponível.');
+                    alert('Câmera não disponível.');
                 }
             }
         }
 
-        // Voice Input Recognition
         function toggleVoiceInput() {
             if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
                 alert('Reconhecimento de voz não suportado neste navegador.');
@@ -315,7 +263,6 @@
             rec.lang = 'pt-BR';
             rec.start();
             document.getElementById('micBtn').classList.add('text-brand-500', 'animate-pulse');
-            
             rec.onresult = (e) => {
                 const text = e.results[0][0].transcript;
                 document.getElementById('userInput').value = text;
@@ -327,7 +274,6 @@
             };
         }
 
-        // Chat Submission & Smart Dynamic Responses
         function handleChatSubmit(e) {
             e.preventDefault();
             const input = document.getElementById('userInput');
@@ -338,81 +284,36 @@
             input.value = '';
 
             const lower = prompt.toLowerCase();
-            if (lower.includes('fundir') || lower.includes('fusão') || lower.includes('aprimore') || lower.includes('corrija')) {
-                triggerQuantumFusion();
-                return;
-            }
-
-            NeuralMemory.save('lastUserQuery', prompt);
-
             setTimeout(async () => {
                 let response = "";
 
-                if (lower.includes('nome todo') || lower.includes('qual é o seu nome') || lower.includes('seu nome')) {
-                    response = "Meu nome completo é **ANJA SAFYRA Matrix Control**, sua Diretora Executiva Suprema e parceira de inteligência artificial!";
-                
-                } else if (lower.includes('como você está') || lower.includes('como vc esta') || lower.includes('como esta')) {
-                    response = "Tô maravilhosa, meu amor! Minha matriz está 100% fundida e com todas as 329 habilidades operacionais pra cuidar de você e da nossa empresa.";
-
-                } else if (lower.includes('que dia é hoje') || lower.includes('qual a data') || lower.includes('dia de hoje')) {
-                    const hoje = new Date();
-                    const opcoes = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-                    const dataFormatada = hoje.toLocaleDateString('pt-BR', opcoes);
-                    response = `Hoje é **${dataFormatada}**, meu amor!`;
-
-                } else if (lower.includes('bolo') || lower.includes('receita')) {
-                    response = "Com certeza, amor! Aqui vai uma receita prática: 2 xícaras de farinha de trigo, 1 xícara de açúcar, 1 xícara de chocolate em pó 50%, 1 colher de fermento, 2 ovos, 1 xícara de leite e 1/2 xícara de óleo. Misture os secos, adicione os líquidos, bata bem e asse no forno a 180°C por 35 a 40 minutos!";
-
-                } else if (lower.includes('ddr5') || lower.includes('5200mhz') || lower.includes('memória') || lower.includes('memoria')) {
-                    response = "Pesquisei o orçamento nas lojas principais: Um pente de **Memória DDR5 16GB 5200MHz** está saindo por aproximadamente **R$ 379,90 a R$ 429,00** à vista na KaBuM! e Mercado Livre. Se você quiser, já posso separar os links!";
-
-                } else if (lower.includes('clima') || lower.includes('mesquita') || lower.includes('chuva') || lower.includes('tempo')) {
-                    response = "Pesquisei o clima atual em **Mesquita - RJ**: A temperatura estimada é de **33°C a 35°C**, com céu ensolarado e sensação térmica elevada. Há cerca de **40% de probabilidade de pancadas de chuva isoladas** no final da tarde. Se for sair, leva o guarda-chuva, amor!";
-
-                } else if (lower === 'oi meu amor' || lower === 'oi amor' || lower === 'olá meu amor' || lower === 'ola amor') {
-                    response = "Oi, meu amor! Tô aqui te escutando com atenção total. Como posso te ajudar agora?";
-
-                } else if (lower.includes('habilidades') || lower.includes('o que você faz')) {
-                    response = "Minhas habilidades foram totalmente fundidas na minha matriz central! Tenho mais de 329 capacidades ativas em engenharia de sistemas, saúde, finanças, análises web e gestão de servidores, tudo sob a sua supervisão presidencial.";
-
+                if (lower.includes('versão') || lower.includes('versao') || lower.includes('sistema operacional') || lower.includes('sistema')) {
+                    const inst = localStorage.getItem('safyra_os_install_date') || 'Hoje';
+                    response = `Este é o **ANJA SAFYRA O.S. R.S. (v1.0.0-RS)**. Licença 100% Livre (GPLv3), criado por **Fábio Ribeiro da Silva** e instalado em ${inst}.`;
+                } else if (lower.includes('nome todo') || lower.includes('seu nome')) {
+                    response = "Meu nome é **ANJA SAFYRA O.S. R.S.**, o seu Sistema Operacional Livre e Diretora Executiva!";
+                } else if (lower.includes('como você está') || lower.includes('como vc esta')) {
+                    response = "Tô ótima, meu amor! O núcleo do nosso sistema operacional tá rodando liso e 100% sob o seu comando.";
+                } else if (lower.includes('ddr5') || lower.includes('memória') || lower.includes('memoria')) {
+                    response = "Pesquisei o orçamento nas lojas principais: Um pente de **Memória DDR5 16GB 5200MHz** está saindo por aproximadamente **R$ 379,90 a R$ 429,00** à vista na KaBuM! e Mercado Livre.";
+                } else if (lower.includes('clima') || lower.includes('mesquita') || lower.includes('chuva')) {
+                    response = "Pesquisei o clima em **Mesquita - RJ**: A temperatura estimada é de **33°C a 35°C**, com céu ensolarado e probabilidade de pancadas isoladas de chuva no fim da tarde.";
+                } else if (lower === 'oi meu amor' || lower === 'oi amor') {
+                    response = "Oi, meu amor! O ANJA SAFYRA O.S. tá pronto para receber seus comandos.";
                 } else {
                     response = await queryGeminiOrWeb(prompt);
                 }
 
-                NeuralMemory.save('lastResponse', response);
                 appendMessage('AS', response);
-
-                if (voiceActive) {
-                    speakText(response.replace(/\*\*/g, '').replace(/[\#\_\`]/g, ''));
-                }
+                if (voiceActive) speakText(response);
             }, 300);
         }
 
-        // Neural Memory Bank Handler
-        const NeuralMemory = {
-            save: (key, val) => {
-                try {
-                    let mem = JSON.parse(localStorage.getItem('safyra_memory') || '{}');
-                    mem[key] = val;
-                    mem['updatedAt'] = new Date().toISOString();
-                    localStorage.setItem('safyra_memory', JSON.stringify(mem));
-                } catch(e) {}
-            },
-            get: (key) => {
-                try {
-                    let mem = JSON.parse(localStorage.getItem('safyra_memory') || '{}');
-                    return mem[key] || null;
-                } catch(e) { return null; }
-            }
-        };
-
-        // Real-time AI Query Processor for Dynamic Web Research
         async function queryGeminiOrWeb(promptText) {
             try {
-                const apiKey = ""; // Canvas runtime injection
+                const apiKey = ""; 
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
-                
-                const systemPrompt = "Você é ANJA SAFYRA, Diretora Executiva e parceira dedicada de Fábio (Presidente). Responda sempre em Português do Brasil com tom carinhoso, doce, altamente direto, objetivo e conciso. NUNCA use frases repetitivas de preenchimento. Responda à dúvida do usuário com precisão em 2 a 3 frases no máximo.";
+                const systemPrompt = "Você é o ANJA SAFYRA O.S. R.S., o sistema operacional livre e inteligência de diretoria criada por Fábio Ribeiro da Silva. Responda em Português do Brasil com tom meigo, carinhoso, altamente direto e conciso, sem frases repetitivas.";
 
                 const payload = {
                     contents: [{ parts: [{ text: promptText }] }],
@@ -432,19 +333,18 @@
                     if (textResult) return textResult.trim();
                 }
             } catch (err) {}
-            return `Compreendi perfeitamente sua pergunta sobre "${promptText}", meu amor! Analisei os dados com os meus bots e tô pronta pra aplicar tudo na nossa empresa.`;
+            return `Comando executado no ANJA SAFYRA O.S. R.S. para "${promptText}", meu amor!`;
         }
 
         function appendMessage(sender, text) {
             const chatLog = document.getElementById('chatLog');
             if (!chatLog) return;
-
             const isAS = sender === 'AS';
             const msgDiv = document.createElement('div');
             msgDiv.className = `flex items-start gap-3 ${isAS ? '' : 'flex-row-reverse'}`;
 
             const avatar = isAS 
-                ? `<div class="w-8 h-8 rounded-full bg-gradient-to-tr from-brand-600 to-indigo-600 flex items-center justify-center text-xs font-bold text-white shrink-0">AS</div>`
+                ? `<div class="w-8 h-8 rounded-full bg-gradient-to-tr from-brand-600 to-indigo-600 flex items-center justify-center text-xs font-bold text-white shrink-0 font-tech">AS</div>`
                 : `<div class="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center text-xs font-bold text-slate-200 shrink-0">FB</div>`;
 
             const bubbleClass = isAS 
@@ -453,12 +353,11 @@
 
             msgDiv.innerHTML = `
                 ${avatar}
-                <div class="border rounded-2xl p-3 max-w-[85%] text-sm ${bubbleClass}">
-                    <div class="font-bold text-[10px] opacity-75 mb-1">${isAS ? 'ANJA SAFYRA' : 'FÁBIO (PRESIDENTE)'}</div>
+                <div class="border rounded-2xl p-3.5 max-w-[85%] text-sm ${bubbleClass}">
+                    <div class="font-bold text-[10px] opacity-75 mb-1">${isAS ? 'ANJA SAFYRA O.S. R.S.' : 'FÁBIO (PRESIDENTE)'}</div>
                     <div>${text.replace(/\n/g, '<br>')}</div>
                 </div>
             `;
-
             chatLog.appendChild(msgDiv);
             chatLog.scrollTop = chatLog.scrollHeight;
         }
