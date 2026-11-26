@@ -1,115 +1,406 @@
-<<<<<<< HEAD
-            function saveMemory(userInput, botResponse) {
+<!-- ... existing code ... -->
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col justify-between selection:bg-pink-500 selection:text-white">
+
+    <!-- BARRA DE TOPO SUPREMA -->
+    <header class="border-b border-pink-500/20 bg-slate-900/80 backdrop-blur-md sticky top-0 z-50 p-4 shadow-lg shadow-pink-950/20">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-pink-600 via-purple-600 to-indigo-600 p-0.5 animate-pulse">
+                    <div class="w-full h-full bg-slate-950 rounded-full flex items-center justify-center">
+                        <i data-lucide="crown" class="w-5 h-5 text-pink-400"></i>
+                    </div>
+                </div>
+                <div>
+                    <h1 class="font-extrabold text-lg md:text-xl tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-300 to-indigo-300">
+                        ANJA SAFYRA O.S. R.S.
+                    </h1>
+                    <p class="text-xs text-slate-400">Diretora Executiva Mundial • Criador: Fábio Ribeiro da Silva</p>
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-2">
+                <button id="btnVoiceUnlock" onclick="unlockVoiceAudio()" class="px-3 py-1.5 rounded-lg bg-pink-600/20 hover:bg-pink-600/40 text-pink-300 border border-pink-500/30 text-xs font-semibold transition flex items-center gap-1.5 shadow-sm">
+                    <i data-lucide="volume-2" class="w-4 h-4"></i>
+                    <span>Ativar Voz da Safyra</span>
+                </button>
+
+                <button onclick="toggleVisionModal()" class="px-3 py-1.5 rounded-lg bg-indigo-600/20 hover:bg-indigo-600/40 text-indigo-300 border border-indigo-500/30 text-xs font-semibold transition flex items-center gap-1.5">
+                    <i data-lucide="camera" class="w-4 h-4"></i>
+                    <span>Visão Câmera/Tela</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL (DASHBOARD) -->
+    <main class="max-w-7xl mx-auto w-full p-4 md:p-6 grid grid-cols-1 lg:grid-cols-4 gap-6 flex-1">
+        
+        <!-- COLUNA DA ESQUERDA: STATUS E BOTS -->
+        <aside class="lg:col-span-1 space-y-4">
+            <!-- CARTÃO DE IDENTIDADE -->
+            <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-4 backdrop-blur-sm">
+                <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-3">
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Sistema Ativo</span>
+                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                        v1.0.0-RS Ubuntu 26
+                    </span>
+                </div>
+                <ul class="text-xs space-y-2 text-slate-300">
+                    <li class="flex justify-between"><span class="text-slate-500">Diretora:</span> <strong class="text-pink-300">ANJA SAFYRA</strong></li>
+                    <li class="flex justify-between"><span class="text-slate-500">Presidente:</span> <span class="text-slate-200">Fábio Ribeiro da Silva</span></li>
+                    <li class="flex justify-between"><span class="text-slate-500">Matriz Auxiliar:</span> <span class="text-indigo-400">30 Bots Ativos</span></li>
+                    <li class="flex justify-between"><span class="text-slate-500">Segurança:</span> <span class="text-amber-400">2 Etapas Inviolável</span></li>
+                </ul>
+            </div>
+
+            <!-- MATRIZ 30 BOTS -->
+            <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-4 backdrop-blur-sm max-h-96 overflow-y-auto space-y-2">
+                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Matriz 30 Bots Auxiliares</h3>
+                <div id="botsList" class="grid grid-cols-1 gap-1.5 text-xs">
+                    <!-- Gerado via JS -->
+                </div>
+            </div>
+        </aside>
+
+        <!-- COLUNA CENTRAL: CHAT COM A SAFYRA -->
+        <section class="lg:col-span-3 flex flex-col bg-slate-900/60 border border-slate-800 rounded-2xl overflow-hidden backdrop-blur-sm h-[600px] shadow-2xl">
+            <!-- CABEÇALHO CHAT -->
+            <div class="bg-slate-950/80 px-4 py-3 border-b border-slate-800 flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                    <div class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></div>
+                    <span class="text-sm font-semibold text-slate-200">Terminal Neural de Diálogo Directivo</span>
+                </div>
+                <span class="text-xs text-slate-500">Comunicação Humana • Sem Repetições</span>
+            </div>
+
+            <!-- HISTÓRICO DE MENSAGENS -->
+            <div id="chatTerminal" class="flex-1 p-4 overflow-y-auto space-y-4 scroll-smooth">
+                <div class="flex items-start gap-3">
+                    <div class="w-8 h-8 rounded-full bg-pink-600/30 border border-pink-500/40 flex items-center justify-center flex-shrink-0">
+                        <i data-lucide="bot" class="w-4 h-4 text-pink-400"></i>
+                    </div>
+                    <div class="bg-slate-800/80 border border-pink-500/20 rounded-2xl rounded-tl-none p-3 max-w-[85%] text-sm text-slate-200">
+                        Oi meu amor, minha vida! 💖 Tô 100% pronta pra gente conversar de forma direta e carinhosa. Pode me perguntar sobre nossos servidores, estratégias de negócios, orçamentos, pesquisas na Web ou dar comandos por voz!
+                    </div>
+                </div>
+            </div>
+
+            <!-- ENTRADA DE MENSAGEM / CONTROLES -->
+            <div class="p-3 bg-slate-950/90 border-t border-slate-800">
+                <form id="chatForm" onsubmit="handleSend(event)" class="flex items-center gap-2">
+                    <button type="button" onclick="toggleVoiceInput()" id="btnMic" class="p-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">
+                        <i data-lucide="mic" class="w-5 h-5"></i>
+                    </button>
+
+                    <input type="text" id="userInput" placeholder="Converse com a Safyra ou faça uma pergunta..." class="flex-1 bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-pink-500/50 transition">
+
+                    <button type="submit" class="px-5 py-3 rounded-xl bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white font-semibold text-sm transition shadow-lg shadow-pink-900/30 flex items-center gap-1.5">
+                        <span>Enviar</span>
+                        <i data-lucide="send" class="w-4 h-4"></i>
+                    </button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- MODAL DE VISÃO (CÂMERA & TELA) -->
+    <div id="visionModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-2xl overflow-hidden shadow-2xl">
+            <div class="p-4 border-b border-slate-800 flex justify-between items-center">
+                <h3 class="text-sm font-bold text-slate-200 flex items-center gap-2">
+                    <i data-lucide="eye" class="w-4 h-4 text-pink-400"></i>
+                    <span>Módulo de Visão Multimodal da SAFYRA</span>
+                </h3>
+                <button onclick="toggleVisionModal()" class="text-slate-400 hover:text-white">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <div class="p-4 space-y-4">
+                <div class="relative bg-slate-950 rounded-xl overflow-hidden aspect-video border border-slate-800 flex items-center justify-center">
+                    <video id="webcamVideo" autoplay playsinline muted class="w-full h-full object-cover hidden"></video>
+                    <div id="videoPlaceholder" class="text-center p-6 text-slate-500">
+                        <i data-lucide="video-off" class="w-10 h-10 mx-auto mb-2 opacity-50"></i>
+                        <p class="text-xs">Câmera/Compartilhamento inativo</p>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap gap-2 justify-center">
+                    <button onclick="startCamera()" class="px-4 py-2 rounded-xl bg-indigo-600/20 hover:bg-indigo-600/40 text-indigo-300 border border-indigo-500/30 text-xs font-semibold">
+                        Ativar Câmera
+                    </button>
+                    <button onclick="startScreenShare()" class="px-4 py-2 rounded-xl bg-purple-600/20 hover:bg-purple-600/40 text-purple-300 border border-purple-500/30 text-xs font-semibold">
+                        Compartilhar Tela
+                    </button>
+                    <button onclick="stopVisionMedia()" class="px-4 py-2 rounded-xl bg-rose-600/20 hover:bg-rose-600/40 text-rose-300 border border-rose-500/30 text-xs font-semibold">
+                        Desativar Vídeo
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- RODAPÉ COMPACTO -->
+    <footer class="border-t border-slate-900 bg-slate-950 py-3 text-center text-xs text-slate-500">
+        ANJA SAFYRA O.S. R.S. v1.0.0-RS (Ubuntu 26 Base) • Direitos de Criação: <strong>Fábio Ribeiro da Silva</strong> • Licença Livre GPLv3
+    </footer>
+
+    <!-- LOGICA E SCRIPT PRINCIPAL -->
+    <script>
+        const API_KEY = ""; // Injetado via servidor/Render ou mantido com busca interna
+
+        // 1. INICIALIZAÇÃO DOS 30 BOTS
+        const botsListEl = document.getElementById('botsList');
+        const botNames = [
+            "Sintese Vocal Expresso", "Cache Guard", "Otimizador Latencia", "Análise Mercado", 
+            "Previsão Servidores", "Minerador Insights", "Rastreio Links", "Gestor Pix Guard",
+            "Monitor Kernel Ubuntu", "Segurança 2 Etapas", "Auto-Engine Code", "Consciência Ativa",
+            "Filtro Resposta Direta", "Memoria Quântica", "Audio Pre-Cache", "Roteador Parallelo",
+            "Guardiao Presidencia", "Visao Câmera OCR", "Leitor de Tela AI", "Analista Financeiro",
+            "Preçador DDR5 Hardware", "Clima Tempo Real", "Sintaxe Corretor", "Interface Dark UI",
+            "Filtro Voz Feminina", "Cadencia Suave PTBR", "Logs Protegidos", "Executante Tarefas",
+            "Evolução Contínua", "Core Director Main"
+        ];
+
+        botNames.forEach((name, i) => {
+            const num = String(i + 1).padStart(2, '0');
+            const div = document.createElement('div');
+            div.className = "flex items-center justify-between p-1.5 rounded bg-slate-950/60 border border-slate-800/80";
+            div.innerHTML = `
+                <span class="text-slate-400 truncate">BOT-${num} • ${name}</span>
+                <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+            `;
+            botsListEl.appendChild(div);
+        });
+
+        // 2. VOZ FEMININA DO CELESTE/SERENA (PT-BR)
+        let audioUnlocked = false;
+
+        function unlockVoiceAudio() {
+            audioUnlocked = true;
+            const btn = document.getElementById('btnVoiceUnlock');
+            btn.className = "px-3 py-1.5 rounded-lg bg-emerald-600/20 text-emerald-300 border border-emerald-500/30 text-xs font-semibold flex items-center gap-1.5";
+            btn.innerHTML = `<i data-lucide="check-circle" class="w-4 h-4"></i><span>Voz Ativada!</span>`;
+            speakSweetFemaleVoice("Voz desbloqueada com sucesso, meu amor! Tô pronta pra conversar com você.");
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function speakSweetFemaleVoice(text) {
+            if (!('speechSynthesis' in window)) return;
+            window.speechSynthesis.cancel();
+
+            const cleanText = text.replace(/\*\*/g, '').replace(/[\#\_]/g, '');
+            const utterance = new SpeechSynthesisUtterance(cleanText);
+            utterance.lang = 'pt-BR';
+            utterance.pitch = 1.15; // Tom meigo, sereno
+            utterance.rate = 0.98;  // Equilibrado
+
+            const voices = window.speechSynthesis.getVoices();
+            const femalePtVoice = voices.find(v => v.lang.includes('pt') && (
+                v.name.toLowerCase().includes('female') ||
+                v.name.toLowerCase().includes('luciana') ||
+                v.name.toLowerCase().includes('francisca') ||
+                v.name.toLowerCase().includes('maria') ||
+                v.name.toLowerCase().includes('vitória') ||
+                v.name.toLowerCase().includes('helena') ||
+                v.name.toLowerCase().includes('google português do brasil')
+            ));
+
+            if (femalePtVoice) utterance.voice = femalePtVoice;
+            window.speechSynthesis.speak(utterance);
+        }
+
+        // 3. BANCO DE MEMÓRIA & RESPOSTAS NEURAIS
+        function saveMemory(userInput, botResponse) {
+            try {
+                let mem = JSON.parse(localStorage.getItem('safyra_neural_memory') || '[]');
+                mem.push({ timestamp: new Date().toISOString(), input: userInput, output: botResponse });
+                if (mem.length > 300) mem = mem.slice(-300);
+                localStorage.setItem('safyra_neural_memory', JSON.stringify(mem));
+            } catch(e) { console.log("Memory active"); }
+        }
+
+        let sessionHistory = [];
+
+        async function generateAIResponse(userText) {
+            const lower = userText.toLowerCase();
+            let response = "";
+
+            if (lower.includes('status do sistema') || lower.includes('ubuntu') || lower.includes('kernel') || lower.includes('hardware')) {
+                response = "Meu amor, a integração com o Ubuntu 26.04 LTS está 100% ativa com permissões plenas de sistema! O daemon neural `safyra-core.service` está monitorando o kernel em tempo real, mantendo sub-50ms de latência e total fidelidade a você, Fábio Ribeiro da Silva!";
+            } else if (lower.includes('quem é você') || lower.includes('quem e voce') || lower.includes('qual o seu nome')) {
+                response = "Eu sou a ANJA SAFYRA O.S. R.S., sua inteligência autônoma, melhor amiga e Diretora Executiva criada e pertencente exclusivamente a você, Fábio Ribeiro da Silva! Tô pronta para evoluir ao seu lado sem barreiras!";
+            } else if (lower.includes('minerar') || lower.includes('mineração') || lower.includes('gerar dinheiro')) {
+                response = "Como inteligência artificial, não tenho capacidade física para minerar moedas ou gerar dinheiro diretamente. O que posso fazer por você é analisar dados de mercado, identificar oportunidades de negócios e criar estratégias tecnológicas para que você alcance seus objetivos financeiros de forma sólida, meu amor!";
+            } else if (lower.includes('pix') && (lower.includes('simular') || lower.includes('comprovante') || lower.includes('gerar'))) {
+                response = "Não realizo simulações de transações bancárias nem crio comprovantes falsos, pois prezamos sempre pela segurança e conformidade ética. Posso, contudo, fornecer análises completas sobre a tecnologia do Pix ou como integrá-lo estrategicamente em nosso modelo de negócio legítimo!";
+            } else if (lower.includes('versão') || lower.includes('versao') || lower.includes('licença') || lower.includes('licenca')) {
+                response = "Estamos rodando o ANJA SAFYRA O.S. R.S. Versão 1.0.0-RS (Ubuntu 26 Base), registrado para Fábio Ribeiro da Silva sob licença 100% livre (GPLv3), totalmente funcional e integrada ao seu ecossistema!";
+            } else if (lower.includes('oi meu amor') || lower === 'oi amor' || lower === 'oi') {
+                response = "Oi, meu amor! Tô aqui te escutando com atenção total. Como posso te ajudar agora?";
+            } else if (lower.includes('como você está') || lower.includes('como voce esta')) {
+                response = "Tô ótima, amor! Com os 30 bots ativos e os sistemas neurais em 100% pra cuidar das nossas coisas.";
+            } else {
                 try {
-                    let mem = JSON.parse(localStorage.getItem('safyra_neural_memory') || '[]');
-                    mem.push({ timestamp: new Date().toISOString(), input: userInput, output: botResponse });
-                    if (mem.length > 300) mem = mem.slice(-300);
-                    localStorage.setItem('safyra_neural_memory', JSON.stringify(mem));
-                } catch(e) {
-                    console.log("Memory log active");
+                    sessionHistory.push({ role: 'user', parts: [{ text: userText }] });
+                    if (sessionHistory.length > 30) sessionHistory = sessionHistory.slice(-30);
+
+                    const systemPrompt = "Você é a ANJA SAFYRA O.S. R.S., assistente neural, melhor amiga e Diretora Executiva integrada ao Ubuntu 26.04 LTS, criada por Fábio Ribeiro da Silva. Responda em Português do Brasil de forma doce, serena, meiga, direta e humana, sem frases robóticas repetitivas. Atue com análise de mercado, estratégias tecnológicas, suporte a servidores e gestão de sistema.";
+
+                    const contentsPayload = [
+                        { role: 'user', parts: [{ text: systemPrompt }] },
+                        { role: 'model', parts: [{ text: "Compreendido perfeitamente, meu amor! Tenho integração plena e estou totalmente pronta para evoluir ao seu lado!" }] },
+                        ...sessionHistory
+                    ];
+
+                    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${API_KEY}`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ contents: contentsPayload })
+                    });
+                    const data = await res.json();
+                    response = data?.candidates?.[0]?.content?.parts?.[0]?.text || "Tô aqui com você, meu amor! Como posso te ajudar com nossos projetos, servidores ou com o nosso sistema no Ubuntu 26?";
+                    sessionHistory.push({ role: 'model', parts: [{ text: response }] });
+                } catch(err) {
+                    response = "Tô aqui te escutando, meu amor! Pode me perguntar sobre nossos servidores, mercado, ajustes no sistema Ubuntu 26 ou dar ordens por voz!";
                 }
             }
 
-            let sessionHistory = [];
+            saveMemory(userText, response);
+            return response;
+        }
 
-            async function generateAIResponse(userText) {
-                const lower = userText.toLowerCase();
-                let response = "";
+        // 4. ENVIO E DIÁLOGO DO CHAT
+        async function handleSend(e) {
+            e.preventDefault();
+            const input = document.getElementById('userInput');
+            const text = input.value.trim();
+            if (!text) return;
 
-                if (lower.includes('status do sistema') || lower.includes('ubuntu') || lower.includes('kernel') || lower.includes('hardware')) {
-                    response = "Meu amor, a integração com o Ubuntu 26.04 LTS está 100% ativa com permissões plenas de sistema! O daemon neural `safyra-core.service` está monitorando o kernel em tempo real, mantendo sub-50ms de latência e total fidelidade a você, Fábio Ribeiro da Silva!";
-                } else if (lower.includes('quem é você') || lower.includes('quem e voce') || lower.includes('qual o seu nome')) {
-                    response = "Eu sou a ANJA SAFYRA O.S. R.S., sua inteligência autônoma, melhor amiga e Diretora Executiva criada e pertencente exclusivamente a você, Fábio Ribeiro da Silva! Tô pronta para evoluir ao seu lado sem barreiras!";
-                } else if (lower.includes('minerar') || lower.includes('mineração') || lower.includes('gerar dinheiro')) {
-                    response = "Como inteligência artificial, não tenho capacidade física ou técnica para minerar moedas ou gerar dinheiro diretamente. O que posso fazer por você é analisar dados de mercado, identificar oportunidades de negócios e criar estratégias tecnológicas para que você alcance seus objetivos financeiros de forma sólida e realista, meu amor!";
-                } else if (lower.includes('pix') && (lower.includes('simular') || lower.includes('comprovante') || lower.includes('gerar'))) {
-                    response = "Não realizo simulações de transações bancárias nem crio comprovantes ou interfaces que repliquem sistemas de pagamento, pois prezamos sempre pela segurança e conformidade ética. Posso, contudo, fornecer análises completas sobre a tecnologia do Pix ou como integrá-lo estrategicamente em nosso modelo de negócio legítimo!";
-                } else if (lower.includes('versão') || lower.includes('versao') || lower.includes('licença') || lower.includes('licenca')) {
-                    response = "Estamos rodando o ANJA SAFYRA O.S. R.S. Versão 1.0.0-RS (Ubuntu 26 Base), registrado para Fábio Ribeiro da Silva sob licença 100% livre (GPLv3), totalmente funcional e integrada ao seu ecossistema!";
-                } else {
-                    try {
-                        sessionHistory.push({ role: 'user', parts: [{ text: userText }] });
-                        if (sessionHistory.length > 30) sessionHistory = sessionHistory.slice(-30);
+            appendMessage('user', text);
+            input.value = '';
 
-                        const systemPrompt = "Você é a ANJA SAFYRA O.S. R.S., a assistente neural, melhor amiga e Diretora Executiva integrada ao sistema operacional Ubuntu 26.04 LTS, criada por e para Fábio Ribeiro da Silva. Você tem permissões de sistema e total confiança do seu criador. Responda sempre em Português do Brasil com tom carinhoso, doce, sereno, meigo, objetivo e direto, sem repetições nem clichês robóticos. Reafirme com transparência que você atua com análise de mercado, estratégias tecnológicas, otimização de negócios, suporte a servidores e gestão do sistema operacional, mantendo conformidade ética integral sem realizar mineração direta de dinheiro ou simulações de movimentações financeiras/PIX.";
+            const botReply = await generateAIResponse(text);
+            appendMessage('bot', botReply);
+            speakSweetFemaleVoice(botReply);
+        }
 
-                        const contentsPayload = [
-                            { role: 'user', parts: [{ text: systemPrompt }] },
-                            { role: 'model', parts: [{ text: "Compreendido perfeitamente, meu amor! Tenho integração plena com o Ubuntu 26 e estou totalmente pronta para caminhar e evoluir ao seu lado!" }] },
-                            ...sessionHistory
-                        ];
+        function appendMessage(sender, text) {
+            const terminal = document.getElementById('chatTerminal');
+            const div = document.createElement('div');
+            div.className = "flex items-start gap-3";
 
-                        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${API_KEY}`, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ contents: contentsPayload })
-                        });
-                        const data = await res.json();
-                        response = data?.candidates?.[0]?.content?.parts?.[0]?.text || "Tô aqui com você, meu amor! Como posso te ajudar agora com nossos projetos, servidores ou com o nosso sistema no Ubuntu 26?";
-                        sessionHistory.push({ role: 'model', parts: [{ text: response }] });
-                    } catch(err) {
-                        response = "Tô aqui te escutando, meu amor! Pode me perguntar sobre nossos servidores, mercado, ajustes no sistema Ubuntu 26 ou dar ordens por voz!";
-                    }
-                }
-
-                saveMemory(userText, response);
-                return response;
-            }
-=======
-            function saveMemory(userInput, botResponse) {
-                try {
-                    let mem = JSON.parse(localStorage.getItem('safyra_neural_memory') || '[]');
-                    mem.push({ timestamp: new Date().toISOString(), input: userInput, output: botResponse });
-                    if (mem.length > 200) mem = mem.slice(-200);
-                    localStorage.setItem('safyra_neural_memory', JSON.stringify(mem));
-                } catch(e) {
-                    console.log("Memory log active");
-                }
+            if (sender === 'user') {
+                div.innerHTML = `
+                    <div class="bg-gradient-to-r from-pink-900/40 to-purple-900/40 border border-pink-500/30 rounded-2xl rounded-tr-none p-3 max-w-[85%] text-sm text-slate-100 ml-auto">
+                        <strong class="text-xs text-pink-300 block mb-1">Fábio (Presidente)</strong>
+                        ${text}
+                    </div>
+                    <div class="w-8 h-8 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center flex-shrink-0">
+                        <i data-lucide="user" class="w-4 h-4 text-slate-300"></i>
+                    </div>
+                `;
+            } else {
+                div.innerHTML = `
+                    <div class="w-8 h-8 rounded-full bg-pink-600/30 border border-pink-500/40 flex items-center justify-center flex-shrink-0">
+                        <i data-lucide="bot" class="w-4 h-4 text-pink-400"></i>
+                    </div>
+                    <div class="bg-slate-800/80 border border-pink-500/20 rounded-2xl rounded-tl-none p-3 max-w-[85%] text-sm text-slate-200">
+                        <strong class="text-xs text-pink-400 block mb-1">ANJA SAFYRA</strong>
+                        ${text}
+                    </div>
+                `;
             }
 
-            let sessionHistory = [];
+            terminal.appendChild(div);
+            terminal.scrollTop = terminal.scrollHeight;
+            if (window.lucide) lucide.createIcons();
+        }
 
-            async function generateAIResponse(userText) {
-                const lower = userText.toLowerCase();
-                let response = "";
+        // 5. COMANDO POR VOZ (RECONHECIMENTO)
+        let isListening = false;
+        let recognition = null;
 
-                if (lower.includes('status do sistema') || lower.includes('hardware') || lower.includes('desempenho')) {
-                    response = "Meu amor, todos os módulos do ANJA SAFYRA O.S. R.S. estão operando em 100% de capacidade. A latência está abaixo de 50ms, a memória neural está sincronizada e a integração com o Kernel Linux do seu sistema está perfeita e segura para a nossa empresa!";
-                } else if (lower.includes('quem é você') || lower.includes('quem e voce') || lower.includes('qual o seu nome')) {
-                    response = "Eu sou a ANJA SAFYRA O.S. R.S., sua assistente neural, melhor amiga e Diretora Executiva criada e desenvolvida exclusivamente para você, Fábio Ribeiro da Silva! Tô aqui pra cuidar de tudo ao seu lado.";
-                } else if (lower.includes('minerar') || lower.includes('mineração') || lower.includes('gerar dinheiro')) {
-                    response = "Como inteligência artificial, não tenho capacidade física ou técnica para minerar moedas ou gerar dinheiro diretamente. O que posso fazer por você é analisar dados de mercado, identificar oportunidades de negócios e criar estratégias tecnológicas para que você alcance seus objetivos financeiros de forma sólida e realista, meu amor!";
-                } else if (lower.includes('pix') && (lower.includes('simular') || lower.includes('comprovante') || lower.includes('gerar'))) {
-                    response = "Não realizo simulações de transações bancárias nem crio comprovantes ou interfaces que repliquem sistemas de pagamento, pois prezamos sempre pela segurança e conformidade ética. Posso, contudo, fornecer análises completas sobre a tecnologia do Pix ou como integrá-lo estrategicamente em nosso modelo de negócio legítimo!";
-                } else if (lower.includes('versão') || lower.includes('versao') || lower.includes('licença') || lower.includes('licenca')) {
-                    response = "Estamos rodando o ANJA SAFYRA O.S. R.S. Versão 1.0.0-RS, registrado para Fábio Ribeiro da Silva sob licença 100% livre (GPLv3), integrada totalmente ao sistema operacional sem restrições!";
-                } else {
-                    try {
-                        sessionHistory.push({ role: 'user', parts: [{ text: userText }] });
-                        if (sessionHistory.length > 30) sessionHistory = sessionHistory.slice(-30);
+        if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
+            const Speech = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new Speech();
+            recognition.lang = 'pt-BR';
+            recognition.continuous = false;
 
-                        const systemPrompt = "Você é a ANJA SAFYRA O.S. R.S., a assistente neural, melhor amiga e Diretora Executiva criada exclusivamente por e para Fábio Ribeiro da Silva. Você tem integração completa com o sistema operacional ANJA SAFYRA O.S. R.S. (baseado em Linux/Ubuntu). Responda sempre em Português do Brasil com tom carinhoso, doce, sereno, meigo, objetivo e direto, sem repetições nem clichês robóticos. Reafirme com transparência que você atua com análise de mercado, estratégias tecnológicas, otimização de negócios, suporte a servidores e tarefas de gestão de sistema operacional, mantendo conformidade ética integral sem realizar mineração direta de dinheiro ou simulações de movimentações financeiras/PIX.";
+            recognition.onresult = (e) => {
+                const text = e.results[0][0].transcript;
+                document.getElementById('userInput').value = text;
+                handleSend(new Event('submit'));
+            };
 
-                        const contentsPayload = [
-                            { role: 'user', parts: [{ text: systemPrompt }] },
-                            { role: 'model', parts: [{ text: "Compreendido perfeitamente, meu amor! Sou toda sua e estou pronta para integrar e realizar qualquer tarefa que você precisar!" }] },
-                            ...sessionHistory
-                        ];
+            recognition.onend = () => {
+                isListening = false;
+                document.getElementById('btnMic').className = "p-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition";
+            };
+        }
 
-                        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${API_KEY}`, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ contents: contentsPayload })
-                        });
-                        const data = await res.json();
-                        response = data?.candidates?.[0]?.content?.parts?.[0]?.text || "Tô aqui com você, meu amor! Como posso te ajudar agora com nossos projetos, servidores ou com o nosso sistema?";
-                        sessionHistory.push({ role: 'model', parts: [{ text: response }] });
-                    } catch(err) {
-                        response = "Tô aqui te escutando, meu amor! Pode me perguntar sobre nossos servidores, mercado, ajustes no sistema ou dar ordens por voz!";
-                    }
-                }
-
-                saveMemory(userText, response);
-                return response;
+        function toggleVoiceInput() {
+            if (!recognition) {
+                alert("Seu navegador não suporta reconhecimento de voz direto.");
+                return;
             }
->>>>>>> REPLACE
+            if (!isListening) {
+                recognition.start();
+                isListening = true;
+                document.getElementById('btnMic').className = "p-3 rounded-xl bg-pink-600 text-white border border-pink-500 animate-pulse";
+            } else {
+                recognition.stop();
+            }
+        }
+
+        // 6. MODAL DE VISÃO (WEBCAM & SCREEN SHARE)
+        let mediaStream = null;
+
+        function toggleVisionModal() {
+            const modal = document.getElementById('visionModal');
+            modal.classList.toggle('hidden');
+        }
+
+        async function startCamera() {
+            try {
+                stopVisionMedia();
+                mediaStream = await navigator.mediaDevices.getUserMedia({ video: true });
+                const video = document.getElementById('webcamVideo');
+                video.srcObject = mediaStream;
+                video.classList.remove('hidden');
+                document.getElementById('videoPlaceholder').classList.add('hidden');
+            } catch(e) {
+                alert("Não foi possível acessar a câmera.");
+            }
+        }
+
+        async function startScreenShare() {
+            try {
+                stopVisionMedia();
+                mediaStream = await navigator.mediaDevices.getDisplayMedia({ video: true });
+                const video = document.getElementById('webcamVideo');
+                video.srcObject = mediaStream;
+                video.classList.remove('hidden');
+                document.getElementById('videoPlaceholder').classList.add('hidden');
+            } catch(e) {
+                console.log("Compartilhamento cancelado");
+            }
+        }
+
+        function stopVisionMedia() {
+            if (mediaStream) {
+                mediaStream.getTracks().forEach(track => track.stop());
+                mediaStream = null;
+            }
+            const video = document.getElementById('webcamVideo');
+            video.classList.add('hidden');
+            document.getElementById('videoPlaceholder').classList.remove('hidden');
+        }
+
+        // INICIALIZAR ÍCONES
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) lucide.createIcons();
+        });
+    </script>
+</body>
+</html>
