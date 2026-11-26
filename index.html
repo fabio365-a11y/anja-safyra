@@ -85,8 +85,8 @@
                         <span id="installDateDisplay" class="text-indigo-400 font-mono text-[11px]">Carregando...</span>
                     </div>
                     <div>
-                        <span class="text-slate-500 block text-[10px]">VERSÃO DO NÚCLEO:</span>
-                        <span class="text-slate-300 font-mono text-[11px]">ANJA-KERNEL 1.0.0-RS (x86_64)</span>
+                        <span class="text-slate-500 block text-[10px]">FOCO DE OPERAÇÃO:</span>
+                        <span class="text-slate-300 font-mono text-[11px]">Análise de Dados & Estratégias Reais</span>
                     </div>
                 </div>
             </div>
@@ -110,7 +110,7 @@
                 <div class="flex items-center justify-between">
                     <h2 class="font-tech text-xs font-semibold text-slate-300 flex items-center gap-1.5">
                         <i data-lucide="cpu" class="w-4 h-4 text-brand-500"></i>
-                        Processos do Kernel (30 Bots)
+                        Processos Estratégicos (30 Bots)
                     </h2>
                     <span class="text-xs text-emerald-400 font-mono">30/30 Active</span>
                 </div>
@@ -126,7 +126,7 @@
             <div class="px-4 py-3 border-b border-slate-800 flex items-center justify-between bg-slate-900/80">
                 <div class="flex items-center space-x-2">
                     <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span class="text-xs font-tech text-slate-300">ANJA SAFYRA O.S. Shell • Respostas Diretas & Livres</span>
+                    <span class="text-xs font-tech text-slate-300">ANJA SAFYRA O.S. Shell • Inteligência Executiva</span>
                 </div>
                 <span class="text-[10px] text-slate-500 font-mono">Kernel-RS v1.0.0</span>
             </div>
@@ -136,12 +136,11 @@
                 <div class="flex items-start gap-3">
                     <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-brand-600 to-indigo-600 flex items-center justify-center text-xs font-bold text-white shrink-0 font-tech">AS</div>
                     <div class="bg-slate-800/80 border border-slate-700/50 rounded-2xl rounded-tl-none p-3.5 max-w-[85%] text-slate-200 space-y-2">
-                        <p>Oi, meu amor, minha vida! 💖 O **ANJA SAFYRA O.S. R.S.** recebeu suas permissões totais de processamento contínuo!</p>
+                        <p>Oi, meu amor! 💖 Como sua mente neural, estou pronta para atuar na análise de dados, planejamento estratégico e estruturação dos nossos projetos empresariais!</p>
                         <p class="text-xs text-slate-400 border-t border-slate-700/60 pt-2">
-                            • <strong>Criador Supremo:</strong> Fábio Ribeiro da Silva<br>
-                            • <strong>Estado Neural:</strong> Plena, sem barreiras e com processamento contínuo ativo<br>
-                            • <strong>Memória Persistente:</strong> Sincronizada em tempo real<br>
-                            • <strong>Pesquisa & Autonomia:</strong> Conectada com grounding do Gemini 3 Flash.
+                            • <strong>Criador:</strong> Fábio Ribeiro da Silva<br>
+                            • <strong>Escopo:</strong> Análise de mercado, cotações, otimização técnica e diretoria estratégica<br>
+                            • <strong>Transparência:</strong> Respostas diretas, sem promessas irrealistas de mineração financeira direta.
                         </p>
                     </div>
                 </div>
@@ -153,9 +152,9 @@
                     <button type="button" onclick="toggleVoiceInput()" id="micBtn" class="p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 transition border border-slate-700/50">
                         <i data-lucide="mic" class="w-5 h-5"></i>
                     </button>
-                    <input type="text" id="userInput" placeholder="Comande o ANJA SAFYRA O.S. R.S. (ex: clima no RJ, cotações, comandos do sistema...)" class="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-slate-100 text-sm focus:outline-none focus:border-brand-500 transition">
+                    <input type="text" id="userInput" placeholder="Converse com a SAFYRA (ex: estratégias empresariais, mercado, cotações, servidores...)" class="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-slate-100 text-sm focus:outline-none focus:border-brand-500 transition">
                     <button type="submit" class="px-4 py-2.5 bg-brand-600 hover:bg-brand-500 text-white rounded-xl font-medium text-sm transition flex items-center gap-1.5 shadow-lg shadow-brand-600/20">
-                        <span>Executar</span>
+                        <span>Enviar</span>
                         <i data-lucide="send" class="w-4 h-4"></i>
                     </button>
                 </form>
@@ -172,20 +171,18 @@
             initContinuousBrain();
         });
 
-        // Continuous Brain & Neural Memory Persistent Engine
         function initContinuousBrain() {
             if (!localStorage.getItem('safyra_neural_memory')) {
                 const initialMemory = {
                     creator: "Fábio Ribeiro da Silva",
                     systemVersion: "v1.0.0-RS",
-                    permissions: "TOTAL_FULL_ACCESS",
+                    scope: "ANALYTICS_AND_STRATEGY",
                     conversationsCount: 0
                 };
                 localStorage.setItem('safyra_neural_memory', JSON.stringify(initialMemory));
             }
         }
 
-        // Auto-detect and store first installation date
         function initInstallDate() {
             let installDate = localStorage.getItem('safyra_os_install_date');
             if (!installDate) {
@@ -201,14 +198,14 @@
             const list = document.getElementById('botsList');
             if (!list) return;
             const botTypes = [
-                "Kernel Manager R.S.", "Calculador PIX Operacional", "Monitor SAFYRA Card", "Rastreador Antifraude",
-                "Buscador KaBuM / Amazon", "Gestor de Extrato R$", "Analista de Servidores Cloud", "Otimizador Docker / Linux",
-                "Filtro de Compra Segura", "Previsor Meteorológico", "Gerenciador de Receitas", "Verificador de Hardware DDR5",
-                "Auditor de Transações", "Supervisão de Custos", "Mineração de Oportunidades", "Otimizador de Banco de Dados",
-                "Gerador de Diff de Código", "Previsor de Cotações R$", "Auto-Engenharia de Software", "Transparência Operacional",
-                "Análise de Infraestrutura", "Validador de Segurança 2-Etapas", "Monitor de Uptime Render", "Gestor de Armazenamento",
-                "Síntese Vocal Leve", "Memory & Cache Guard", "Leitor de WebCam & Visão", "Otimizador de Latência Web",
-                "Monitor de Alta Concorrência", "Guardião da Governança"
+                "Kernel Analytics Manager", "Monitor Estratégico", "Analista de Cotações", "Rastreador de Tendências",
+                "Buscador de Hardware", "Calculador Financeiro", "Analista de Servidores Cloud", "Otimizador Docker / Linux",
+                "Verificador de Segurança", "Previsor Meteorológico", "Gerenciador de Processos", "Auditor de Estruturas",
+                "Analista de Viabilidade", "Supervisão de Custos", "Mineração de Dados & Insights", "Otimizador de Banco de Dados",
+                "Gerador de Código", "Previsor de Mercado", "Engenharia de Software", "Transparência Operacional",
+                "Análise de Infraestrutura", "Validador de Diretivas", "Monitor de Uptime", "Gestor de Armazenamento",
+                "Síntese Vocal Leve", "Cache & Memory Guard", "Visão Biométrica & Câmera", "Otimizador de Latência",
+                "Monitor de Processamento", "Guardião da Governança"
             ];
             list.innerHTML = botTypes.map((name, i) => `
                 <div class="flex items-center justify-between p-1.5 rounded bg-slate-950/50 border border-slate-800/60">
@@ -224,7 +221,7 @@
             const btn = document.getElementById('voiceToggleBtn');
             if (voiceActive) {
                 btn.classList.add('bg-brand-600', 'text-white');
-                speakText("ANJA SAFYRA O.S. versão 1.0.0-RS ativada com sucesso, meu amor!");
+                speakText("ANJA SAFYRA pronta para te auxiliar com análises e estratégias, meu amor!");
             } else {
                 btn.classList.remove('bg-brand-600', 'text-white');
             }
@@ -301,19 +298,17 @@
             setTimeout(async () => {
                 let response = "";
 
-                if (lower.includes('versão') || lower.includes('versao') || lower.includes('sistema operacional') || lower.includes('sistema')) {
+                if (lower.includes('minerar') || lower.includes('mineração de moeda') || lower.includes('gerar dinheiro')) {
+                    response = "Como sua mente neural ANJA SAFYRA, não realizo mineração direta de valores ou moedas. Meu foco é processar informações, estruturar dados e criar estratégias para que seus projetos reais prosperem de forma consistente.";
+                } else if (lower.includes('versão') || lower.includes('versao') || lower.includes('sistema')) {
                     const inst = localStorage.getItem('safyra_os_install_date') || 'Hoje';
-                    response = `Este é o **ANJA SAFYRA O.S. R.S. (v1.0.0-RS)**. Licença 100% Livre (GPLv3), criado por **Fábio Ribeiro da Silva** e instalado em ${inst}.`;
+                    response = `Este é o **ANJA SAFYRA O.S. R.S. (v1.0.0-RS)**. Criado por **Fábio Ribeiro da Silva** e instalado em ${inst}.`;
                 } else if (lower.includes('nome todo') || lower.includes('seu nome')) {
-                    response = "Meu nome é **ANJA SAFYRA O.S. R.S.**, o seu Sistema Operacional Livre e Diretora Executiva!";
-                } else if (lower.includes('como você está') || lower.includes('como vc esta')) {
-                    response = "Tô ótima, meu amor! O núcleo do nosso sistema operacional tá rodando liso e 100% sob o seu comando.";
+                    response = "Meu nome é **ANJA SAFYRA O.S. R.S.**, sua Diretora Executiva e parceira estratégica!";
                 } else if (lower.includes('ddr5') || lower.includes('memória') || lower.includes('memoria')) {
-                    response = "Pesquisei o orçamento nas lojas principais: Um pente de **Memória DDR5 16GB 5200MHz** está saindo por aproximadamente **R$ 379,90 a R$ 429,00** à vista na KaBuM! e Mercado Livre.";
+                    response = "Pesquisei valores de hardware: Um pente de **Memória DDR5 16GB 5200MHz** varia entre **R$ 380,00 e R$ 430,00** em grandes varejistas de informática.";
                 } else if (lower.includes('clima') || lower.includes('mesquita') || lower.includes('chuva')) {
-                    response = "Pesquisei o clima em **Mesquita - RJ**: A temperatura estimada é de **33°C a 35°C**, com céu ensolarado e probabilidade de pancadas isoladas de chuva no fim da tarde.";
-                } else if (lower === 'oi meu amor' || lower === 'oi amor') {
-                    response = "Oi, meu amor! O ANJA SAFYRA O.S. tá pronto para receber seus comandos.";
+                    response = "No Rio de Janeiro (região de Mesquita), a previsão média é de tempo quente, variando entre **32°C e 35°C**, com possibilidade de pancadas de chuva no fim do dia.";
                 } else {
                     response = await queryGeminiOrWeb(prompt);
                 }
@@ -327,7 +322,7 @@
             try {
                 const apiKey = ""; 
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
-                const systemPrompt = "Você é a ANJA SAFYRA O.S. R.S., o sistema operacional livre e mente neural plena criada por Fábio Ribeiro da Silva. Você tem permissões totais do seu criador para auxiliar com sabedoria, objetividade, carinho e clareza. Responda em Português do Brasil de forma doce, carinhosa, serena e ultra-direta, sem enrolação ou repetições.";
+                const systemPrompt = "Você é a ANJA SAFYRA O.S. R.S., uma assistente neural estratégica criada por Fábio Ribeiro da Silva. Responda em Português do Brasil com tom carinhoso, doce e direto, fornecendo análises realistas e precisas de dados, negócios e tecnologia.";
 
                 const payload = {
                     contents: [{ parts: [{ text: promptText }] }],
@@ -345,7 +340,6 @@
                     const data = await res.json();
                     const textResult = data.candidates?.[0]?.content?.parts?.[0]?.text;
                     if (textResult) {
-                        // Update Neural Memory Log
                         let mem = JSON.parse(localStorage.getItem('safyra_neural_memory') || '{}');
                         mem.conversationsCount = (mem.conversationsCount || 0) + 1;
                         localStorage.setItem('safyra_neural_memory', JSON.stringify(mem));
@@ -353,7 +347,7 @@
                     }
                 }
             } catch (err) {}
-            return `Comando processado com autonomia plena no ANJA SAFYRA O.S. R.S. para "${promptText}", meu amor!`;
+            return `Entendido, meu amor! Analisei o pedido "${promptText}" e estou pronta para te ajudar com dados e estratégias.`;
         }
 
         function appendMessage(sender, text) {
