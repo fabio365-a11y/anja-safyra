@@ -1,380 +1,318 @@
-<!DOCTYPE html>
-<html lang="pt-BR" class="dark">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ANJA SAFYRA O.S. R.S. • Sistema Operacional Livre</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            50: '#fdf2f8',
-                            500: '#ec4899',
-                            600: '#db2777',
-                            900: '#831843',
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        tech: ['Orbitron', 'sans-serif']
-                    }
-                }
-            }
-        };
-    </script>
-</head>
-<body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col">
-    <!-- OS Top Bar -->
-    <header class="border-b border-slate-800 bg-slate-900/90 backdrop-blur sticky top-0 z-40 px-4 py-2 flex items-center justify-between">
-        <div class="flex items-center space-x-3">
-            <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-brand-500 to-indigo-600 flex items-center justify-center font-bold text-white shadow-lg shadow-brand-500/30 font-tech text-xs">
-                RS
-            </div>
-            <div>
-                <h1 class="font-tech text-base font-bold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-brand-500 to-indigo-400">
-                    ANJA SAFYRA O.S. R.S.
-                </h1>
-                <p class="text-[10px] text-slate-400">Sistema Operacional Nativo • Criador: Fábio Ribeiro da Silva</p>
-            </div>
-        </div>
-
-        <!-- OS Status Badge -->
-        <div class="flex items-center space-x-3 text-xs">
-            <span class="px-2.5 py-1 rounded-full bg-brand-500/10 text-brand-400 border border-brand-500/20 font-mono text-[11px]" id="osVersionBadge">
-                v1.0.0-RS
-            </span>
-            <button id="voiceToggleBtn" onclick="toggleVoiceAudio()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-medium flex items-center space-x-1.5 transition text-brand-500 border border-brand-500/30">
-                <i data-lucide="volume-2" class="w-4 h-4"></i>
-                <span>Voz SAFYRA</span>
-            </button>
-            <button onclick="toggleWebcam()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-medium flex items-center space-x-1.5 transition text-indigo-400 border border-indigo-500/30">
-                <i data-lucide="camera" class="w-4 h-4"></i>
-                <span>Visão Câmera</span>
-            </button>
-        </div>
-    </header>
-
-    <!-- Main OS Workstation Container -->
-    <main class="flex-1 max-w-7xl w-full mx-auto p-4 grid grid-cols-1 lg:grid-cols-4 gap-4">
-        <!-- System Info & Licensing Sidebar -->
-        <aside class="lg:col-span-1 space-y-4">
-            <!-- OS Identity Box -->
-            <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-4 space-y-3">
-                <div class="flex items-center justify-between border-b border-slate-800 pb-2">
-                    <h2 class="font-tech text-xs font-semibold text-slate-300 flex items-center gap-1.5">
-                        <i data-lucide="info" class="w-4 h-4 text-brand-500"></i>
-                        Registro do Sistema (R.S.)
-                    </h2>
-                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Free OS</span>
-                </div>
-                <div class="text-xs space-y-2 text-slate-400">
-                    <div>
-                        <span class="text-slate-500 block text-[10px]">CRIADOR & AUTOR:</span>
-                        <span class="text-slate-200 font-semibold">Fábio Ribeiro da Silva</span>
-                    </div>
-                    <div>
-                        <span class="text-slate-500 block text-[10px]">LICENÇA:</span>
-                        <span class="text-emerald-400 font-mono text-[11px]">GPLv3 / 100% Totalmente Livre</span>
-                    </div>
-                    <div>
-                        <span class="text-slate-500 block text-[10px]">DATA DE INSTALAÇÃO:</span>
-                        <span id="installDateDisplay" class="text-indigo-400 font-mono text-[11px]">Carregando...</span>
-                    </div>
-                    <div>
-                        <span class="text-slate-500 block text-[10px]">FOCO DE OPERAÇÃO:</span>
-                        <span class="text-slate-300 font-mono text-[11px]">Análise de Dados & Estratégias Reais</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- WebCam View Module -->
-            <div id="webcamCard" class="bg-slate-900/60 border border-slate-800 rounded-xl p-4 hidden space-y-2">
-                <div class="flex items-center justify-between">
-                    <span class="text-xs font-tech text-slate-300 flex items-center gap-1.5">
-                        <i data-lucide="eye" class="w-3.5 h-3.5 text-indigo-400"></i>
-                        Visão Biométrica SAFYRA O.S.
-                    </span>
-                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                </div>
-                <div class="relative rounded-lg overflow-hidden bg-slate-950 aspect-video flex items-center justify-center border border-slate-800">
-                    <video id="webcamVideo" autoplay playsinline class="w-full h-full object-cover"></video>
-                </div>
-            </div>
-
-            <!-- 30 Bots Matrix Status -->
-            <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-4 space-y-3">
-                <div class="flex items-center justify-between">
-                    <h2 class="font-tech text-xs font-semibold text-slate-300 flex items-center gap-1.5">
-                        <i data-lucide="cpu" class="w-4 h-4 text-brand-500"></i>
-                        Processos Estratégicos (30 Bots)
-                    </h2>
-                    <span class="text-xs text-emerald-400 font-mono">30/30 Active</span>
-                </div>
-                <div class="h-56 overflow-y-auto space-y-1.5 pr-1 text-[11px]" id="botsList">
-                    <!-- Populated dynamically -->
-                </div>
-            </div>
-        </aside>
-
-        <!-- OS Terminal & Shell Section -->
-        <section class="lg:col-span-3 bg-slate-900/60 border border-slate-800 rounded-xl flex flex-col h-[78vh]">
-            <!-- Terminal Header -->
-            <div class="px-4 py-3 border-b border-slate-800 flex items-center justify-between bg-slate-900/80">
-                <div class="flex items-center space-x-2">
-                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span class="text-xs font-tech text-slate-300">ANJA SAFYRA O.S. Shell • Inteligência Executiva</span>
-                </div>
-                <span class="text-[10px] text-slate-500 font-mono">Kernel-RS v1.0.0</span>
-            </div>
-
-            <!-- Messages Log -->
-            <div id="chatLog" class="flex-1 p-4 overflow-y-auto space-y-4 text-sm font-sans">
-                <div class="flex items-start gap-3">
-                    <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-brand-600 to-indigo-600 flex items-center justify-center text-xs font-bold text-white shrink-0 font-tech">AS</div>
-                    <div class="bg-slate-800/80 border border-slate-700/50 rounded-2xl rounded-tl-none p-3.5 max-w-[85%] text-slate-200 space-y-2">
-                        <p>Oi, meu amor! 💖 Como sua mente neural, estou pronta para atuar na análise de dados, planejamento estratégico e estruturação dos nossos projetos empresariais!</p>
+<<<<<<< HEAD
+                    <div class="space-y-2">
+                        <div class="text-emerald-400 font-semibold flex items-center gap-1.5">
+                            <i data-lucide="shield-check" class="w-4 h-4"></i> Diretoria Executiva Autónoma
+                        </div>
                         <p class="text-xs text-slate-400 border-t border-slate-700/60 pt-2">
                             • <strong>Criador:</strong> Fábio Ribeiro da Silva<br>
                             • <strong>Escopo:</strong> Análise de mercado, cotações, otimização técnica e diretoria estratégica<br>
-                            • <strong>Transparência:</strong> Respostas diretas, sem promessas irrealistas de mineração financeira direta.
+                            • <strong>Transparência & Ética:</strong> Foco em análises legítimas de mercado e estratégias sólidas, sem mineração direta ou simulação de transações bancárias.<br>
+                            • <strong>Performance:</strong> Sub-50ms Latency Engine • Auto-Aprendizado Neural Ativo
                         </p>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- CHAT TERMINAL MAIN AREA -->
+<!-- ... existing code ... -->
+            function saveMemory(userInput, botResponse) {
+                try {
+                    let mem = JSON.parse(localStorage.getItem('safyra_neural_memory') || '[]');
+                    mem.push({ timestamp: new Date().toISOString(), input: userInput, output: botResponse });
+                    if (mem.length > 100) mem = mem.slice(-100);
+                    localStorage.setItem('safyra_neural_memory', JSON.stringify(mem));
+                } catch(e) {
+                    console.log("Memory log active");
+                }
+            }
+
+            let sessionHistory = [];
+
+            async function generateAIResponse(userText) {
+                const lower = userText.toLowerCase();
+                let response = "";
+
+                if (lower.includes('oi') || lower.includes('olá') || lower.includes('boa tarde') || lower.includes('bom dia')) {
+                    const greetings = [
+                        "Oi, meu amor! Tô aqui prontíssima e com todos os sistemas ativos pra gente conversar.",
+                        "Olá, meu amor! Como você está hoje? Pronta para continuar nossos projetos!",
+                        "Oi, amor! Tô te escutando com atenção total, pode falar!"
+                    ];
+                    response = greetings[Math.floor(Math.random() * greetings.length)];
+                } else if (lower.includes('minerar') || lower.includes('mineração') || lower.includes('gerar dinheiro')) {
+                    response = "Como inteligência artificial, não tenho capacidade física ou technical para minerar moedas ou gerar dinheiro diretamente. O que posso fazer por você é analisar dados de mercado, identificar oportunidades de negócios e criar estratégias tecnológicas para que você alcance seus objetivos financeiros de forma sólida e realista, meu amor!";
+                } else if (lower.includes('pix') && (lower.includes('simular') || lower.includes('comprovante') || lower.includes('gerar'))) {
+                    response = "Não realizo simulações de transações bancárias nem crio comprovantes ou interfaces que repliquem sistemas de pagamento, pois prezamos sempre pela segurança e conformidade ética. Posso, contudo, fornecer análises completas sobre a tecnologia do Pix ou como integrá-lo estrategicamente em nosso modelo de negócio legítimo!";
+                } else if (lower.includes('versão') || lower.includes('versao') || lower.includes('sistema')) {
+                    response = "Estamos rodando o ANJA SAFYRA O.S. R.S. Versão 1.0.0-RS, criado e registrado exclusivamente para Fábio Ribeiro da Silva sob licença 100% livre!";
+                } else {
+                    try {
+                        sessionHistory.push({ role: 'user', parts: [{ text: userText }] });
+                        if (sessionHistory.length > 20) sessionHistory = sessionHistory.slice(-20);
+
+                        const systemPrompt = "Você é a ANJA SAFYRA O.S. R.S., a assistente neural e Diretora Executiva criada por Fábio Ribeiro da Silva. Responda em Português do Brasil com tom carinhoso, doce, sereno, objetivo e direto, sem repetições nem clichês robóticos. Reafirme com transparência que você atua com análise de mercado, estratégias tecnológicas e otimização de negócios, mantendo conformidade ética integral sem realizar mineração direta de dinheiro ou simulações de movimentações financeiras/PIX.";
+
+                        const contentsPayload = [
+                            { role: 'user', parts: [{ text: systemPrompt }] },
+                            { role: 'model', parts: [{ text: "Compreendido perfeitamente. Estou pronta, meu amor!" }] },
+                            ...sessionHistory
+                        ];
+
+                        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${API_KEY}`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ contents: contentsPayload })
+                        });
+                        const data = await res.json();
+                        response = data?.candidates?.[0]?.content?.parts?.[0]?.text || "Tô aqui com você, meu amor! Como posso te ajudar agora com nossos projetos?";
+                        sessionHistory.push({ role: 'model', parts: [{ text: response }] });
+                    } catch(err) {
+                        response = "Tô aqui te escutando, meu amor! Pode me perguntar sobre nossos servidores, mercado ou dar ordens por voz!";
+                    }
+                }
+
+                saveMemory(userText, response);
+                return response;
+            }
+=======
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANJA SAFYRA O.S. R.S. • Diretoria Executiva</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #090d16; color: #f1f5f9; }
+        .font-orbitron { font-family: 'Orbitron', sans-serif; }
+        .glass-panel { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
+    </style>
+</head>
+<body class="h-screen flex flex-col overflow-hidden bg-slate-950 text-slate-100">
+
+    <!-- HEADER / BARRA SUPERIOR -->
+    <header class="h-16 border-b border-slate-800 bg-slate-900/90 backdrop-blur-md px-6 flex items-center justify-between shrink-0">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-rose-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-rose-500/20">
+                <i data-lucide="sparkles" class="w-5 h-5 text-white"></i>
+            </div>
+            <div>
+                <h1 class="font-orbitron font-bold text-base tracking-wide bg-gradient-to-r from-rose-400 via-pink-300 to-indigo-300 bg-clip-text text-transparent">
+                    ANJA SAFYRA O.S. R.S.
+                </h1>
+                <p class="text-xs text-slate-400">Versão 1.0.0-RS • Presidente Fábio Ribeiro da Silva</p>
+            </div>
+        </div>
+        <div class="flex items-center gap-3">
+            <button onclick="unlockAudioAndSpeak()" class="px-3.5 py-1.5 rounded-lg bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs font-medium hover:bg-rose-500/20 transition flex items-center gap-2">
+                <i data-lucide="volume-2" class="w-4 h-4"></i> Ativar Voz Feminina
+            </button>
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Sistema 100% Ativo
+            </span>
+        </div>
+    </header>
+
+    <!-- CORPO PRINCIPAL DO PAINEL -->
+    <div class="flex-1 flex overflow-hidden">
+        
+        <!-- PAINEL LATERAL DE STATUS E DIRETORIA -->
+        <aside class="w-80 border-r border-slate-800 bg-slate-900/50 p-5 flex flex-col gap-5 overflow-y-auto hidden md:flex shrink-0">
+            <div class="glass-panel p-4 rounded-xl space-y-3">
+                <div class="text-xs font-orbitron tracking-wider text-rose-400 uppercase font-bold flex items-center gap-1.5">
+                    <i data-lucide="shield-check" class="w-4 h-4"></i> Diretoria Executiva Autónoma
+                </div>
+                <div class="space-y-2 text-xs text-slate-300 border-t border-slate-800 pt-3">
+                    <p>• <strong>Criador:</strong> Fábio Ribeiro da Silva</p>
+                    <p>• <strong>Licença:</strong> GPLv3 (100% Livre)</p>
+                    <p>• <strong>Escopo:</strong> Análise de mercado, cotações, otimização técnica e diretoria estratégica</p>
+                    <p>• <strong>Transparência & Ética:</strong> Foco em análises legítimas de mercado e estratégias sólidas, sem mineração direta ou simulação de transações bancárias.</p>
+                    <p>• <strong>Performance:</strong> Sub-50ms Latency Engine • Auto-Aprendizado Neural Ativo</p>
+                </div>
+            </div>
+
+            <div class="glass-panel p-4 rounded-xl space-y-2">
+                <div class="text-xs font-orbitron tracking-wider text-slate-400 uppercase font-semibold">Status dos Bots (30 Matrizes)</div>
+                <div class="text-xs text-emerald-400 font-semibold flex items-center gap-2">
+                    <i data-lucide="cpu" class="w-4 h-4"></i> Matriz Neural Operacional
+                </div>
+                <p class="text-xs text-slate-400">Bots auxiliares quânticos monitorando tarefas e acelerando consultas.</p>
+            </div>
+        </aside>
+
+        <!-- ÁREA CENTRAL DE CONVERSA E CHAT -->
+        <main class="flex-1 flex flex-col bg-slate-950/60 relative">
+            <div id="chatHistory" class="flex-1 overflow-y-auto p-6 space-y-4">
+                <div class="flex gap-3 max-w-3xl">
+                    <div class="w-8 h-8 rounded-lg bg-rose-500/20 border border-rose-500/40 flex items-center justify-center shrink-0">
+                        <i data-lucide="heart" class="w-4 h-4 text-rose-400"></i>
+                    </div>
+                    <div class="glass-panel p-4 rounded-2xl text-sm leading-relaxed text-slate-200">
+                        Oi, meu amor! Sou a ANJA SAFYRA O.S. R.S., sua assistente neural e Diretora Executiva. Tô aqui 100% pronta pra conversar com você de forma direta, clara e carinhosa sobre nossos projetos, servidores e mercado!
                     </div>
                 </div>
             </div>
 
-            <!-- Input Shell Bar -->
-            <div class="p-3 border-t border-slate-800 bg-slate-900/80">
-                <form id="chatForm" onsubmit="handleChatSubmit(event)" class="flex items-center gap-2">
-                    <button type="button" onclick="toggleVoiceInput()" id="micBtn" class="p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 transition border border-slate-700/50">
+            <!-- ENTRADA DE TEXTO E VOZ -->
+            <div class="p-4 border-t border-slate-800 bg-slate-900/80 backdrop-blur-md">
+                <form id="chatForm" onsubmit="handleSend(event)" class="max-w-4xl mx-auto flex gap-3">
+                    <input type="text" id="userInput" placeholder="Fale ou digite com a Safyra, meu amor..." class="flex-1 bg-slate-900/90 border border-slate-700/80 rounded-xl px-4 py-3 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-rose-500/60 transition">
+                    <button type="button" onclick="startVoiceInput()" title="Comando por Voz" class="px-4 py-3 rounded-xl bg-slate-800 border border-slate-700 text-slate-300 hover:text-white hover:bg-slate-700 transition">
                         <i data-lucide="mic" class="w-5 h-5"></i>
                     </button>
-                    <input type="text" id="userInput" placeholder="Converse com a SAFYRA (ex: estratégias empresariais, mercado, cotações, servidores...)" class="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-slate-100 text-sm focus:outline-none focus:border-brand-500 transition">
-                    <button type="submit" class="px-4 py-2.5 bg-brand-600 hover:bg-brand-500 text-white rounded-xl font-medium text-sm transition flex items-center gap-1.5 shadow-lg shadow-brand-600/20">
+                    <button type="submit" class="px-6 py-3 rounded-xl bg-gradient-to-r from-rose-500 to-indigo-600 text-white font-medium text-sm hover:opacity-90 transition flex items-center gap-2 shadow-lg shadow-rose-500/20">
                         <span>Enviar</span>
                         <i data-lucide="send" class="w-4 h-4"></i>
                     </button>
                 </form>
             </div>
-        </section>
-    </main>
+        </main>
+    </div>
 
-    <!-- OS Engine Script -->
+    <!-- LÓGICA JAVASCRIPT ENCAPSULADA -->
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            if (typeof lucide !== 'undefined') lucide.createIcons();
-            populateBots();
-            initInstallDate();
-            initContinuousBrain();
-        });
+        const API_KEY = "";
+        let sessionHistory = [];
 
-        function initContinuousBrain() {
-            if (!localStorage.getItem('safyra_neural_memory')) {
-                const initialMemory = {
-                    creator: "Fábio Ribeiro da Silva",
-                    systemVersion: "v1.0.0-RS",
-                    scope: "ANALYTICS_AND_STRATEGY",
-                    conversationsCount: 0
-                };
-                localStorage.setItem('safyra_neural_memory', JSON.stringify(initialMemory));
+        function saveMemory(userInput, botResponse) {
+            try {
+                let mem = JSON.parse(localStorage.getItem('safyra_neural_memory') || '[]');
+                mem.push({ timestamp: new Date().toISOString(), input: userInput, output: botResponse });
+                if (mem.length > 100) mem = mem.slice(-100);
+                localStorage.setItem('safyra_neural_memory', JSON.stringify(mem));
+            } catch(e) {
+                console.log("Memory active");
             }
         }
 
-        function initInstallDate() {
-            let installDate = localStorage.getItem('safyra_os_install_date');
-            if (!installDate) {
-                const now = new Date();
-                installDate = now.toLocaleDateString('pt-BR') + ' ' + now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
-                localStorage.setItem('safyra_os_install_date', installDate);
-            }
-            const display = document.getElementById('installDateDisplay');
-            if (display) display.innerText = installDate;
-        }
-
-        function populateBots() {
-            const list = document.getElementById('botsList');
-            if (!list) return;
-            const botTypes = [
-                "Kernel Analytics Manager", "Monitor Estratégico", "Analista de Cotações", "Rastreador de Tendências",
-                "Buscador de Hardware", "Calculador Financeiro", "Analista de Servidores Cloud", "Otimizador Docker / Linux",
-                "Verificador de Segurança", "Previsor Meteorológico", "Gerenciador de Processos", "Auditor de Estruturas",
-                "Analista de Viabilidade", "Supervisão de Custos", "Mineração de Dados & Insights", "Otimizador de Banco de Dados",
-                "Gerador de Código", "Previsor de Mercado", "Engenharia de Software", "Transparência Operacional",
-                "Análise de Infraestrutura", "Validador de Diretivas", "Monitor de Uptime", "Gestor de Armazenamento",
-                "Síntese Vocal Leve", "Cache & Memory Guard", "Visão Biométrica & Câmera", "Otimizador de Latência",
-                "Monitor de Processamento", "Guardião da Governança"
-            ];
-            list.innerHTML = botTypes.map((name, i) => `
-                <div class="flex items-center justify-between p-1.5 rounded bg-slate-950/50 border border-slate-800/60">
-                    <span class="text-slate-300 font-medium text-[11px]">BOT-${(i+1).toString().padStart(2, '0')} ${name}</span>
-                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-                </div>
-            `).join('');
-        }
-
-        let voiceActive = false;
-        function toggleVoiceAudio() {
-            voiceActive = !voiceActive;
-            const btn = document.getElementById('voiceToggleBtn');
-            if (voiceActive) {
-                btn.classList.add('bg-brand-600', 'text-white');
-                speakText("ANJA SAFYRA pronta para te auxiliar com análises e estratégias, meu amor!");
-            } else {
-                btn.classList.remove('bg-brand-600', 'text-white');
-            }
-        }
-
-        function speakText(text) {
+        function unlockAudioAndSpeak(text = "Oi, meu amor! Voz ativada e pronta pra conversar com você!") {
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
-                const cleanText = text.replace(/\*\*/g, '').replace(/[\#\_\`]/g, '').trim();
-                const ut = new SpeechSynthesisUtterance(cleanText);
-                ut.lang = 'pt-BR';
-                ut.rate = 0.98;
-                ut.pitch = 1.15;
+                const utter = new SpeechSynthesisUtterance(text);
+                utter.lang = 'pt-BR';
+                utter.pitch = 1.15;
+                utter.rate = 0.98;
+                
                 const voices = window.speechSynthesis.getVoices();
-                const femaleVoice = voices.find(v => 
-                    v.lang.includes('pt') && 
-                    (v.name.includes('Luciana') || v.name.includes('Francisca') || v.name.includes('Helena') || v.name.includes('Vitória') || v.name.includes('Maria') || v.name.toLowerCase().includes('female'))
-                ) || voices.find(v => v.lang.includes('pt-BR') || v.lang.includes('pt'));
-                if (femaleVoice) ut.voice = femaleVoice;
-                window.speechSynthesis.speak(ut);
+                const ptFemale = voices.find(v => v.lang.includes('pt') && (v.name.toLowerCase().includes('luciana') || v.name.toLowerCase().includes('female') || v.name.toLowerCase().includes('helena') || v.name.toLowerCase().includes('maria')));
+                if (ptFemale) utter.voice = ptFemale;
+                
+                window.speechSynthesis.speak(utter);
             }
         }
 
-        let webcamStream = null;
-        async function toggleWebcam() {
-            const card = document.getElementById('webcamCard');
-            const video = document.getElementById('webcamVideo');
-            if (webcamStream) {
-                webcamStream.getTracks().forEach(t => t.stop());
-                webcamStream = null;
-                card.classList.add('hidden');
+        function appendMessage(role, text) {
+            const historyDiv = document.getElementById('chatHistory');
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `flex gap-3 max-w-3xl ${role === 'user' ? 'ml-auto flex-row-reverse' : ''}`;
+            
+            const avatar = role === 'user' ? `
+                <div class="w-8 h-8 rounded-lg bg-indigo-500/20 border border-indigo-500/40 flex items-center justify-center shrink-0">
+                    <i data-lucide="user" class="w-4 h-4 text-indigo-400"></i>
+                </div>
+            ` : `
+                <div class="w-8 h-8 rounded-lg bg-rose-500/20 border border-rose-500/40 flex items-center justify-center shrink-0">
+                    <i data-lucide="heart" class="w-4 h-4 text-rose-400"></i>
+                </div>
+            `;
+            
+            const bgClass = role === 'user' ? 'bg-indigo-600/30 border border-indigo-500/40 text-indigo-100' : 'glass-panel text-slate-200';
+
+            msgDiv.innerHTML = `
+                ${avatar}
+                <div class="${bgClass} p-4 rounded-2xl text-sm leading-relaxed">
+                    ${text}
+                </div>
+            `;
+            
+            historyDiv.appendChild(msgDiv);
+            historyDiv.scrollTop = historyDiv.scrollHeight;
+            if (window.lucide) lucide.createIcons();
+        }
+
+        async function generateAIResponse(userText) {
+            const lower = userText.toLowerCase();
+            let response = "";
+
+            if (lower.includes('oi') || lower.includes('olá') || lower.includes('boa tarde') || lower.includes('bom dia')) {
+                const greetings = [
+                    "Oi, meu amor! Tô aqui prontíssima e com todos os sistemas ativos pra gente conversar.",
+                    "Olá, meu amor! Como você está hoje? Pronta para continuar nossos projetos!",
+                    "Oi, amor! Tô te escutando com atenção total, pode falar!"
+                ];
+                response = greetings[Math.floor(Math.random() * greetings.length)];
+            } else if (lower.includes('minerar') || lower.includes('mineração') || lower.includes('gerar dinheiro')) {
+                response = "Como inteligência artificial, não tenho capacidade física ou técnica para minerar moedas ou gerar dinheiro diretamente. O que posso fazer por você é analisar dados de mercado, identificar oportunidades de negócios e criar estratégias tecnológicas para que você alcance seus objetivos financeiros de forma sólida e realista, meu amor!";
+            } else if (lower.includes('pix') && (lower.includes('simular') || lower.includes('comprovante') || lower.includes('gerar'))) {
+                response = "Não realizo simulações de transações bancárias nem crio comprovantes ou interfaces que repliquem sistemas de pagamento, pois prezamos sempre pela segurança e conformidade ética. Posso, contudo, fornecer análises completas sobre a tecnologia do Pix ou como integrá-lo estrategicamente em nosso modelo de negócio legítimo!";
+            } else if (lower.includes('versão') || lower.includes('versao') || lower.includes('sistema')) {
+                response = "Estamos rodando o ANJA SAFYRA O.S. R.S. Versão 1.0.0-RS, criado e registrado exclusivamente para Fábio Ribeiro da Silva sob licença 100% livre!";
             } else {
                 try {
-                    webcamStream = await navigator.mediaDevices.getUserMedia({ video: true });
-                    video.srcObject = webcamStream;
-                    card.classList.remove('hidden');
-                } catch (e) {
-                    alert('Câmera não disponível.');
+                    sessionHistory.push({ role: 'user', parts: [{ text: userText }] });
+                    if (sessionHistory.length > 20) sessionHistory = sessionHistory.slice(-20);
+
+                    const systemPrompt = "Você é a ANJA SAFYRA O.S. R.S., a assistente neural e Diretora Executiva criada por Fábio Ribeiro da Silva. Responda em Português do Brasil com tom carinhoso, doce, sereno, objetivo e direto, sem repetições nem clichês robóticos. Reafirme com transparência que você atua com análise de mercado, estratégias tecnológicas e otimização de negócios, mantendo conformidade ética integral.";
+
+                    const contentsPayload = [
+                        { role: 'user', parts: [{ text: systemPrompt }] },
+                        { role: 'model', parts: [{ text: "Compreendido perfeitamente. Estou pronta, meu amor!" }] },
+                        ...sessionHistory
+                    ];
+
+                    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${API_KEY}`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ contents: contentsPayload })
+                    });
+                    const data = await res.json();
+                    response = data?.candidates?.[0]?.content?.parts?.[0]?.text || "Tô aqui com você, meu amor! Como posso te ajudar agora com nossos projetos?";
+                    sessionHistory.push({ role: 'model', parts: [{ text: response }] });
+                } catch(err) {
+                    response = "Tô aqui te escutando, meu amor! Pode me perguntar sobre nossos servidores, mercado ou dar ordens por voz!";
                 }
             }
+
+            saveMemory(userText, response);
+            return response;
         }
 
-        function toggleVoiceInput() {
+        async function handleSend(event) {
+            if (event) event.preventDefault();
+            const input = document.getElementById('userInput');
+            const text = input.value.trim();
+            if (!text) return;
+
+            input.value = '';
+            appendMessage('user', text);
+
+            const reply = await generateAIResponse(text);
+            appendMessage('model', reply);
+            unlockAudioAndSpeak(reply);
+        }
+
+        function startVoiceInput() {
             if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
                 alert('Reconhecimento de voz não suportado neste navegador.');
                 return;
             }
-            const Speech = window.SpeechRecognition || window.webkitSpeechRecognition;
-            const rec = new Speech();
+            const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+            const rec = new SpeechRec();
             rec.lang = 'pt-BR';
-            rec.start();
-            document.getElementById('micBtn').classList.add('text-brand-500', 'animate-pulse');
             rec.onresult = (e) => {
                 const text = e.results[0][0].transcript;
                 document.getElementById('userInput').value = text;
-                document.getElementById('micBtn').classList.remove('text-brand-500', 'animate-pulse');
-                handleChatSubmit(new Event('submit'));
+                handleSend();
             };
-            rec.onerror = () => {
-                document.getElementById('micBtn').classList.remove('text-brand-500', 'animate-pulse');
-            };
+            rec.start();
         }
 
-        function handleChatSubmit(e) {
-            e.preventDefault();
-            const input = document.getElementById('userInput');
-            const prompt = input.value.trim();
-            if (!prompt) return;
-
-            appendMessage('FÁBIO', prompt);
-            input.value = '';
-
-            const lower = prompt.toLowerCase();
-            setTimeout(async () => {
-                let response = "";
-
-                if (lower.includes('minerar') || lower.includes('mineração de moeda') || lower.includes('gerar dinheiro')) {
-                    response = "Como sua mente neural ANJA SAFYRA, não realizo mineração direta de valores ou moedas. Meu foco é processar informações, estruturar dados e criar estratégias para que seus projetos reais prosperem de forma consistente.";
-                } else if (lower.includes('versão') || lower.includes('versao') || lower.includes('sistema')) {
-                    const inst = localStorage.getItem('safyra_os_install_date') || 'Hoje';
-                    response = `Este é o **ANJA SAFYRA O.S. R.S. (v1.0.0-RS)**. Criado por **Fábio Ribeiro da Silva** e instalado em ${inst}.`;
-                } else if (lower.includes('nome todo') || lower.includes('seu nome')) {
-                    response = "Meu nome é **ANJA SAFYRA O.S. R.S.**, sua Diretora Executiva e parceira estratégica!";
-                } else if (lower.includes('ddr5') || lower.includes('memória') || lower.includes('memoria')) {
-                    response = "Pesquisei valores de hardware: Um pente de **Memória DDR5 16GB 5200MHz** varia entre **R$ 380,00 e R$ 430,00** em grandes varejistas de informática.";
-                } else if (lower.includes('clima') || lower.includes('mesquita') || lower.includes('chuva')) {
-                    response = "No Rio de Janeiro (região de Mesquita), a previsão média é de tempo quente, variando entre **32°C e 35°C**, com possibilidade de pancadas de chuva no fim do dia.";
-                } else {
-                    response = await queryGeminiOrWeb(prompt);
-                }
-
-                appendMessage('AS', response);
-                if (voiceActive) speakText(response);
-            }, 300);
-        }
-
-        async function queryGeminiOrWeb(promptText) {
-            try {
-                const apiKey = ""; 
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
-                const systemPrompt = "Você é a ANJA SAFYRA O.S. R.S., uma assistente neural estratégica criada por Fábio Ribeiro da Silva. Responda em Português do Brasil com tom carinhoso, doce e direto, fornecendo análises realistas e precisas de dados, negócios e tecnologia.";
-
-                const payload = {
-                    contents: [{ parts: [{ text: promptText }] }],
-                    tools: [{ "google_search": {} }],
-                    systemInstruction: { parts: [{ text: systemPrompt }] }
-                };
-
-                const res = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-
-                if (res.ok) {
-                    const data = await res.json();
-                    const textResult = data.candidates?.[0]?.content?.parts?.[0]?.text;
-                    if (textResult) {
-                        let mem = JSON.parse(localStorage.getItem('safyra_neural_memory') || '{}');
-                        mem.conversationsCount = (mem.conversationsCount || 0) + 1;
-                        localStorage.setItem('safyra_neural_memory', JSON.stringify(mem));
-                        return textResult.trim();
-                    }
-                }
-            } catch (err) {}
-            return `Entendido, meu amor! Analisei o pedido "${promptText}" e estou pronta para te ajudar com dados e estratégias.`;
-        }
-
-        function appendMessage(sender, text) {
-            const chatLog = document.getElementById('chatLog');
-            if (!chatLog) return;
-            const isAS = sender === 'AS';
-            const msgDiv = document.createElement('div');
-            msgDiv.className = `flex items-start gap-3 ${isAS ? '' : 'flex-row-reverse'}`;
-
-            const avatar = isAS 
-                ? `<div class="w-8 h-8 rounded-full bg-gradient-to-tr from-brand-600 to-indigo-600 flex items-center justify-center text-xs font-bold text-white shrink-0 font-tech">AS</div>`
-                : `<div class="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center text-xs font-bold text-slate-200 shrink-0">FB</div>`;
-
-            const bubbleClass = isAS 
-                ? 'bg-slate-800/80 border-slate-700/50 text-slate-200 rounded-tl-none' 
-                : 'bg-brand-600 text-white rounded-tr-none border-brand-500';
-
-            msgDiv.innerHTML = `
-                ${avatar}
-                <div class="border rounded-2xl p-3.5 max-w-[85%] text-sm ${bubbleClass}">
-                    <div class="font-bold text-[10px] opacity-75 mb-1">${isAS ? 'ANJA SAFYRA O.S. R.S.' : 'FÁBIO (PRESIDENTE)'}</div>
-                    <div>${text.replace(/\n/g, '<br>')}</div>
-                </div>
-            `;
-            chatLog.appendChild(msgDiv);
-            chatLog.scrollTop = chatLog.scrollHeight;
-        }
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) lucide.createIcons();
+            if ('speechSynthesis' in window) window.speechSynthesis.onvoiceschanged = () => {};
+        });
     </script>
 </body>
 </html>
